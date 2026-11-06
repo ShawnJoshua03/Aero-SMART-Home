@@ -3,9 +3,6 @@
   --blue: #0091b7;
   --green: #619a3c;
   --teal: #244946;
-  --dev-ground: #0b0f0f;
-  --dev-ink: #edf4ef;
-  --dev-muted: #a4b7b0;
   color-scheme: dark;
   font-family: system-ui, sans-serif;
 }
@@ -16,12 +13,12 @@
 
 body {
   margin: 0;
-  color: var(--dev-ink);
-  background: var(--dev-ground);
+  color: white;
+  background: color-mix(in srgb, var(--teal) 72%, var(--plum));
 }
 
 main {
-  width: min(1500px, 100%);
+  width: min(1800px, 100%);
   margin: 0 auto;
   padding: 28px;
 }
@@ -33,35 +30,77 @@ h1 {
 
 main > p {
   margin: 8px 0 24px;
-  color: var(--dev-muted);
+  color: white;
 }
 
-.widget-grid {
+.palette-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   align-items: start;
-  gap: 20px;
+  gap: 16px;
+}
+
+.palette-column {
+  min-width: 0;
+}
+
+.palette-column > h2 {
+  margin: 0 0 10px 4px;
+  color: white;
+  font: 600 19px/1.2 Georgia, serif;
+}
+
+.palette-stack {
+  display: grid;
+  gap: 14px;
 }
 
 .widget-tile {
+  --widget-fill: var(--teal);
   min-width: 0;
-  padding: 14px;
+  padding: 10px;
   border-radius: 20px;
-  background: var(--teal);
+  color: white;
+  background: var(--widget-fill);
 }
 
-.widget-tile > h2 {
-  margin: 0 0 10px 4px;
-  color: var(--dev-ink);
-  font: 400 19px/1.2 Georgia, serif;
+.widget-tile[data-palette="plum"] {
+  --widget-fill: var(--plum);
+}
+
+.widget-tile[data-palette="blue"] {
+  --widget-fill: var(--blue);
+}
+
+.widget-tile[data-palette="green"] {
+  --widget-fill: var(--green);
+}
+
+.widget-tile[data-palette="teal"] {
+  --widget-fill: var(--teal);
+}
+
+.widget-tile > h3 {
+  margin: 0 0 8px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  color: white;
+  font: 600 16px/1.2 Georgia, serif;
+  background: color-mix(in srgb, var(--widget-fill) 34%, color-mix(in srgb, var(--plum) 42%, var(--teal)) 66%);
 }
 
 .widget-host {
   min-width: 0;
 }
 
-@media (max-width: 880px) {
-  .widget-grid {
+@media (max-width: 1200px) {
+  .palette-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .palette-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 

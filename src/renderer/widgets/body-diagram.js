@@ -137,21 +137,26 @@
   function makeSparkline(values) {
     if (!values.length) return "";
     var width = 168;
-    var height = 40;
+    var height = 44;
     var points = values.map(function (value, index) {
       var x = values.length === 1 ? width / 2 : index * width / (values.length - 1);
-      var y = height - (value / 10) * (height - 4) - 2;
+      var y = height - (value / 10) * (height - 8) - 4;
       return x.toFixed(1) + "," + y.toFixed(1);
     }).join(" ");
     var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.setAttribute("viewBox", "0 0 168 40");
+    svg.setAttribute("viewBox", "0 0 168 44");
     svg.setAttribute("role", "img");
     svg.setAttribute("aria-label", "Intensity history");
+    var area = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+    area.setAttribute("points", "0," + height + " " + points + " " + width + "," + height);
+    area.setAttribute("fill", "color-mix(in srgb, white 36%, var(--blue) 64%)");
+    area.setAttribute("fill-opacity", "0.68");
+    svg.appendChild(area);
     var line = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
     line.setAttribute("points", points);
     line.setAttribute("fill", "none");
-    line.setAttribute("stroke", "var(--blue)");
-    line.setAttribute("stroke-width", "3");
+    line.setAttribute("stroke", "white");
+    line.setAttribute("stroke-width", "4");
     line.setAttribute("stroke-linecap", "round");
     line.setAttribute("stroke-linejoin", "round");
     svg.appendChild(line);
@@ -205,9 +210,11 @@
         });
         var rising = recent.length > 1 &&
           recent[recent.length - 1].intensity - recent[recent.length - 2].intensity >= 2;
-        shape.setAttribute("fill", "color-mix(in srgb, var(--teal) " +
-          (100 - level * 8) + "%, var(--plum) " + (level * 8) + "%)");
-        shape.setAttribute("fill-opacity", report ? String(0.26 + level * 0.065) : "0.12");
+        var fill = level >= 7 ? "var(--plum)" : level >= 4 ? "var(--blue)" : "var(--green)";
+        var tint = 48 + level * 4;
+        shape.setAttribute("fill", "color-mix(in srgb, white " + tint + "%, " +
+          fill + " " + (100 - tint) + "%)");
+        shape.setAttribute("fill-opacity", report ? String(0.62 + level * 0.038) : "0.2");
         shape.classList.toggle("is-rising", Boolean(rising && report === recent[recent.length - 1]));
         shape.classList.toggle("is-selected", region.id === state.selectedRegion);
         shape.setAttribute("aria-pressed", region.id === state.selectedRegion ? "true" : "false");

@@ -1,21 +1,15 @@
 .body-widget {
-  --plum: #772152;
-  --blue: #0091b7;
-  --green: #619a3c;
-  --teal: #244946;
-  --body-ground: #0b0f0f;
-  --body-surface: #121b1a;
-  --body-silhouette: #223330;
-  --body-ink: #edf4ef;
-  --body-muted: #a4b7b0;
-  --body-soft: #70867f;
+  --body-shade: color-mix(in srgb, var(--plum) 42%, var(--teal));
+  --body-panel: color-mix(in srgb, var(--widget-fill, var(--teal)) 34%, var(--body-shade) 66%);
+  --body-panel-raised: color-mix(in srgb, var(--widget-fill, var(--teal)) 46%, var(--body-shade) 54%);
   box-sizing: border-box;
   width: 100%;
   min-width: 0;
-  padding: 20px;
+  container-type: inline-size;
+  padding: 14px;
   border-radius: 22px;
-  color: var(--body-ink);
-  background: var(--body-ground);
+  color: white;
+  background: transparent;
   font: 14px/1.45 system-ui, sans-serif;
 }
 
@@ -23,6 +17,13 @@
 .body-widget *::before,
 .body-widget *::after {
   box-sizing: border-box;
+}
+
+.body-widget-heading,
+.body-detail,
+.body-timeline {
+  border-radius: 16px;
+  background: var(--body-panel);
 }
 
 .body-widget-heading,
@@ -35,10 +36,14 @@
   gap: 12px;
 }
 
+.body-widget-heading {
+  padding: 12px 16px;
+}
+
 .body-widget-heading h2,
 .body-detail h3 {
   margin: 0;
-  color: var(--body-ink);
+  color: white;
   font-family: Georgia, serif;
   font-weight: 400;
 }
@@ -52,28 +57,28 @@
 .body-figure-caption,
 .body-detail-hint {
   margin: 4px 0 0;
-  color: var(--body-muted);
+  color: white;
   font-size: 13px;
 }
 
 .body-detail-current {
-  color: var(--body-muted);
-  font-size: 12px;
+  color: white;
+  font-size: 13px;
 }
 
 .body-widget-layout {
   display: grid;
   grid-template-columns: minmax(210px, 0.9fr) minmax(220px, 1fr);
-  align-items: center;
-  gap: 18px;
-  margin-top: 12px;
+  align-items: stretch;
+  gap: 12px;
+  margin-top: 10px;
 }
 
 .body-figure-wrap {
   min-width: 0;
   padding: 10px 12px 8px;
   border-radius: 18px;
-  background: var(--body-surface);
+  background: var(--body-panel-raised);
   text-align: center;
 }
 
@@ -86,29 +91,26 @@
 }
 
 .body-silhouette {
-  fill: var(--body-silhouette);
+  fill: color-mix(in srgb, var(--teal) 44%, white);
 }
 
 .body-chest-base {
-  fill: var(--teal);
+  fill: color-mix(in srgb, var(--blue) 42%, white);
   opacity: 0.52;
 }
 
 .body-region {
-  fill: var(--teal);
-  fill-opacity: 0.12;
-  stroke: var(--blue);
-  stroke-opacity: 0.62;
-  stroke-width: 2;
+  stroke: white;
+  stroke-opacity: 0.92;
+  stroke-width: 2.5;
   cursor: pointer;
-  transition: fill-opacity 180ms ease, stroke-width 180ms ease, filter 180ms ease;
+  transition: stroke-width 180ms ease, fill-opacity 180ms ease;
 }
 
 .body-region:hover,
 .body-region:focus-visible,
 .body-region.is-selected {
-  fill-opacity: 0.8;
-  stroke-width: 3.5;
+  stroke-width: 4.5;
   outline: none;
 }
 
@@ -123,25 +125,23 @@
 .bronchial-tree,
 .body-feature {
   fill: none;
-  stroke: var(--body-ink);
+  stroke: white;
   stroke-linecap: round;
   stroke-linejoin: round;
   pointer-events: none;
 }
 
 .bronchial-tree {
-  stroke-width: 3;
-  opacity: 0.82;
+  stroke-width: 4.5;
 }
 
 .body-feature {
-  stroke-width: 2.2;
-  opacity: 0.72;
+  stroke-width: 3;
 }
 
 .body-figure-caption {
   margin-top: -1px;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .body-detail {
@@ -150,7 +150,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 16px 4px;
+  padding: 16px;
 }
 
 .body-detail h3 {
@@ -165,15 +165,15 @@
 .body-sparkline {
   display: flex;
   align-items: center;
-  min-height: 48px;
-  margin: 14px 0 4px;
+  min-height: 54px;
+  margin: 12px 0 4px;
 }
 
 .body-sparkline svg {
   display: block;
   width: 100%;
   max-width: 210px;
-  height: 40px;
+  height: 44px;
   overflow: visible;
 }
 
@@ -188,37 +188,38 @@
 .body-history-list li {
   justify-content: flex-start;
   flex-wrap: wrap;
-  color: var(--body-muted);
+  color: white;
   font-size: 12px;
 }
 
 .body-history-list time {
   min-width: 46px;
-  color: var(--body-ink);
+  color: white;
 }
 
 .body-history-list strong {
-  color: var(--blue);
-  font-weight: 600;
+  color: white;
+  font-weight: 700;
 }
 
 .body-history-list span {
   flex-basis: 100%;
   padding-left: 58px;
-  color: var(--body-soft);
+  color: white;
 }
 
 .body-timeline {
-  margin-top: 12px;
+  margin-top: 10px;
+  padding: 8px 12px;
 }
 
 .body-play {
   min-width: 64px;
   padding: 8px 13px;
-  border: 1px solid var(--blue);
+  border: 2px solid white;
   border-radius: 999px;
-  color: var(--body-ink);
-  background: transparent;
+  color: white;
+  background: color-mix(in srgb, white 12%, transparent);
   font: inherit;
   cursor: pointer;
   transition: background 160ms ease, transform 160ms ease;
@@ -226,49 +227,49 @@
 
 .body-play:hover:not(:disabled),
 .body-play:focus-visible {
-  background: var(--teal);
+  background: color-mix(in srgb, white 24%, transparent);
   transform: translateY(-1px);
 }
 
 .body-play:focus-visible,
 .body-time-slider:focus-visible,
 .body-region:focus-visible {
-  outline: 2px solid var(--green);
+  outline: 3px solid white;
   outline-offset: 3px;
 }
 
 .body-play:disabled,
 .body-time-slider:disabled {
   cursor: default;
-  opacity: 0.58;
+  opacity: 0.68;
 }
 
 .body-time-slider {
   width: 100%;
   min-width: 55px;
-  accent-color: var(--blue);
+  accent-color: white;
   cursor: pointer;
 }
 
 .body-time-label {
   min-width: 65px;
-  color: var(--body-muted);
+  color: white;
   font-size: 12px;
   text-align: right;
 }
 
 @keyframes body-region-pulse {
-  0%, 100% { stroke-opacity: 0.6; }
+  0%, 100% { stroke-opacity: 0.72; }
   50% { stroke-opacity: 1; }
 }
 
 [data-widget-size="S"] .body-widget {
-  padding: 15px;
+  padding: 10px;
 }
 
 [data-widget-size="S"] .body-widget-layout {
   grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
-  gap: 10px;
+  gap: 8px;
 }
 
 [data-widget-size="S"] .body-figure {
@@ -276,7 +277,7 @@
 }
 
 [data-widget-size="S"] .body-detail {
-  padding: 10px 0;
+  padding: 12px;
 }
 
 [data-widget-size="S"] .body-detail h3 {
@@ -284,11 +285,19 @@
 }
 
 [data-widget-size="S"] .body-detail-current {
-  font-size: 10px;
+  font-size: 11px;
 }
 
 [data-widget-size="S"] .body-history-list li {
-  font-size: 10px;
+  font-size: 11px;
+}
+
+@container (max-width: 410px) {
+  .body-widget-layout,
+  [data-widget-size] .body-widget-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
 }
 
 @media (max-width: 560px) {
@@ -299,7 +308,7 @@
   }
 
   .body-widget {
-    padding: 14px;
+    padding: 10px;
   }
 
   .body-figure {

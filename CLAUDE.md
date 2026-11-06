@@ -147,7 +147,7 @@ src/
       _dev/
         index.html      standalone widget preview (mock data only)
         dev.css         standalone preview layout
-        dev.js          registers S/M/L examples for both widgets
+        dev.js          renders both widgets at S/M/L on all four palette fills
         registry-stub.js minimal registry used by the standalone preview
 ```
 
@@ -162,7 +162,7 @@ src/
 
 ## Status and next steps
 
-- Current state: bare app scaffold plus two standalone clinician widgets, body-diagram and lungs-gauge. Their preview uses invented mock data; registry integration and final response schema are pending.
+- Current state: bare app scaffold plus two standalone clinician widgets, body-diagram and lungs-gauge, styled for solid palette fills. The preview shows both widgets at S/M/L on all four brand colors with invented mock data; registry integration and final response schema are pending.
 - Likely next steps:
   1. Create the demo dataset (see "Demo dataset" below).
   2. Create `data/preferences.json` with a default layout for one demo clinician, and wire load and save through the main process and preload.

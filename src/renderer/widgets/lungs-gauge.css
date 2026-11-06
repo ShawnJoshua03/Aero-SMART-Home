@@ -1,21 +1,17 @@
 .lungs-widget {
-  --plum: #772152;
-  --blue: #0091b7;
-  --green: #619a3c;
-  --teal: #244946;
-  --lung-ground: #0b0f0f;
-  --lung-surface: #121b1a;
-  --lung-ink: #edf4ef;
-  --lung-muted: #a4b7b0;
+  --lung-shade: color-mix(in srgb, var(--plum) 42%, var(--teal));
+  --lung-panel: color-mix(in srgb, var(--widget-fill, var(--teal)) 34%, var(--lung-shade) 66%);
+  --lung-panel-raised: color-mix(in srgb, var(--widget-fill, var(--teal)) 46%, var(--lung-shade) 54%);
+  --lung-hue: var(--teal);
   --breath-duration: 4.8s;
   box-sizing: border-box;
   width: 100%;
   min-width: 0;
-  padding: 20px;
+  padding: 14px;
   overflow: hidden;
   border-radius: 22px;
-  color: var(--lung-ink);
-  background: var(--lung-ground);
+  color: white;
+  background: transparent;
   font: 14px/1.45 system-ui, sans-serif;
 }
 
@@ -30,11 +26,14 @@
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+  padding: 12px 16px;
+  border-radius: 16px;
+  background: var(--lung-panel);
 }
 
 .lungs-heading h2 {
   margin: 0;
-  color: var(--lung-ink);
+  color: white;
   font: 400 24px/1.1 Georgia, serif;
   letter-spacing: -0.035em;
 }
@@ -43,8 +42,8 @@
 .lungs-updated,
 .lungs-footnote {
   margin: 5px 0 0;
-  color: var(--lung-muted);
-  font-size: 12px;
+  color: white;
+  font-size: 13px;
 }
 
 .lungs-updated {
@@ -57,10 +56,10 @@
   align-items: center;
   gap: 8px;
   min-height: 245px;
-  margin-top: 8px;
+  margin-top: 10px;
   padding: 8px 12px;
   border-radius: 18px;
-  background: var(--lung-surface);
+  background: var(--lung-panel-raised);
 }
 
 .lungs-visual {
@@ -71,7 +70,7 @@
 
 .lungs-visual:focus-visible {
   border-radius: 16px;
-  outline: 2px solid var(--green);
+  outline: 3px solid white;
   outline-offset: 3px;
 }
 
@@ -83,10 +82,9 @@
 }
 
 .lung-shape {
-  fill: color-mix(in srgb, var(--teal) 100%, var(--plum) 0%);
-  stroke: var(--blue);
-  stroke-opacity: 0.72;
-  stroke-width: 2;
+  fill: color-mix(in srgb, var(--lung-hue) 52%, white);
+  stroke: white;
+  stroke-width: 3.5;
   transform-box: fill-box;
   transform-origin: center;
   animation: lungs-breathe var(--breath-duration) ease-in-out infinite;
@@ -99,20 +97,18 @@
 .lung-trachea,
 .lung-branch {
   fill: none;
-  stroke: var(--lung-ink);
+  stroke: white;
   stroke-linecap: round;
   stroke-linejoin: round;
   pointer-events: none;
 }
 
 .lung-trachea {
-  stroke-width: 6;
-  opacity: 0.86;
+  stroke-width: 7;
 }
 
 .lung-branch {
-  stroke-width: 3.5;
-  opacity: 0.8;
+  stroke-width: 4.5;
 }
 
 .lungs-readout {
@@ -122,7 +118,7 @@
 }
 
 .lungs-score {
-  color: var(--lung-ink);
+  color: white;
   font: 400 clamp(58px, 8vw, 86px)/0.95 Georgia, serif;
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.07em;
@@ -130,19 +126,22 @@
 
 .lungs-readout > span {
   margin-top: 6px;
-  color: var(--lung-muted);
-  font-size: 12px;
+  color: white;
+  font-size: 13px;
 }
 
 .lungs-status {
   max-width: 125px;
   margin: 16px 0 0;
-  color: var(--lung-muted);
-  font-size: 13px;
+  color: white;
+  font-size: 14px;
 }
 
 .lungs-footnote {
-  margin: 11px 2px 0;
+  margin: 10px 0 0;
+  padding: 9px 14px;
+  border-radius: 14px;
+  background: var(--lung-panel);
 }
 
 .lungs-hover {
@@ -151,8 +150,8 @@
   inset: auto 5px 5px 5px;
   padding: 12px 14px;
   border-radius: 14px;
-  color: var(--lung-ink);
-  background: var(--lung-ground);
+  color: white;
+  background: var(--lung-panel);
   opacity: 0;
   pointer-events: none;
   transform: translateY(5px);
@@ -168,7 +167,7 @@
 .lungs-hover > strong {
   display: block;
   margin-bottom: 7px;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .lungs-history {
@@ -183,37 +182,26 @@
   display: flex;
   justify-content: space-between;
   gap: 10px;
-  color: var(--lung-muted);
-  font-size: 11px;
+  color: white;
+  font-size: 12px;
 }
 
 .lungs-history strong {
-  color: var(--blue);
-  font-weight: 600;
+  color: white;
+  font-weight: 700;
 }
 
-.severity-0 { --breath-duration: 6.2s; }
-.severity-1 { --breath-duration: 5.8s; }
-.severity-2 { --breath-duration: 5.3s; }
-.severity-3 { --breath-duration: 4.8s; }
-.severity-4 { --breath-duration: 4.2s; }
-.severity-5 { --breath-duration: 3.6s; }
-.severity-6 { --breath-duration: 3.1s; }
-.severity-7 { --breath-duration: 2.7s; }
-.severity-8 { --breath-duration: 2.3s; }
-.severity-9 { --breath-duration: 1.9s; }
-.severity-10 { --breath-duration: 1.6s; }
-
-.severity-1 .lung-shape { fill: color-mix(in srgb, var(--teal) 90%, var(--plum) 10%); }
-.severity-2 .lung-shape { fill: color-mix(in srgb, var(--teal) 80%, var(--plum) 20%); }
-.severity-3 .lung-shape { fill: color-mix(in srgb, var(--teal) 70%, var(--plum) 30%); }
-.severity-4 .lung-shape { fill: color-mix(in srgb, var(--teal) 60%, var(--plum) 40%); }
-.severity-5 .lung-shape { fill: color-mix(in srgb, var(--teal) 50%, var(--plum) 50%); }
-.severity-6 .lung-shape { fill: color-mix(in srgb, var(--teal) 40%, var(--plum) 60%); }
-.severity-7 .lung-shape { fill: color-mix(in srgb, var(--teal) 30%, var(--plum) 70%); }
-.severity-8 .lung-shape { fill: color-mix(in srgb, var(--teal) 20%, var(--plum) 80%); }
-.severity-9 .lung-shape { fill: color-mix(in srgb, var(--teal) 10%, var(--plum) 90%); }
-.severity-10 .lung-shape { fill: color-mix(in srgb, var(--teal) 0%, var(--plum) 100%); }
+.severity-0 { --breath-duration: 6.2s; --lung-hue: var(--teal); }
+.severity-1 { --breath-duration: 5.8s; --lung-hue: color-mix(in srgb, var(--teal) 80%, var(--blue)); }
+.severity-2 { --breath-duration: 5.3s; --lung-hue: color-mix(in srgb, var(--teal) 60%, var(--blue)); }
+.severity-3 { --breath-duration: 4.8s; --lung-hue: color-mix(in srgb, var(--teal) 40%, var(--blue)); }
+.severity-4 { --breath-duration: 4.2s; --lung-hue: color-mix(in srgb, var(--teal) 20%, var(--blue)); }
+.severity-5 { --breath-duration: 3.6s; --lung-hue: var(--blue); }
+.severity-6 { --breath-duration: 3.1s; --lung-hue: color-mix(in srgb, var(--blue) 60%, var(--plum)); }
+.severity-7 { --breath-duration: 2.7s; --lung-hue: color-mix(in srgb, var(--blue) 40%, var(--plum)); }
+.severity-8 { --breath-duration: 2.3s; --lung-hue: color-mix(in srgb, var(--blue) 20%, var(--plum)); }
+.severity-9 { --breath-duration: 1.9s; --lung-hue: var(--plum); }
+.severity-10 { --breath-duration: 1.6s; --lung-hue: var(--plum); }
 
 @keyframes lungs-breathe {
   0%, 100% { transform: scale(0.96, 0.97); }
@@ -221,7 +209,7 @@
 }
 
 [data-widget-size="S"] .lungs-widget {
-  padding: 15px;
+  padding: 10px;
 }
 
 [data-widget-size="S"] .lungs-main {
@@ -241,7 +229,7 @@
 
 @media (max-width: 440px) {
   .lungs-widget {
-    padding: 14px;
+    padding: 10px;
   }
 
   .lungs-main {

@@ -20,25 +20,45 @@
     };
   });
   var data = { responses: responses };
-  var grid = document.querySelector(".widget-grid");
+  var palettes = [
+    { id: "plum", label: "Plum" },
+    { id: "blue", label: "Blue" },
+    { id: "green", label: "Green" },
+    { id: "teal", label: "Teal" }
+  ];
+  var grid = document.querySelector(".palette-grid");
 
-  window.Widgets.all().forEach(function (definition) {
-    definition.sizes.forEach(function (size) {
-      var article = document.createElement("article");
-      article.className = "widget-tile";
-      article.setAttribute("data-widget-size", size);
+  palettes.forEach(function (palette) {
+    var column = document.createElement("section");
+    column.className = "palette-column";
+    column.setAttribute("data-palette", palette.id);
 
-      var heading = document.createElement("h2");
-      heading.textContent = definition.title + " · " + size;
-      var host = document.createElement("div");
-      host.className = "widget-host";
-      article.append(heading, host);
-      grid.appendChild(article);
-      definition.render(host, {
-        data: data,
-        patientId: "demo",
-        size: size,
-        onChange: function () {}
+    var heading = document.createElement("h2");
+    heading.textContent = palette.label + " fill";
+    var stack = document.createElement("div");
+    stack.className = "palette-stack";
+    column.append(heading, stack);
+    grid.appendChild(column);
+
+    window.Widgets.all().forEach(function (definition) {
+      definition.sizes.forEach(function (size) {
+        var article = document.createElement("article");
+        article.className = "widget-tile";
+        article.setAttribute("data-palette", palette.id);
+        article.setAttribute("data-widget-size", size);
+
+        var label = document.createElement("h3");
+        label.textContent = definition.title + " · " + size;
+        var host = document.createElement("div");
+        host.className = "widget-host";
+        article.append(label, host);
+        stack.appendChild(article);
+        definition.render(host, {
+          data: data,
+          patientId: "demo",
+          size: size,
+          onChange: function () {}
+        });
       });
     });
   });

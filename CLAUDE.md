@@ -71,9 +71,9 @@ Template for each entry:
 - **Why:** the reason they gave.
 - **Where it applies:** flashcard view, full data view, or both.
 
-The bundled `data/preferences.json` seeds clinician settings on first run. The writable file lives at `app.getPath('userData')/preferences.json`; the renderer accesses it only through the preload bridge.
+In the app, a clinician's settings are stored in `data/preferences.json`. The file is the machine-readable version of this section.
 - It holds the settings the clinician controls, such as which charts and cards appear, their order and layout, the default time range, and which flashcards are shown first.
-- The full view restores it on startup and saves changes when the clinician rearranges cards or changes the patient. Future views can use the same bridge.
+- Both views read it on startup and write it back when the clinician rearranges something. This makes drag-and-drop layouts persist.
 - Keep one entry per clinician, keyed by a clinician id, with an optional per-specialty default.
 - For the demo it is a plain JSON file. The main process reads and writes it and exposes it to the renderer through `window.api`. The renderer never touches the file system.
 
@@ -122,18 +122,14 @@ The bundled `data/preferences.json` seeds clinician settings on first run. The w
 | `#619a3c` | `--green` |
 | `#244946` | `--teal` |
 
-Use these as the base brand colors. The canvas gives each widget a solid fill from this palette and sets `--widget-palette` to that color token. Widget charts use white and `color-mix()` tints or shades of `--widget-palette`; do not add new hex colors. Keep widget-specific color variables in that widget's CSS file.
-
-Lead design update: use large filled palette surfaces, not thin accents. Widget cards cycle plum, blue, green, and teal; tray and header chips use filled blobs/pills. Flat organic shapes decorate the headline and page edges. White text on card fills has contrast ratios of approximately 9.89, 4.97, 4.62, and 9.92 respectively: blue/green text-bearing surfaces mix 82% brand color with the existing dark ground. Decorative shapes retain the original palette. Drop-zone fills use color-mix() of palette variables. Decorations never receive pointer events.
+Use these as the base brand colors. Define any new color as a CSS variable in `styles.css`, not as a hard-coded value.
 
 ## Repo contents
 
 ```
 CLAUDE.md            project guide (this file)
-DESIGN-BRIEF.md      visual direction and constraints
-README.md            setup, verification, and widget integration pointer
-WIDGET-API.md         exact widget, data, and preference contracts for other workers
-package.json         npm start, npm test, npm run verify:electron
+README.md            stub, title only
+package.json         scripts: `npm start` runs `electron .`; entry point `src/main.js`
 package-lock.json    locked dependency versions
 .gitignore           node_modules/, dist/, out/
 src/
@@ -173,7 +169,7 @@ scripts/
 
 ## Architecture and tech stack
 
-- Electron (dev dependency), plain JavaScript. No bundler, framework, CDN, or runtime dependencies. Tests use Node's built-in runner and Electron itself.
+- Electron (dev dependency), plain JavaScript. No bundler, no framework, no tests yet.
 - Main process (`src/main.js`) owns windows and anything that needs Node or the OS.
 - Preload (`src/preload.js`) is the only bridge. Expose narrow, named functions on `window.api`. Never expose `ipcRenderer` or Node modules directly.
 - Renderer (`src/renderer/`) is the UI. It has no Node access.
@@ -193,13 +189,13 @@ scripts/
 - Layout: the window is phone-sized and the page fits its width with no horizontal scroll (single-column cards under 640 px). The widget tray is an off-canvas drawer opened from the header hamburger (`#tray-toggle`); it slides away during a drag so the canvas is the drop target. `npm test` and `npm run verify:electron` pass against the single-patient dataset.
 - Earlier verification (old dataset): npm test and npm run verify:electron passed. npm start opened the desktop app; Add, S sizing, and button reordering were observed. HTML5 drag handlers, S/M/L, removal, patient switching, and persistence across separate processes pass in Electron. Native pointer drag automation did not trigger a drop; a manual pointer-drag check remains outstanding.
 - Likely next steps:
-  1. Complete the manual native pointer-drag smoke check.
-  2. Build additional widgets against the registry and data contract in WIDGET-API.md.
+  1. Create the demo dataset (see "Demo dataset" below).
+  2. Create `data/preferences.json` with a default layout for one demo clinician, and wire load and save through the main process and preload.
   3. Build the flashcard view (what changed, what matters now) from the demo data.
-  4. Integrate the body-diagram and lungs-gauge widgets into the full data view with trend charts and a drag-and-drop layout saved to `preferences.json`.
+  4. Build the full data view with trend charts, the body diagram, and a drag-and-drop layout saved to `preferences.json`.
   5. Add the researcher view over the same mock data.
   6. Add mascot and live-update motion.
-- Keep extensions plain JavaScript and local assets; no framework, bundler, or CDN.
+- Decide early whether to introduce a framework or chart library. Plain JS is fine for the first screens but will get heavy with drag-and-drop and live charts.
 
 ## Demo dataset
 
@@ -219,3 +215,51 @@ For the demo we use fake data from one survey. Everything is invented. No real p
 - Keep the clinician view focused on glanceable signal. Prefer showing change and anomaly over raw values.
 - Use mock data only. Never add real patient data to the repo.
 - Update the "Repo contents" and "Status" sections of this file whenever files or progress change.
+
+
+---
+
+## Shawn update (2026-11-06)
+
+Everything above is the team's text and is unchanged. This section records what Shawn built and decided on `main` today. Where it differs from the sections above (for example Repo contents and Status), this section is newer.
+
+### What was built
+- **Widget canvas** in `src/renderer/`: tray, HTML5 drag/reorder, S/M/L sizes, remove, patient picker, widget registry (`window.Widgets.register({ id, title, sizes, render(el, ctx) })`, `ctx = { data, patientId, size, onChange }`). Layout saves per clinician through `window.api.savePrefs` and persists across restarts. Contract in `WIDGET-API.md`.
+- **Ten widgets**, one `.js` (+ `.css`) each in `src/renderer/widgets/`, all loaded in `index.html`: `trend-line` (calibrate band, anomaly dots), `kpi-tiles`, `scatter`, `body-diagram` (nose/sinus, throat, chest, left/right lung, history scrubber), `lungs-gauge`, `adherence-heatmap`, `trigger-bubbles`, `night-moon`, `change-ticker`, `air-quality` (mock). Plus `hello` placeholder. Standalone previews live in `widgets/_dev/`.
+- **IPC** (`src/main.js`, `src/preload.js`, `src/preferences.js`): `getData`, `getPrefs`, `savePrefs` only, validated, atomic saves in `userData`.
+- **Tests:** `tests/foundation.test.js`, `scripts/verify-electron*.js`.
+- **Docs:** `DESIGN-BRIEF.md` (How We Feel reference notes), `WIDGET-API.md`, `README.md`.
+
+### Look
+- White page background. The hero banner ("FULL DATA VIEW / A little context. A clearer picture.") was removed.
+- Only the four palette colours are used. Everything else is white or derived with `color-mix()`; no other hex values. Base neutrals in `src/renderer/styles.css`: `--ground` white, `--deep` (teal 22% on black), `--surface`, `--card`, `--ink` (teal), `--muted`, `--line` (tints of teal on white), `--accent` (plum).
+- Widget cards are large solid fills cycling plum, blue, green, teal with white text. The canvas sets `--widget-palette` per card; widgets draw with white and tints of it.
+
+### Data decision
+- The team's data (rai1975, PR #1) in `data/responses.json` and `data/preferences.json` is the only data the app should use. Do not edit those files.
+- Our earlier generated data was moved to `data/legacy-demo/` (`survey.json`, `responses.json`, `preferences.json`: 6 patients, 245 entries over 42 days) as reference and test fixture. `WIDGET-API.md` and the current app code still describe that old format.
+
+### Known problems
+1. **The app on `main` is broken.** `src/main.js` reads `data/survey.json` and `data/responses.json` in our old format, and uses `data/preferences.json` (now the team's layered settings) as the widget-layout default. Expect `npm start`, `npm test` and `npm run verify:electron` to fail until a data adapter exists (not re-run after the data move). Last commit with a working app: `7db417f`.
+2. **Widgets that ignored the patient** (found by rendering every widget for all six old-data patients and comparing output): `kpi-tiles` and `scatter` show built-in sample data; `trend-line` differs for only 3 of 6 patients; `adherence-heatmap` and `night-moon` are identical for every patient. Working: `body-diagram`, `lungs-gauge`, `trigger-bubbles`, `change-ticker` (5/6), `air-quality` (mock). Cause: each widget's `adaptData()` guessed field names and ships a random sample fallback.
+3. **Team data changed after this update was first written** (rai1975, commit `3dc7db0`): `data/responses.json` now holds one survey (`asthma-daily`, 7 questions, now including `breathlessness`), one patient (`pt-a1`) and 100 responses from 2026-07-28 to 2026-11-04. That is enough for trends, baselines and heatmaps for that one patient, but there is no cohort, no second survey and no body-diagram reports. The earlier 10-patient, 2-responses-each version is gone. Multi-patient views (patient picker, researcher view) have nothing to compare until more patients are added; undecided whether rai1975 adds them or we add clearly labelled generated rows in a separate file.
+4. **Real mouse drag-and-drop is untested.** Handlers, sizes, removal and persistence pass in Electron automation; native pointer drag has not been tried by hand.
+
+### Next step (not started)
+- `src/dataAdapter.js` (pure, tested): team format to the `getData()` shape, baselines computed from the data (flag n < 3 as sparse, no calibrate band), and a `resolve(clinicianId, patientId, surveyId)` helper for the patient > survey > general preferences.
+- Move the widget-layout default to `data/layout-defaults.json`.
+- Make widgets read by question type (slider = main metric, radio = yes/no, mcq = category), add "not enough entries yet" and "no body-diagram reports" states, remove sample fallbacks from the real path.
+- A Copilot attempt was stopped; its partial uncommitted edits are in the local Orca worktree `team-data-copilot` and were never merged.
+
+### Still to build
+Flashcard (pre-flight) view, researcher view, post-game interview. The mascot belongs to someone else; do not build it.
+
+### How to run
+- `npm start`, `npm test`, `npm run verify:electron`.
+- In a Claude Code or VS Code terminal `ELECTRON_RUN_AS_NODE=1` is set and Electron crashes with "Cannot read properties of undefined (reading 'setPath')". Use `env -u ELECTRON_RUN_AS_NODE npm start` there.
+
+### Branches
+Work is on `main`. `feat/widgets` was merged into `main` and still exists on GitHub with the same content; it can be deleted. Worker branches were never pushed.
+
+### Agent workflow notes
+Workers (Copilot, Codex) were run through Orca (stablyai). CLI: `C:\Users\shawn\AppData\Local\Programs\orca\resources\bin\orca.exe`, not on PATH; this repo is registered in Orca. Copilot stops at a folder-trust prompt (answer with `terminal send --text 1`, then a separate `--enter`). Codex "Hook failed" lines come from claude-mem and are harmless; Codex hit its 5-hour limit and was moved to GPT-6.1-Sol medium. Agent output felt generic, so prefer small reviewed changes over large delegated ones.

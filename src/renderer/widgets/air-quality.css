@@ -1,18 +1,21 @@
 .air-quality {
   --plum: #772152; --blue: #0091b7; --green: #619a3c; --teal: #244946;
-  --aq-ground: #101817; --aq-text: #eef4ed; --aq-muted: #adbbb6; --aq-clear: transparent;
+  /* Translucent palette shade preserves the host fill and keeps white text legible. */
+  --aq-ground: color-mix(in srgb, var(--teal) 42%, transparent); --aq-text: white; --aq-muted: var(--aq-text); --aq-clear: transparent;
+  --aq-shade: color-mix(in srgb, var(--teal) 75%, var(--plum));
+  --aq-soft: color-mix(in srgb, var(--aq-text) 22%, transparent);
   padding: 20px; box-sizing: border-box; height: 100%; background: var(--aq-ground); color: var(--aq-text); font: 13px/1.4 system-ui, sans-serif;
 }
 .air-quality h3 { font: 28px/1.15 Georgia, serif; margin: 0; }
 .air-quality .aq-heading { display: flex; align-items: center; justify-content: space-between; }
-.air-quality .aq-mock { border: 1px solid var(--blue); padding: 3px 7px; border-radius: 5px; font-size: 10px; font-weight: 700; letter-spacing: .1em; }
+.air-quality .aq-mock { border: 1px solid var(--aq-text); background: var(--plum); padding: 3px 7px; border-radius: 5px; font-size: 10px; font-weight: 700; letter-spacing: .1em; }
 .air-quality p { margin: 6px 0 0; color: var(--aq-muted); }
 .air-quality .aq-subtitle { font-size: 11px; }
 .air-quality .aq-summary { display: flex; align-items: center; gap: 14px; margin: 17px 0; font: 18px/1.25 Georgia, serif; }
-.air-quality .aq-summary svg { width: 76px; fill: var(--aq-clear); stroke: var(--blue); stroke-width: 2; stroke-linecap: round; overflow: visible; }
+.air-quality .aq-summary svg { width: 76px; fill: var(--aq-clear); stroke: var(--aq-text); stroke-width: 5; stroke-linecap: round; overflow: visible; }
 .air-quality .aq-wind-one { animation: aq-drift 5s ease-in-out infinite; }
 .air-quality .aq-wind-two { animation: aq-drift 5s -2s ease-in-out infinite; }
-.air-quality .aq-toggle { border: 1px solid var(--teal); border-radius: 20px; background: var(--aq-clear); color: var(--aq-text); padding: 8px 12px; cursor: pointer; font: inherit; font-size: 11px; }
+.air-quality .aq-toggle { border: 1px solid var(--aq-soft); border-radius: 20px; background: var(--aq-shade); color: var(--aq-text); padding: 8px 12px; cursor: pointer; font: inherit; font-size: 11px; }
 .air-quality .aq-toggle[aria-pressed=true] { background: var(--plum); border-color: var(--plum); }
 .air-quality .aq-toggle:disabled { opacity: .4; cursor: default; }
 .air-quality .aq-scale { display: flex; justify-content: space-between; margin-top: 19px; font-size: 10px; color: var(--aq-muted); }
@@ -21,9 +24,9 @@
 .air-quality .aq-day { cursor: pointer; outline: none; }
 .air-quality .aq-hit { fill: var(--aq-clear); }
 .air-quality .aq-bar { transition: opacity .3s; stroke: var(--aq-clear); stroke-width: 2; }
-.air-quality .aq-low { fill: var(--green); }
-.air-quality .aq-medium { fill: var(--blue); }
-.air-quality .aq-high { fill: var(--plum); }
+.air-quality .aq-low { fill: color-mix(in srgb, var(--aq-text) 65%, var(--green)); }
+.air-quality .aq-medium { fill: color-mix(in srgb, var(--aq-text) 82%, var(--blue)); }
+.air-quality .aq-high { fill: var(--aq-text); }
 .air-quality .aq-marker { fill: var(--aq-text); opacity: 0; transition: opacity .3s; }
 .air-quality .aq-overlay .aq-day:not(.aq-flagged) .aq-bar { opacity: .3; }
 .air-quality .aq-overlay .aq-flagged .aq-marker { opacity: 1; }

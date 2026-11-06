@@ -28,15 +28,20 @@
     widgets.forEach(widget => {
       const row = document.createElement('section'); row.className = 'dev-row';
       const title = document.createElement('h2'); title.textContent = widget.id;
+      row.append(title);
+      ['plum', 'blue', 'green', 'teal'].forEach(palette => {
+      const paletteLabel = document.createElement('h4'); paletteLabel.textContent = palette + ' fill';
       const grid = document.createElement('div'); grid.className = 'dev-grid';
       ['S', 'M', 'L'].forEach(size => {
         const section = document.createElement('section');
-        const caption = document.createElement('p'); caption.className = 'dev-size'; caption.textContent = `${size} / ${size === 'S' ? 'compact' : size === 'M' ? 'standard' : 'expanded'}`;
-        const frame = document.createElement('div'); frame.className = 'dev-frame';
+        const caption = document.createElement('p'); caption.className = 'dev-size'; caption.textContent = `${palette} fill / ${size} / ${size === 'S' ? 'compact' : size === 'M' ? 'standard' : 'expanded'}`;
+        const frame = document.createElement('div'); frame.className = 'dev-frame dev-' + palette;
         const el = document.createElement('div'); frame.append(el); section.append(caption, frame); grid.append(section);
-        renders.push({ widget, el, size });
+        renders.push({ widget, el, size, palette });
       });
-      row.append(title, grid); gallery.append(row);
+      row.append(paletteLabel, grid);
+      });
+      gallery.append(row);
     });
     function renderAll() {
       const value = document.querySelector('#scenario').value;
@@ -50,7 +55,25 @@
     if (new URLSearchParams(location.search).has('test')) {
       const assertions = [];
       const assert = (condition, label) => { if (!condition) throw new Error(label); assertions.push(label); };
-      assert(widgets.length === 5 && renders.length === 15, 'Five registrations; S/M/L render');
+      assert(widgets.length === 5 && renders.length === 60, 'Five registrations; S/M/L on all four palette fills');
+      const swatch = document.createElement('canvas'); swatch.width = swatch.height = 1;
+      const paint = swatch.getContext('2d', { willReadFrequently: true });
+      const luminance = values => values.slice(0, 3).map(v => { v /= 255; return v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4; }).reduce((n, v, i) => n + v * [.2126, .7152, .0722][i], 0);
+      renders.forEach(({ el, palette }) => {
+        paint.clearRect(0, 0, 1, 1); paint.fillStyle = getComputedStyle(el.parentElement).backgroundColor; paint.fillRect(0, 0, 1, 1);
+        paint.fillStyle = getComputedStyle(el).backgroundColor; paint.fillRect(0, 0, 1, 1);
+        const contrast = 1.05 / (luminance([...paint.getImageData(0, 0, 1, 1).data]) + .05);
+        if (contrast < 4.5 || getComputedStyle(el).color !== 'rgb(255, 255, 255)') throw new Error('White text contrast on ' + palette + ': ' + contrast.toFixed(2));
+      });
+      renders.forEach(({ el, palette }) => {
+        el.querySelectorAll('button:not(:disabled)').forEach(button => {
+          paint.clearRect(0, 0, 1, 1);
+          for (const node of [el.parentElement, el, button]) { paint.fillStyle = getComputedStyle(node).backgroundColor; paint.fillRect(0, 0, 1, 1); }
+          const contrast = 1.05 / (luminance([...paint.getImageData(0, 0, 1, 1).data]) + .05);
+          if (contrast < 4.5 || getComputedStyle(button).color !== 'rgb(255, 255, 255)') throw new Error('Button contrast on ' + palette + ': ' + contrast.toFixed(2));
+        });
+      });
+      assert(true, 'White text contrast >=4.5:1 across all 60 filled cards');
       const first = id => renders.find(r => r.widget.id === id).el;
       const ah = first('adherence-heatmap');
       assert(ah.querySelector('.ah-streak strong').textContent === '10', 'Adherence streak calculation');

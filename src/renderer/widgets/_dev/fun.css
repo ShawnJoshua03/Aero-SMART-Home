@@ -19,3 +19,17 @@ footer { max-width: 1440px; margin: 24px auto; color: var(--dev-muted); }
 button:focus-visible, select:focus-visible { outline: 2px solid var(--dev-text); outline-offset: 3px; }
 @media (max-width: 1250px) { .dev-grid { grid-template-columns: 280px minmax(320px, 1fr); } .dev-grid > section:last-child { grid-column: 1 / -1; max-width: 700px; width: 100%; } }
 @media (max-width: 680px) { body { padding: 18px; } h1 { font-size: 42px; } .dev-grid { display: flex; flex-direction: column; } .dev-grid > section { width: 100%; } .dev-grid > section:first-child { max-width: 280px; } }
+
+/* Host-card fills: widgets are tested against the canvas palette, without a dark card shell. */
+.dev-plum { background: var(--plum); }
+.dev-blue { background: var(--blue); }
+.dev-green { background: var(--green); }
+.dev-teal { background: var(--teal); }
+.dev-row > h4 { color: var(--dev-text); font: 14px system-ui, sans-serif; margin: 22px 0 9px; }
+
+/* Compact four-background contact sheet for visual review. */
+body.dev-overview .dev-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+body.dev-overview .dev-row > h2 { grid-column: 1 / -1; }
+body.dev-overview .dev-row > h4 { display: none; }
+body.dev-overview .dev-grid { display: contents; }
+body.dev-overview .dev-grid > section:not(:nth-child(2)) { display: none; }

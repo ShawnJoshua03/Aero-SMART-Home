@@ -1,25 +1,28 @@
 .trigger-bubbles {
   --plum: #772152; --blue: #0091b7; --green: #619a3c; --teal: #244946;
-  --tb-ground: #101817; --tb-text: #eef4ed; --tb-muted: #adbbb6; --tb-clear: transparent;
+  /* Translucent palette shade preserves the host fill and keeps white text legible. */
+  --tb-ground: color-mix(in srgb, var(--teal) 42%, transparent); --tb-text: white; --tb-muted: var(--tb-text); --tb-clear: transparent;
+  --tb-shade: color-mix(in srgb, var(--teal) 75%, var(--plum));
+  --tb-soft: color-mix(in srgb, var(--tb-text) 22%, transparent);
   box-sizing: border-box; padding: 20px; height: 100%; background: var(--tb-ground); color: var(--tb-text); font: 13px/1.4 system-ui, sans-serif;
 }
 .trigger-bubbles h3 { font: 26px/1.15 Georgia, serif; margin: 0; }
 .trigger-bubbles p { margin: 6px 0 0; color: var(--tb-muted); }
 .trigger-bubbles .tb-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.trigger-bubbles button { background: var(--tb-clear); color: var(--tb-text); border: 1px solid var(--teal); border-radius: 20px; padding: 5px 9px; cursor: pointer; font: inherit; font-size: 10px; }
+.trigger-bubbles button { background: var(--tb-clear); color: var(--tb-text); border: 1px solid var(--tb-soft); border-radius: 20px; padding: 5px 9px; cursor: pointer; font: inherit; font-size: 10px; }
 .trigger-bubbles button:disabled { opacity: .4; cursor: default; }
 .trigger-bubbles .tb-cloud { display: block; width: 100%; max-height: 335px; overflow: visible; margin: 5px 0; }
 .trigger-bubbles .tb-bubble { cursor: pointer; outline: none; }
 .trigger-bubbles .tb-bubble > g { transform-box: fill-box; transform-origin: center; transition: transform .25s; }
 .trigger-bubbles .tb-bubble:hover > g, .trigger-bubbles .tb-bubble:focus-visible > g { transform: scale(1.1); }
 .trigger-bubbles circle { stroke: var(--tb-clear); stroke-width: 2; }
-.trigger-bubbles .tb-tone-0 circle { fill: var(--blue); }
+.trigger-bubbles .tb-tone-0 circle { fill: color-mix(in srgb, var(--blue) 48%, var(--teal)); }
 .trigger-bubbles .tb-tone-1 circle { fill: var(--plum); }
-.trigger-bubbles .tb-tone-2 circle { fill: var(--green); }
+.trigger-bubbles .tb-tone-2 circle { fill: color-mix(in srgb, var(--green) 45%, var(--teal)); }
 .trigger-bubbles .tb-tone-3 circle { fill: var(--teal); }
 .trigger-bubbles .tb-bubble[aria-pressed=true] circle, .trigger-bubbles .tb-bubble:focus-visible circle { stroke: var(--tb-text); stroke-dasharray: 4 3; }
 .trigger-bubbles text { text-anchor: middle; fill: var(--tb-text); font: 11px system-ui, sans-serif; pointer-events: none; }
-.trigger-bubbles .tb-tone-0 text, .trigger-bubbles .tb-tone-2 text { fill: var(--tb-ground); }
+.trigger-bubbles .tb-tone-0 text, .trigger-bubbles .tb-tone-2 text { fill: var(--tb-text); }
 .trigger-bubbles .tb-count { font-size: 13px; font-weight: 700; }
 .trigger-bubbles .tb-detail { min-height: 36px; color: var(--tb-text); font-size: 12px; }
 .trigger-bubbles .tb-caption { font-size: 10px; }

@@ -1,6 +1,6 @@
 # Fun widgets
 
-Open `fun.html` in a browser. It renders every widget at S/M/L, with built-in samples, sparse patient records, and empty-data controls. Append `?test=1` for browser interaction and lifecycle checks; the footer reports PASS or FAIL. No package installation is needed.
+Open `fun.html` in a browser. It renders every widget at S/M/L on all four solid palette backgrounds (60 cards), with built-in samples, sparse patient records, and empty-data controls. Append `?test=1` for browser interaction and lifecycle checks; the footer reports PASS or FAIL. No package installation is needed.
 
 The preview tries `../registry.js`, then loads its local `registry-stub.js` if the application registry is absent. The stub never replaces an existing registry. Preview assets are development-only.
 
@@ -16,7 +16,7 @@ Load the five widget `.css` files with local stylesheet links, and their `.js` f
 
 Call `render(el, { data, patientId, size, onChange })` on an empty container. The widget clears its own contents on subsequent renders. Call `el.__cleanup?.()` before removing a widget. Render returns nothing. There are no shared widget runtime helpers, imports, Node APIs, or external dependencies.
 
-All colors are widget-scoped CSS variables. Renderers only use local assets and browser APIs, matching the renderer isolation and restrictive CSP approach in [Electron's security guidance](https://www.electronjs.org/docs/latest/tutorial/security). No main/preload changes are needed.
+All colors are widget-scoped CSS variables. Filled-palette styling keeps the host card color visible beneath a translucent teal shade, with white text and large filled calendar cells, bubbles, moons, chips, and pollen bars. Chart colors use white or palette-derived `color-mix()` values. The preview checks at least 4.5:1 white-text contrast for card bodies and enabled buttons on all four fills. Renderers only use local assets and browser APIs, matching the renderer isolation and restrictive CSP approach in [Electron's security guidance](https://www.electronjs.org/docs/latest/tutorial/security). No main/preload changes are needed.
 
 ## Adapter assumptions for the lead
 
@@ -41,3 +41,5 @@ Selections are local to a render. The host decides how callback events filter or
 ## Verification
 
 Verified with Chrome opening this preview as a local file under `default-src 'self'`. The interactive browser checks cover registration, S/M/L rendering, day selection, trigger filters, night scrub/pagination, ticker selection and pause, mock pollen overlay, missing dates, patient isolation, empty data, re-renders, actual animation progress, hover pause, and cleanup. Also run with reduced motion enabled. No npm dependencies were added; Electron main/preload/canvas/registry files were not changed.
+
+Latest filled-palette verification: 24 normal-motion checks and 22 reduced-motion checks pass in a real-time Chrome local-file session. Virtual-time Chrome runs are unsuitable for the animation-progress checks.

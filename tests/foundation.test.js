@@ -5,49 +5,39 @@ const os = require('node:os');
 const path = require('node:path');
 const vm = require('node:vm');
 const { createPreferenceStore } = require('../src/preferences');
-const survey = require('../data/survey.json');
-const data = require('../data/responses.json');
+const { normalizeData } = require('../src/data');
+const raw = require('../data/responses.json');
 
-test('mock cohort has valid question answers, regions, baseline bands, and planted signals', () => {
-  assert.equal(data.patients.length, 6);
-  assert.equal(data.entries.length, 245);
-  const regions = new Set(survey.bodyDiagram.regions.map(region => region.id));
+test('dataset is one asthma survey, one patient, 100 valid records with planted anomalies', () => {
+  assert.equal(raw.surveys.length, 1);
+  assert.equal(raw.patients.length, 1);
+  assert.equal(raw.responses.length, 100);
+  const survey = raw.surveys[0];
   const ids = new Set();
-  for (const entry of data.entries) {
-    assert(!ids.has(entry.id)); ids.add(entry.id);
-    assert(data.patients.some(patient => patient.id === entry.patientId));
-    assert.equal(entry.surveyId, survey.id);
-    assert(!Number.isNaN(Date.parse(entry.timestamp)));
-    for (const question of survey.questions) {
-      const value = entry.answers[question.id];
-      if (!question.required && value === undefined) continue;
-      if (['slider', 'number'].includes(question.type)) assert(value >= question.min && value <= question.max);
-      if (question.type === 'radio') assert(question.options.some(option => option.value === value));
-      if (question.type === 'multiple_choice') assert(value.every(v => question.options.some(option => option.value === v)));
-    }
-    for (const report of entry.bodyReports) {
-      assert(regions.has(report.region));
-      assert(report.intensity >= 0 && report.intensity <= 10);
-      assert(!Number.isNaN(Date.parse(report.timestamp)));
+  for (const r of raw.responses) {
+    assert(!ids.has(r.id)); ids.add(r.id);
+    assert.equal(r.patientId, raw.patients[0].id);
+    assert.equal(r.surveyId, survey.id);
+    assert(!Number.isNaN(Date.parse(r.submittedAt)));
+    for (const q of survey.questions) {
+      const v = r.answers[q.id];
+      if (q.type === 'slider') assert(v >= q.min && v <= q.max, q.id);
+      if (q.type === 'radio') assert(q.options.includes(v), q.id);
+      if (q.type === 'mcq') assert(v.every(x => q.options.includes(x)), q.id);
     }
   }
-  const entriesFor = pattern => data.entries.filter(e => e.patientId === data.patients.find(p => p.demoPattern === pattern).id);
-  const mean = entries => entries.reduce((sum, e) => sum + e.answers.breathlessness, 0) / entries.length;
-  const worsening = entriesFor('worsening');
-  assert(mean(worsening.slice(-7)) > mean(worsening.slice(0, 14)) + 3);
-  assert.equal(entriesFor('adherence_gap').length, 35);
-  assert(entriesFor('adherence_gap').some(e => !e.answers.controller_taken));
-  assert.equal(entriesFor('sudden_spike').filter(e => e.answers.breathlessness >= 8).length, 1);
-  assert(Math.abs(mean(entriesFor('stable').slice(-7)) - mean(entriesFor('stable').slice(0, 14))) < 0.2);
-  for (const patient of data.patients) {
-    for (const [id, stats] of Object.entries(patient.baseline.stats)) {
-      const baseline = data.entries.filter(e => e.patientId === patient.id && e.date <= patient.baseline.end && e.date >= patient.baseline.start);
-      const actualMean = baseline.reduce((sum, e) => sum + Number(e.answers[id]), 0) / baseline.length;
-      assert.equal(stats.n, baseline.length);
-      assert(Math.abs(stats.mean - actualMean) < 0.001);
-      assert(stats.bandLow <= stats.mean && stats.mean <= stats.bandHigh);
-    }
-  }
+  const b = raw.responses.map(r => r.answers.breathlessness);
+  assert(b.filter(x => x >= 8).length >= 5, 'spikes present');
+  assert(b.filter(x => x <= 3).length >= 50, 'baseline present');
+});
+
+test('normalizeData produces the renderer shape', () => {
+  const d = normalizeData(raw);
+  assert.equal(d.survey.id, 'asthma-daily');
+  assert.equal(d.entries.length, 100);
+  assert(d.entries.every((e, i) => i === 0 || d.entries[i - 1].timestamp <= e.timestamp));
+  assert.equal(d.entries[0].date, d.period.start);
+  assert.equal(d.period.expectedDays, 100);
 });
 
 test('preferences seed once, serialize rapid saves, survive restart, and reject invalid changes', async t => {

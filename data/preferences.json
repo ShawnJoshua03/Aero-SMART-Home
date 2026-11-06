@@ -115,7 +115,55 @@
             "symptoms": "heatmap"
           }
         }
+      },
+      "layout": {
+        "patientId": "pt-a1",
+        "widgets": [
+          {
+            "instanceId": "checkin-count-1",
+            "widgetId": "checkin-count",
+            "size": "S",
+            "config": {}
+          },
+          {
+            "instanceId": "breathlessness-trend-1",
+            "widgetId": "breathlessness-trend",
+            "size": "L",
+            "config": {}
+          },
+          {
+            "instanceId": "night-rescue-trend-1",
+            "widgetId": "night-rescue-trend",
+            "size": "L",
+            "config": {}
+          },
+          {
+            "instanceId": "kpi-board-1",
+            "widgetId": "kpi-board",
+            "size": "M",
+            "config": {}
+          },
+          {
+            "instanceId": "symptom-frequency-1",
+            "widgetId": "symptom-frequency",
+            "size": "M",
+            "config": {}
+          },
+          {
+            "instanceId": "symptom-timing-1",
+            "widgetId": "symptom-timing",
+            "size": "L",
+            "config": {}
+          },
+          {
+            "instanceId": "activity-limit-trend-1",
+            "widgetId": "activity-limit-trend",
+            "size": "L",
+            "config": {}
+          }
+        ]
       }
     }
-  }
+  },
+  "activeClinicianId": "clin-001"
 }

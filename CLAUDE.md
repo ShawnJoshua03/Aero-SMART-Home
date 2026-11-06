@@ -35,20 +35,25 @@ Situations where the current view falls short:
 - Digital Health Hackathon 2026, Innovation Ventures, Cincinnati Children's Hospital Medical Center.
 - Principal Investigators: Kevin Hommel, Matt Wortman, Rachel Ramsey.
 
-## Look and feel 
+#### Look and feel 
 - Heavy UI inspiration from the How We Feel app.
 - UI built in Electron.js (voice interface considered and dropped).
 - Reactive and constantly moving: the view updates live and feels alive, not static.
 - Make a mascot.
 
-## Clinician view
--Drag-and-drop visuals and setup: clinicians arrange which charts and cards they see.
--Pre-flight + regular views: a quick pre-visit summary, plus a full view for deeper review.
--Post-game interview: a structured debrief after the visit, connecting patient and provider (P ↔ P).
+#### Clinician view
+- Drag-and-drop visuals and setup: clinicians arrange which charts and cards they see.
+- Pre-flight + regular views: a quick pre-visit summary, plus a full view for deeper review.
+- Post-game interview: a structured debrief after the visit, connecting patient and provider (P ↔ P).
 
-## Intelligence
+#### Intelligence
 - Generalized ML model for anomaly detection and prediction, works across trackers.
 - "Calibrate": the model adjusts to each patient's own baseline.
+
+#### Patient-side inputs (outside scope)
+-Question types: multiple choice, radio buttons, sliders, text entry.
+Interactive body diagram: "touch and point to where it hurts."
+
 
 ## Color palette
 

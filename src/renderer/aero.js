@@ -1,4 +1,6 @@
-// Aero: a small crane fixed at the bottom-right. Tap him to talk; what he says appears in a bubble above him.
+// Aero: a small crane fixed at the bottom-right.
+//   Press and hold him to talk, let go and he answers (aloud, and in a bubble above him).
+//   Tap him to show or hide his last message.
 // Talks to the main process through window.api.aero only.
 (function () {
   const IMAGES = {
@@ -11,10 +13,7 @@
     alert: 'assets/aero/aero-alert-animated.svg',
     sad: 'assets/aero/aero-sad-animated.svg',
     sleepy: 'assets/aero/aero-sleepy-animated.svg',
-    puff: 'assets/aero/aero-puff-animated.svg',
   };
-  // Poses he picks from (never the same twice in a row) when you pick him up.
-  const DRAG_POSES = ['puff', 'greeting', 'listening', 'alert'];
   // Mood tag from the model -> pose held for a few seconds after a reply.
   const MOOD_POSE = { calm: 'idle', happy: 'happy', curious: 'listening', concerned: 'sad', alert: 'alert' };
 
@@ -22,20 +21,14 @@
   if (!api) return;
 
   const WALKER_W = 84;
-  const WALKER_H = Math.round(WALKER_W * 410 / 300);
-  const MARGIN = 12;
-  const DOCK_CLEARANCE = 96;   // the page's bottom dock is about 80px tall; start above it
-  const DRAG_THRESHOLD = 6;     // px of movement before a press becomes a drag instead of a tap
-  const POS_KEY = 'aero-position';
-  const SILENCE_MS = 1400;      // stop listening after this much quiet once the doctor has spoken
-  const NO_SPEECH_MS = 8000;    // give up if nothing is said
-  const MAX_LISTEN_MS = 25000;
-  const SPEECH_LEVEL = 0.02;    // RMS above this counts as speech
+  const HOLD_MS = 280;          // press longer than this and it is "hold to talk"; shorter is a tap
+  const MAX_LISTEN_MS = 30000;  // safety stop if the button is somehow never released
+  const MIN_CLIP_BYTES = 2000;  // shorter recordings are treated as accidental
 
   const state = {
-    history: [], patientId: null, muted: false, busy: false, status: null,
+    history: [], patientId: null, busy: false, status: null,
     ctx: null, source: null, speakToken: 0, pose: 'idle', bubbleTimer: null, poseTimer: null,
-    dragging: false, lastDragPose: null, x: 0, y: 0,
+    lastText: '',
   };
 
   const root = document.createElement('aside');
@@ -43,18 +36,15 @@
   root.setAttribute('aria-label', 'Aero assistant');
   root.innerHTML = `
     <div class="aero-bubble" role="status" aria-live="polite" hidden></div>
-    <button class="aero-mute" type="button" aria-pressed="false" aria-label="Mute Aero's voice">Mute</button>
-    <button class="aero-body" type="button" aria-label="Talk to Aero"><img alt="" class="aero-face" width="${WALKER_W}"></button>`;
+    <button class="aero-body" type="button" aria-label="Aero. Hold to talk, tap to show or hide the last message."><img alt="" class="aero-face" width="${WALKER_W}"></button>`;
   document.body.appendChild(root);
 
   const bubble = root.querySelector('.aero-bubble');
   const body = root.querySelector('.aero-body');
   const face = root.querySelector('.aero-face');
-  const mute = root.querySelector('.aero-mute');
 
   // ---------- pose and bubble ----------
-  function setMood(mood, force) {
-    if (state.dragging && !force) return;   // while he is being carried, only the drag animation shows
+  function setMood(mood) {
     clearTimeout(state.poseTimer);
     state.pose = mood;
     face.src = IMAGES[mood] || IMAGES.idle;
@@ -67,10 +57,10 @@
   // kind: 'aero' (his words), 'you' (what the doctor said), 'note' (status). ms: auto-hide after this long.
   function showBubble(text, kind = 'aero', ms = 0) {
     clearTimeout(state.bubbleTimer);
+    if (kind === 'aero') state.lastText = text;
     bubble.textContent = text;
     bubble.dataset.kind = kind;
     bubble.hidden = !text;
-    fitBubble();
     if (text && ms) state.bubbleTimer = setTimeout(() => { bubble.hidden = true; }, ms);
   }
   const readTime = (text) => Math.min(20000, 5000 + text.length * 60);
@@ -102,7 +92,7 @@
   async function say(text, mood, opening) {
     const token = (state.speakToken += 1);
     const pose = MOOD_POSE[mood] || 'idle';
-    if (state.muted || !state.status || !state.status.voice) {
+    if (!state.status || !state.status.voice) {
       showBubble(text, 'aero', readTime(text));
       holdPose(opening ? 'greeting' : pose, 4000);
       return;
@@ -176,25 +166,39 @@
     onPatientChange();
   }
 
-  // ---------- speech in: tap to start, tap again (or just stop talking) to send ----------
-  const rec = { media: null, stream: null, chunks: [], active: false, starting: false, timers: [], ctx: null };
-  function clearListenTimers() { rec.timers.forEach(clearInterval); rec.timers.forEach(clearTimeout); rec.timers = []; }
+  // ---------- speech in: hold to record, release to send ----------
+  const rec = { media: null, stream: null, chunks: [], active: false, starting: false, releaseEarly: false, maxTimer: null, warm: null };
+
+  // Open the mic the moment he is pressed, so it is ready by the time the press counts as a hold and no words are clipped.
+  function warmMic() {
+    if (rec.warm || rec.active || rec.starting || state.busy || !state.status || !state.status.chat || !state.status.voice) return;
+    rec.warm = navigator.mediaDevices.getUserMedia({ audio: true }).catch(() => null);
+  }
+  function dropWarm() {
+    const warm = rec.warm;
+    rec.warm = null;
+    if (warm) warm.then((stream) => stream && stream.getTracks().forEach((track) => track.stop()));
+  }
 
   async function startListening() {
-    if (rec.active || rec.starting || state.busy) return;
+    if (rec.active || rec.starting || state.busy) { dropWarm(); return; }
     rec.starting = true;
+    rec.releaseEarly = false;
     try {
       stopSpeaking();
-      rec.stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const warm = rec.warm;
+      rec.warm = null;
+      rec.stream = (warm && await warm) || await navigator.mediaDevices.getUserMedia({ audio: true });
       rec.chunks = [];
       rec.media = new MediaRecorder(rec.stream);
       rec.media.ondataavailable = (event) => { if (event.data.size) rec.chunks.push(event.data); };
       rec.media.onstop = finishListening;
       rec.media.start();
       rec.active = true;
+      rec.maxTimer = setTimeout(stopListening, MAX_LISTEN_MS);
       setMood('listening');
       showBubble('Listening…', 'note');
-      watchForSilence();
+      if (rec.releaseEarly) stopListening();   // they let go while the mic was still starting up
     } catch {
       showBubble('I couldn\'t use the microphone. Check that one is connected and allowed.', 'note', 8000);
       releaseStream();
@@ -202,32 +206,11 @@
       rec.starting = false;
     }
   }
-  // Auto-stop once the doctor has spoken and then gone quiet.
-  function watchForSilence() {
-    rec.ctx = new AudioContext();
-    const analyser = rec.ctx.createAnalyser();
-    analyser.fftSize = 1024;
-    rec.ctx.createMediaStreamSource(rec.stream).connect(analyser);
-    const samples = new Float32Array(analyser.fftSize);
-    const startedAt = Date.now();
-    let lastSpeech = 0;
-    rec.timers.push(setInterval(() => {
-      analyser.getFloatTimeDomainData(samples);
-      const rms = Math.sqrt(samples.reduce((sum, v) => sum + v * v, 0) / samples.length);
-      const now = Date.now();
-      if (rms > SPEECH_LEVEL) lastSpeech = now;
-      if (lastSpeech && now - lastSpeech > SILENCE_MS) stopListening();
-      else if (!lastSpeech && now - startedAt > NO_SPEECH_MS) stopListening(true);
-      else if (now - startedAt > MAX_LISTEN_MS) stopListening();
-    }, 100));
-  }
-  function stopListening(nothingHeard) {
-    rec.nothingHeard = Boolean(nothingHeard);
+  function stopListening() {
     if (rec.active && rec.media.state === 'recording') rec.media.stop();
   }
   function releaseStream() {
-    clearListenTimers();
-    if (rec.ctx) { rec.ctx.close().catch(() => {}); rec.ctx = null; }
+    clearTimeout(rec.maxTimer);
     if (rec.stream) rec.stream.getTracks().forEach((track) => track.stop());
     rec.stream = null;
     rec.active = false;
@@ -235,116 +218,70 @@
   async function finishListening() {
     const mimeType = rec.media.mimeType || 'audio/webm';
     const blob = new Blob(rec.chunks, { type: mimeType });
-    const nothing = rec.nothingHeard;
     releaseStream();
-    if (nothing || blob.size < 2000) { setMood('idle'); showBubble('I didn\'t catch anything. Tap me and try again.', 'note', 5000); return; }
+    if (blob.size < MIN_CLIP_BYTES) { setMood('idle'); showBubble('I didn\'t catch that. Hold me a little longer while you talk.', 'note', 5000); return; }
     setMood('thinking');
     showBubble('Hm, let me look…', 'note');
     const heard = await api.listen(new Uint8Array(await blob.arrayBuffer()), mimeType);
     if (!heard.ok) { setMood('idle'); showBubble(heard.error, 'note', 8000); return; }
-    if (!heard.text) { setMood('idle'); showBubble('I didn\'t catch that. Tap me and try again.', 'note', 5000); return; }
+    if (!heard.text) { setMood('idle'); showBubble('I didn\'t catch that. Hold me and try again.', 'note', 5000); return; }
     showBubble(`“${heard.text}”`, 'you');
     await ask(heard.text);
   }
 
-  // ---------- placing and dragging him ----------
-  function place(x, y) {
-    state.x = Math.min(Math.max(MARGIN / 2, x), Math.max(MARGIN / 2, window.innerWidth - WALKER_W - MARGIN / 2));
-    state.y = Math.min(Math.max(MARGIN / 2, y), Math.max(MARGIN / 2, window.innerHeight - WALKER_H - MARGIN / 2));
-    root.style.left = `${state.x}px`;
-    root.style.top = `${state.y}px`;
-    root.classList.toggle('aero--left', state.x < 80);   // keep the mute chip on-screen
-    fitBubble();
-  }
-  // Keep the bubble inside the window: slide it sideways if needed, flip below him if there is no room above.
-  function fitBubble() {
-    if (bubble.hidden) return;
-    root.classList.remove('aero--top');
-    bubble.style.translate = '';
-    let r = bubble.getBoundingClientRect();
-    if (r.top < 6) { root.classList.add('aero--top'); r = bubble.getBoundingClientRect(); }
-    let dx = 0;
-    if (r.left < 6) dx = 6 - r.left;
-    else if (r.right > window.innerWidth - 6) dx = window.innerWidth - 6 - r.right;
-    if (dx) bubble.style.translate = `${dx}px 0`;
-  }
-  const savePosition = () => { try { localStorage.setItem(POS_KEY, JSON.stringify({ x: state.x / window.innerWidth, y: state.y / window.innerHeight })); } catch { /* storage may be unavailable */ } };
-  function initialPosition() {
-    try {
-      const saved = JSON.parse(localStorage.getItem(POS_KEY) || 'null');
-      if (saved && Number.isFinite(saved.x) && Number.isFinite(saved.y)) { place(saved.x * window.innerWidth, saved.y * window.innerHeight); return; }
-    } catch { /* ignore bad saved value */ }
-    place(window.innerWidth - WALKER_W - MARGIN, window.innerHeight - WALKER_H - DOCK_CLEARANCE);
-  }
-  window.addEventListener('resize', () => place(state.x, state.y));
+  // ---------- pressing Aero: tap = show/hide his last message, hold = talk ----------
+  const press = { down: false, timer: null, holding: false };
 
-  const drag = { id: null, startX: 0, startY: 0, offX: 0, offY: 0, lastX: 0, moved: false, suppressClick: false };
-  body.addEventListener('pointerdown', (event) => {
-    if (event.button !== 0 && event.pointerType === 'mouse') return;
-    drag.id = event.pointerId;
-    drag.startX = event.clientX; drag.startY = event.clientY;
-    drag.offX = event.clientX - state.x; drag.offY = event.clientY - state.y;
-    drag.lastX = event.clientX; drag.moved = false;
-    body.setPointerCapture(event.pointerId);
-  });
-  body.addEventListener('pointermove', (event) => {
-    if (event.pointerId !== drag.id) return;
-    if (!drag.moved) {
-      if (Math.hypot(event.clientX - drag.startX, event.clientY - drag.startY) < DRAG_THRESHOLD) return;
-      drag.moved = true;
-      state.dragging = true;
-      root.classList.add('aero-dragging');
-      // A different animation each time he is picked up.
-      const choices = DRAG_POSES.filter((p) => p !== state.lastDragPose);
-      state.lastDragPose = choices[Math.floor(Math.random() * choices.length)];
-      clearTimeout(state.poseTimer);
-      state.pose = 'dragging';
-      face.src = IMAGES[state.lastDragPose];
-      root.dataset.mood = 'dragging';
+  function onPress() {
+    if (press.down) return;
+    press.down = true;
+    press.holding = false;
+    warmMic();
+    press.timer = setTimeout(() => {
+      press.holding = true;
+      if (!state.status || !state.status.chat) { showBubble('I\'m asleep. Add ANTHROPIC_API_KEY (and the Cartesia keys for voice) to the .env file and restart.', 'note', 10000); return; }
+      if (!state.status.voice) { showBubble('Voice is off (no Cartesia key), so I can\'t listen.', 'note', 6000); return; }
+      startListening();
+    }, HOLD_MS);
+  }
+  function onRelease() {
+    if (!press.down) return;
+    press.down = false;
+    clearTimeout(press.timer);
+    if (press.holding) {
+      if (rec.starting) rec.releaseEarly = true; else stopListening();
+      return;
     }
-    place(event.clientX - drag.offX, event.clientY - drag.offY);
-    // Dangle: tilt against the direction of travel, like he is being carried by the head.
-    const tilt = Math.max(-18, Math.min(18, (event.clientX - drag.lastX) * 2));
-    face.style.rotate = `${-tilt}deg`;
-    drag.lastX = event.clientX;
-  });
-  function endDrag(event) {
-    if (event.pointerId !== drag.id) return;
-    drag.id = null;
-    if (!drag.moved) return;
-    state.dragging = false;
-    drag.suppressClick = true;
-    setTimeout(() => { drag.suppressClick = false; }, 0);
-    root.classList.remove('aero-dragging');
-    face.style.rotate = '';
-    savePosition();
-    // Landing: a happy little hop, then back to whatever he was doing.
-    root.classList.add('aero-landed');
-    setTimeout(() => root.classList.remove('aero-landed'), 600);
-    if (rec.active) setMood('listening', true);
-    else holdPose('happy', 1800);
+    dropWarm();       // it was only a tap, so let the mic go again
+    toggleBubble();
   }
-  body.addEventListener('pointerup', endDrag);
-  body.addEventListener('pointercancel', endDrag);
+  function toggleBubble() {
+    clearTimeout(state.bubbleTimer);
+    if (!bubble.hidden) { bubble.hidden = true; return; }
+    const asleep = !state.status || !state.status.chat;
+    const text = state.lastText || (asleep ? 'I\'m asleep. Add the API keys to .env and restart.' : 'Hold me and ask about this patient.');
+    bubble.textContent = text;
+    bubble.dataset.kind = state.lastText ? 'aero' : 'note';
+    bubble.hidden = false;   // stays until the next tap
+  }
 
-  // ---------- tapping Aero ----------
-  body.addEventListener('click', () => {
-    if (drag.suppressClick || !state.status) return;
-    if (rec.active) { stopListening(); return; }
-    if (state.busy) return;
-    if (!state.status.chat) { showBubble('I\'m asleep. Add ANTHROPIC_API_KEY (and the Cartesia keys for voice) to the .env file and restart.', 'note', 10000); return; }
-    if (!state.status.voice) { greet(); return; }   // no mic path without Cartesia: tap replays the update
-    startListening();
+  body.addEventListener('pointerdown', (event) => {
+    if (event.button !== 0) return;
+    body.setPointerCapture(event.pointerId);
+    onPress();
   });
-  mute.addEventListener('click', () => {
-    state.muted = !state.muted;
-    mute.setAttribute('aria-pressed', String(state.muted));
-    mute.textContent = state.muted ? 'Unmute' : 'Mute';
-    if (state.muted) { stopSpeaking(); if (state.pose === 'speaking') setMood('idle'); }
+  body.addEventListener('pointerup', onRelease);
+  body.addEventListener('pointercancel', onRelease);
+  body.addEventListener('contextmenu', (event) => event.preventDefault());
+  // Keyboard: hold Space or Enter on him, same as holding with the mouse.
+  body.addEventListener('keydown', (event) => {
+    if ((event.key === ' ' || event.key === 'Enter') && !event.repeat) { event.preventDefault(); onPress(); }
+  });
+  body.addEventListener('keyup', (event) => {
+    if (event.key === ' ' || event.key === 'Enter') { event.preventDefault(); onRelease(); }
   });
 
   (async function start() {
-    initialPosition();
     setMood('idle');
     const status = await api.status();
     state.status = status.ok ? status : { chat: false, voice: false, stub: true };
@@ -353,7 +290,7 @@
       showBubble('I\'m asleep. Add ANTHROPIC_API_KEY (and the Cartesia keys for voice) to the .env file and restart.', 'note', 12000);
       return;
     }
-    if (!state.status.voice) showBubble('Voice is off (no Cartesia key). Tap me to hear the latest update as text.', 'note', 8000);
+    if (!state.status.voice) showBubble('Voice is off (no Cartesia key). I\'ll still show updates as text.', 'note', 8000);
     // The patient list loads asynchronously; the observer picks up the first selection once it is there.
     watchPatients();
   }());

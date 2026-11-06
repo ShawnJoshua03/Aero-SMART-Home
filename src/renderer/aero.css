@@ -1,27 +1,15 @@
-/* Aero: a small crane you can drag anywhere (starts bottom-right). His words appear in a bubble beside him. Palette variables only. */
-.aero { position: fixed; left: 0; top: 0; width: 84px; z-index: 50; pointer-events: none; font-family: inherit; touch-action: none; }
-.aero-body { display: block; padding: 0; border: 0; background: transparent; cursor: grab; pointer-events: auto; border-radius: .75rem; line-height: 0; touch-action: none; }
-.aero-dragging .aero-body { cursor: grabbing; }
-.aero-body:focus-visible, .aero-mute:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
-.aero-face { display: block; width: 84px; height: auto; user-select: none; -webkit-user-drag: none; transform-origin: 50% 8%; transition: rotate .35s cubic-bezier(.3, 1.6, .5, 1), scale .2s; }
-.aero-dragging .aero-face { scale: 1.12; transition: rotate .08s linear, scale .2s; filter: drop-shadow(0 .6rem .5rem color-mix(in srgb, var(--deep) 30%, transparent)); }
-.aero-landed .aero-face { animation: aero-land .6s ease-out; }
+/* Aero: fixed at the bottom-right, above the page dock. Hold him to talk, tap to show or hide his last message. Palette variables only. */
+.aero { position: fixed; right: 12px; bottom: 96px; width: 84px; z-index: 50; pointer-events: none; font-family: inherit; }
+.aero-body { display: block; padding: 0; border: 0; background: transparent; cursor: pointer; pointer-events: auto; border-radius: .75rem; line-height: 0; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+.aero-body:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+.aero-face { display: block; width: 84px; height: auto; user-select: none; -webkit-user-drag: none; }
 .aero[data-mood="listening"] .aero-face { animation: aero-bob .9s ease-in-out infinite; }
 @keyframes aero-bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -3px; } }
-@keyframes aero-land { 0% { translate: 0 -14px; } 35% { translate: 0 0; scale: 1.1 .88; } 60% { translate: 0 -6px; scale: 1; } 100% { translate: 0 0; } }
-@media (prefers-reduced-motion: reduce) { .aero-face, .aero-landed .aero-face, .aero[data-mood="listening"] .aero-face { animation: none; transition: none; } }
+@media (prefers-reduced-motion: reduce) { .aero[data-mood="listening"] .aero-face { animation: none; } }
 
-/* ---- the bubble: above him by default; script slides it sideways or flips it below to stay on screen ---- */
+/* ---- the bubble above him, right-aligned to his edge and never wider than the window ---- */
 .aero-bubble { position: absolute; bottom: calc(100% + .4rem); right: 0; width: max-content; max-width: min(19rem, calc(100vw - 24px)); max-height: 40vh; overflow-y: auto; margin: 0; padding: .6rem .85rem; border-radius: 1rem 1rem .25rem 1rem; background: var(--fill-teal); color: var(--white); font-size: .95rem; line-height: 1.4; box-shadow: 0 .25rem 1rem color-mix(in srgb, var(--deep) 25%, transparent); pointer-events: auto; }
-.aero--top .aero-bubble { bottom: auto; top: calc(100% + .4rem); }
 .aero-bubble[hidden] { display: none; }
 .aero-bubble[data-kind="note"] { background: var(--card); color: var(--ink); font-size: .85rem; border: 1px solid var(--line); }
 .aero-bubble[data-kind="you"] { background: var(--fill-blue); font-style: italic; }
 .aero[data-mood="alert"] .aero-bubble[data-kind="aero"] { background: var(--fill-plum); }
-.aero-dragging .aero-bubble { opacity: .35; }
-
-/* ---- small mute chip, beside him ---- */
-.aero-mute { position: absolute; bottom: 0; right: calc(100% + .25rem); border: 1px solid var(--line); background: var(--ground); color: var(--muted); border-radius: .6rem; padding: .1rem .5rem; font-size: .7rem; cursor: pointer; pointer-events: auto; opacity: .7; }
-.aero--left .aero-mute { right: auto; left: calc(100% + .25rem); }
-.aero-mute:hover, .aero-mute:focus-visible { opacity: 1; }
-.aero-dragging .aero-mute { display: none; }

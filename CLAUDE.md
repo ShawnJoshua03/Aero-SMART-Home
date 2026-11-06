@@ -35,6 +35,9 @@ Situations where the current view falls short:
 - Digital Health Hackathon 2026, Innovation Ventures, Cincinnati Children's Hospital Medical Center.
 - Principal Investigators: Kevin Hommel, Matt Wortman, Rachel Ramsey.
 
+
+## App Design Choices
+
 #### Look and feel 
 - Heavy UI inspiration from the How We Feel app.
 - UI built in Electron.js (voice interface considered and dropped).

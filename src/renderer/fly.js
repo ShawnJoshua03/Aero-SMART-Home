@@ -41,6 +41,9 @@
     } finally { loading = false; }
   }
 
+  // Aero can add notes to an appointment; drop the cached copy so the page shows them.
+  window.addEventListener('appointments-changed', () => { doc = null; render(); });
+
   // ---- page ----
   function render() {
     const { data, patientId } = window.Canvas.context();

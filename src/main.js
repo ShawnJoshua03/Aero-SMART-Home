@@ -54,7 +54,10 @@ app.whenReady().then(async () => {
   const allowMic = (webContents, permission) => permission === 'media' && webContents.getURL() === pageURL;
   session.defaultSession.setPermissionRequestHandler((webContents, permission, callback) => callback(allowMic(webContents, permission)));
   session.defaultSession.setPermissionCheckHandler((webContents, permission) => Boolean(webContents) && allowMic(webContents, permission));
-  registerAero(ipcMain, trustedSender, { source: createRealSource(readData) });
+  registerAero(ipcMain, trustedSender, {
+    source: createRealSource(readData),
+    notes: { add: (patientId, text) => appointments.appendToLatestPast(patientId, text) },
+  });
   createWindow();
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();

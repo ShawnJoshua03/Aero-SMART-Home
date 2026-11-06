@@ -20,10 +20,11 @@ const EMOTIONS = { happy: 'happy', calm: 'calm', curious: 'curious', concerned: 
 const MAX_AUDIO_BYTES = 10 * 1024 * 1024;
 const clean =(value, max) => (typeof value === 'string' ? value.slice(0, max) : '');
 
-function registerAero(ipcMain, trustedSender, { source = stubSource, root = path.join(__dirname, '..', '..') } = {}) {
+// notes (optional): { add(patientId, text) } lets Aero save visit notes. Without it Aero is read-only.
+function registerAero(ipcMain, trustedSender, { source = stubSource, notes, root = path.join(__dirname, '..', '..') } = {}) {
   loadEnvFile(path.join(root, '.env'));
   const aero = createAero({
-    tools: createTools(source),
+    tools: createTools(source, { notes }),
     apiKey: process.env.ANTHROPIC_API_KEY,
     describePatient: async (id) => {
       const patient = (await source.listPatients()).find((p) => p.id === id);

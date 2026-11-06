@@ -138,6 +138,8 @@
     const reply = await run(() => api.ask(state.patientId, state.history, question));
     if (reply) {
       state.history.push({ role: 'user', content: question }, { role: 'assistant', content: reply.text });
+      // A note was saved: tell the Fly page so it reloads the appointment instead of showing a stale copy.
+      if (reply.changed && reply.changed.includes('appointments')) window.dispatchEvent(new CustomEvent('appointments-changed'));
       await say(reply.text, reply.mood, false);
     }
   }

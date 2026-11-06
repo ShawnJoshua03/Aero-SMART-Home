@@ -273,7 +273,7 @@ Workers (Copilot, Codex) were run through Orca (stablyai). CLI: `C:\Users\shawn\
 
 Aero is the mascot, built as a talking assistant. This reverses the earlier "voice interface dropped" note: voice is back, for Aero only.
 
-- **What it does:** a small crane fixed at the bottom-right that you can drag anywhere. Tap him and talk; he answers aloud and in a text bubble above him. He greets with updates and anomalies when a patient is selected.
+- **What it does:** a small crane fixed at the bottom-right, above the page dock. Press and hold him to talk, let go and he answers aloud and in a text bubble above him. A quick tap shows or hides his last message. He greets with updates and anomalies when a patient is selected. There is no mute button and he cannot be dragged.
 - **How:** Cartesia handles speech (sonic-3 text-to-speech, ink-whisper speech-to-text). `claude-haiku-5-5` does the reasoning and calls tools over the patient data. Both calls run in the main process only; the renderer never sees keys.
 - **Keys:** copy `.env.example` to `.env` (git-ignored) and fill in `ANTHROPIC_API_KEY`, `CARTESIA_API_KEY`, `CARTESIA_VOICE_ID`. Without them Aero shows as asleep or text-only.
 - **Files:**
@@ -283,6 +283,6 @@ Aero is the mascot, built as a talking assistant. This reverses the earlier "voi
   - `src/aero/realSource.js`: answers those lookups from the team data (generic by question type; anomalies are simple per-patient statistics, not a trained model).
   - `src/aero/dataSource.js`: the interface plus a placeholder source for tests.
   - `src/aero/ipc.js`: IPC handlers and `.env` loading.
-  - `src/renderer/aero.js` and `aero.css`: the character, bubble, tap-to-talk and drag. Poses are chosen by SVG filename in `src/renderer/assets/aero/`.
+  - `src/renderer/aero.js` and `aero.css`: the character, bubble, hold-to-talk and tap. Poses are chosen by SVG filename in `src/renderer/assets/aero/`.
   - `tests/aero.test.js`: unit tests with mocked network calls.
 - **Known gaps:** Cartesia emotion names are best guesses (the API accepts any name). Replies wait a few seconds; streaming the reply into the voice would help. The patient is read from the page's custom picker (`#patient-menu`), so changes to that markup will break Aero's patient detection.

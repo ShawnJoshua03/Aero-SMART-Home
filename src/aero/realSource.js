@@ -14,6 +14,8 @@ const sd = (xs) => {
 };
 const round = (n) => (n === null ? null : Math.round(n * 10) / 10);
 const norm = (s) => String(s).toLowerCase().replace(/[_-]+/g, ' ').trim();
+// Spell out what the ends of a slider mean, so a rise or fall can be read as better or worse.
+const scaleText = (q) => `scale ${q.min ?? 0}${q.minLabel ? ` = "${q.minLabel}"` : ''} to ${q.max ?? 10}${q.maxLabel ? ` = "${q.maxLabel}"` : ''}`;
 const isYesNo = (q) => q.type === 'radio' && q.options?.length === 2
   && q.options.map((o) => o.toLowerCase()).sort().join() === 'no,yes';
 
@@ -70,7 +72,7 @@ function createRealSource(getData) {
           if (Math.abs(delta) >= range * 0.1) {
             out.push({
               title: `${q.id.replace(/_/g, ' ')} ${delta > 0 ? 'up' : 'down'}`,
-              detail: `Average ${round(a)} this week versus ${round(b)} the week before (scale ${q.min ?? 0} to ${q.max ?? 10}).`,
+              detail: `Average ${round(a)} this week versus ${round(b)} the week before (${scaleText(q)}; question: "${q.prompt}").`,
               severity: Math.abs(delta) >= range * 0.2 ? 'watch' : 'info',
             });
           }
@@ -131,7 +133,7 @@ function createRealSource(getData) {
       const sparse = entries.length < MIN_FOR_BASELINE;
       if (q.type === 'slider') {
         const points = series(entries, q).slice(-30);
-        return { metric: q.id, prompt: q.prompt, unit: `scale ${q.min ?? 0} to ${q.max ?? 10}`, points, average: round(mean(points.map((p) => p.value))), sparse };
+        return { metric: q.id, prompt: q.prompt, unit: scaleText(q), points, average: round(mean(points.map((p) => p.value))), sparse };
       }
       const points = entries.slice(-30).map((e) => ({ date: e.date, value: e.answers[q.id] ?? null }));
       return { metric: q.id, prompt: q.prompt, unit: q.type, points, sparse };

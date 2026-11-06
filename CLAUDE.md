@@ -124,6 +124,8 @@ The bundled `data/preferences.json` seeds clinician settings on first run. The w
 
 Use these as the base brand colors. Define any new color as a CSS variable in `styles.css`, not as a hard-coded value.
 
+Lead design update: use large filled palette surfaces, not thin accents. Widget cards cycle plum, blue, green, and teal; tray and header chips use filled blobs/pills. Flat organic shapes decorate the headline and page edges. White text on card fills has contrast ratios of approximately 9.89, 4.97, 4.62, and 9.92 respectively: blue/green text-bearing surfaces mix 82% brand color with the existing dark ground. Decorative shapes retain the original palette. Drop-zone fills use color-mix() of palette variables. Decorations never receive pointer events.
+
 ## Repo contents
 
 ```
@@ -140,7 +142,7 @@ src/
   preferences.js     validated, serialized, atomic saves to userData/preferences.json
   renderer/
     index.html       local scripts/styles, CSP default-src 'self', patient selector and canvas shell
-    styles.css       dark ground, serif headings, palette variables, responsive S/M/L grid
+    styles.css       filled palette cards/blobs/pills, contrast-safe white text, serif headings, S/M/L grid
     renderer.js      starts canvas and reports startup failures
     canvas.js        widget tray, HTML5 drag/reorder, sizes, remove, patient changes, persistence
     widgets/

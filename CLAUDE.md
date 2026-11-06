@@ -71,9 +71,9 @@ Template for each entry:
 - **Why:** the reason they gave.
 - **Where it applies:** flashcard view, full data view, or both.
 
-In the app, a clinician's settings are stored in `data/preferences.json`. The file is the machine-readable version of this section.
+The bundled `data/preferences.json` seeds clinician settings on first run. The writable file lives at `app.getPath('userData')/preferences.json`; the renderer accesses it only through the preload bridge.
 - It holds the settings the clinician controls, such as which charts and cards appear, their order and layout, the default time range, and which flashcards are shown first.
-- Both views read it on startup and write it back when the clinician rearranges something. This makes drag-and-drop layouts persist.
+- The full view restores it on startup and saves changes when the clinician rearranges cards or changes the patient. Future views can use the same bridge.
 - Keep one entry per clinician, keyed by a clinician id, with an optional per-specialty default.
 - For the demo it is a plain JSON file. The main process reads and writes it and exposes it to the renderer through `window.api`. The renderer never touches the file system.
 
@@ -128,22 +128,38 @@ Use these as the base brand colors. Define any new color as a CSS variable in `s
 
 ```
 CLAUDE.md            project guide (this file)
-README.md            stub, title only
-package.json         scripts: `npm start` runs `electron .`; entry point `src/main.js`
+DESIGN-BRIEF.md      visual direction and constraints
+README.md            setup, verification, and widget integration pointer
+WIDGET-API.md         exact widget, data, and preference contracts for other workers
+package.json         npm start, npm test, npm run verify:electron
 package-lock.json    locked dependency versions
 .gitignore           node_modules/, dist/, out/
 src/
-  main.js            main process: creates a 1280x800 BrowserWindow, loads renderer/index.html
-  preload.js         contextBridge exposes `window.api.versions` to the renderer
+  main.js            isolated BrowserWindow; validated getData/getPrefs/savePrefs IPC handlers
+  preload.js         exposes only window.api.getData(), getPrefs(), savePrefs(layout)
+  preferences.js     validated, serialized, atomic saves to userData/preferences.json
   renderer/
-    index.html       page shell, CSP `default-src 'self'`, header and `#app` mount point
-    styles.css       CSS variables for the four palette colors, basic header and main styling
-    renderer.js      placeholder: prints Electron and Chrome versions into `#app`
+    index.html       local scripts/styles, CSP default-src 'self', patient selector and canvas shell
+    styles.css       dark ground, serif headings, palette variables, responsive S/M/L grid
+    renderer.js      starts canvas and reports startup failures
+    canvas.js        widget tray, HTML5 drag/reorder, sizes, remove, patient changes, persistence
+    widgets/
+      registry.js    window.Widgets register/list/get extension API
+      hello.js       placeholder patient check-in widget, all three sizes
+data/
+  survey.json        six-question demo survey plus five body regions
+  responses.json     six invented patients, 245 entries over 42 days, per-patient baselines
+  preferences.json   first-run layout for clinician-demo
+tests/
+  foundation.test.js dataset signals, registry contract, preference validation/concurrency
+scripts/
+  verify-electron.js      launches two disposable-profile Electron test processes
+  verify-electron-app.js  bridge, HTML5 events, canvas controls, and restart smoke checks
 ```
 
 ## Architecture and tech stack
 
-- Electron (dev dependency), plain JavaScript. No bundler, no framework, no tests yet.
+- Electron (dev dependency), plain JavaScript. No bundler, framework, CDN, or runtime dependencies. Tests use Node's built-in runner and Electron itself.
 - Main process (`src/main.js`) owns windows and anything that needs Node or the OS.
 - Preload (`src/preload.js`) is the only bridge. Expose narrow, named functions on `window.api`. Never expose `ipcRenderer` or Node modules directly.
 - Renderer (`src/renderer/`) is the UI. It has no Node access.
@@ -152,15 +168,16 @@ src/
 
 ## Status and next steps
 
-- Current state: bare scaffold. No clinician view, researcher view, mock data, or tests exist yet.
+- Current state: Task 1 foundation implemented. Mock survey data, baselines, isolated IPC, persistent clinician canvas, patient selector, widget registry, and hello widget exist. See WIDGET-API.md before adding widgets.
+- Verification: npm test and npm run verify:electron pass. npm start opened the desktop app; Add, S sizing, and button reordering were observed. HTML5 drag handlers, S/M/L, removal, patient switching, and persistence across separate processes pass in Electron. Native pointer drag automation did not trigger a drop; a manual pointer-drag check remains outstanding.
 - Likely next steps:
-  1. Create the demo dataset (see "Demo dataset" below).
-  2. Create `data/preferences.json` with a default layout for one demo clinician, and wire load and save through the main process and preload.
+  1. Complete the manual native pointer-drag smoke check.
+  2. Build additional widgets against the registry and data contract in WIDGET-API.md.
   3. Build the flashcard view (what changed, what matters now) from the demo data.
   4. Build the full data view with trend charts, the body diagram, and a drag-and-drop layout saved to `preferences.json`.
   5. Add the researcher view over the same mock data.
   6. Add mascot and live-update motion.
-- Decide early whether to introduce a framework or chart library. Plain JS is fine for the first screens but will get heavy with drag-and-drop and live charts.
+- Keep extensions plain JavaScript and local assets; no framework, bundler, or CDN.
 
 ## Demo dataset
 

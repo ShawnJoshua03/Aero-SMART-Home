@@ -4,7 +4,9 @@
   "description": "SMART@Home clinician data view",
   "main": "src/main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "test": "node --test",
+    "verify:electron": "node scripts/verify-electron.js"
   },
   "license": "UNLICENSED",
   "private": true,

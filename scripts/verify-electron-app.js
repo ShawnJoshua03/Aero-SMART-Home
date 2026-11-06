@@ -38,7 +38,7 @@ async function verifyRenderer(stage) {
   const cards = () => [...document.querySelectorAll('.widget-card')];
   const saved = () => until(() => document.getElementById('save-status').textContent === 'Layout saved');
   await until(() => !document.getElementById('patient-button').disabled);
-  check(Object.keys(window.api).sort().join(',') === 'getData,getPrefs,savePrefs', 'Bridge surface must be exact');
+  check(Object.keys(window.api).sort().join(',') === 'aero,getData,getPrefs,savePrefs', 'Bridge surface must be exact');
   check(typeof window.require === 'undefined', 'Renderer must have no Node require');
   check(document.querySelector('[http-equiv="Content-Security-Policy"]').content === "default-src 'self'", 'CSP changed');
   const data = await window.api.getData();
@@ -74,6 +74,8 @@ async function verifyRenderer(stage) {
     await until(() => !document.getElementById('page-' + name).hidden && ['fly', 'anomalies', 'data'].filter(other => other !== name).every(other => document.getElementById('page-' + other).hidden));
     check(dockItems.find(item => item.dataset.page === name).getAttribute('aria-current') === 'page', 'Dock marks the current page');
   }
+  check(document.querySelectorAll('#page-anomalies svg.sw-chart').length === 1 && document.querySelectorAll('#page-anomalies .sw-band').length > 0, 'Anomalies page needs a chart with highlighted bands');
+  check([...document.querySelectorAll('#page-anomalies button')].some(b => b.textContent === 'Recalibrate'), 'Recalibrate button expected');
   drag(document.querySelector('.palette-item'), document.querySelector('.drop-zone'));
   check(cards().length === 10, 'Tray drop must add a card');
   const addedId = cards()[9].dataset.instanceId;

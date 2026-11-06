@@ -200,9 +200,11 @@
     drop.className = 'drop-zone';
     drop.textContent = layout.widgets.length ? '+ Drop another widget here' : 'Your view starts here. Drop a widget or choose Add from the tray.';
     grid.append(drop);
+    window.dispatchEvent(new Event('canvas:rendered'));
   }
 
   window.Canvas = Object.freeze({
+    context: () => ({ data, patientId: layout?.patientId }),
     async start() {
       const [loadedData, prefs] = await Promise.all([window.api.getData(), window.api.getPrefs()]);
       data = loadedData;

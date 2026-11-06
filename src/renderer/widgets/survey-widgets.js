@@ -104,6 +104,10 @@
       var t = tMin + (tMax - tMin) * i / steps;
       svg.append(s('text', { x: X(t), y: H - 10, class: 'sw-tick', 'text-anchor': i === 0 ? 'start' : i === steps ? 'end' : 'middle' }, shortDate(t)));
     }
+    (opts.bands || []).forEach(function (b) {
+      var x0 = X(b.t0), x1 = X(b.t1);
+      svg.append(s('rect', { x: x0, y: T, width: Math.max(6, x1 - x0), height: H - B - T, rx: 3, class: 'sw-band' }));
+    });
     if (opts.threshold != null && opts.threshold < yMax) {
       svg.append(s('line', { x1: L, x2: W - R, y1: Y(opts.threshold), y2: Y(opts.threshold), class: 'sw-threshold' }));
     }
@@ -114,7 +118,7 @@
       svg.append(line);
     });
     (opts.marks || []).forEach(function (m) {
-      var c = s('circle', { cx: X(m.t), cy: Y(m.y), r: 4.5, class: 'sw-mark' });
+      var c = s('circle', { cx: X(m.t), cy: Y(m.y), r: m.hot ? 5.5 : 4.5, class: 'sw-mark' + (m.hot ? ' sw-mark-hot' : '') });
       c.append(s('title', {}, m.title));
       svg.append(c);
     });
@@ -275,6 +279,47 @@
         }
       }
       draw();
+    },
+  });
+
+  // ---- Anomalies: breathlessness chart with flagged episodes highlighted ----
+  function episodes(days) { // merge consecutive unusual days into episodes
+    var out = [];
+    days.forEach(function (r) {
+      var last = out[out.length - 1];
+      if (last && r.t - last.end <= 1.5 * DAY) {
+        last.end = r.t; last.count += 1;
+        if (r.a[Q.breathless] > last.peak) { last.peak = r.a[Q.breathless]; last.peakT = r.t; }
+      } else out.push({ start: r.t, end: r.t, count: 1, peak: r.a[Q.breathless], peakT: r.t });
+    });
+    return out;
+  }
+  window.Widgets.register({
+    id: 'anomaly-breathlessness', title: 'Breathlessness anomalies', sizes: ['M', 'L'],
+    render: function (el, ctx) {
+      var rs = rows(ctx).filter(function (r) { return num(r.a[Q.breathless]) != null; });
+      var root = shell(el, 'Breathlessness anomalies', 'Days well above this patient\'s own baseline (mean + 2 SD)');
+      if (!rs.length) return empty(root);
+      var an = anomalies(rs, Q.breathless);
+      var eps = episodes(an.days);
+      lineChart(root, {
+        aria: 'Daily breathlessness with anomalous episodes highlighted', yMax: 10, threshold: an.cut,
+        bands: eps.map(function (e) { return { t0: e.start - 0.5 * DAY, t1: e.end + 0.5 * DAY }; }),
+        series: [{ name: 'Daily score', cls: 'sw-main', points: rs.map(function (r) { return { t: r.t, y: r.a[Q.breathless] }; }) }],
+        marks: an.days.map(function (r) { return { t: r.t, y: r.a[Q.breathless], hot: true, title: shortDate(r.t) + ': ' + r.a[Q.breathless] + ' (anomaly)' }; }),
+        legend: [{ name: 'Daily breathlessness', cls: 'sw-main' }, { name: 'Anomaly', cls: 'sw-dot' }, { name: 'Threshold ' + fmt(an.cut), cls: 'sw-soft' }],
+      });
+      var lastT = rs[rs.length - 1].t;
+      var list = h('ul', 'sw-episodes');
+      eps.slice().reverse().forEach(function (e) {
+        var ago = Math.round((lastT - e.end) / DAY);
+        var li = h('li', 'sw-episode');
+        li.append(h('strong', null, e.start === e.end ? shortDate(e.start) : shortDate(e.start) + ' – ' + shortDate(e.end)),
+          h('span', null, 'peak ' + e.peak + ' · ' + e.count + ' day' + (e.count === 1 ? '' : 's') + ' · ' + (ago === 0 ? 'latest check-in' : ago + ' days before latest check-in')));
+        list.append(li);
+      });
+      if (!eps.length) list.append(h('li', 'sw-episode', 'No anomalies flagged.'));
+      root.append(list);
     },
   });
 

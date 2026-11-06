@@ -32,9 +32,6 @@ button:disabled { opacity: .35; cursor: default; }
 :focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; }
 .view-pill { background: var(--plum); color: var(--white); border-radius: 28px 22px 30px 18px; padding: 12px 20px; }
 main { position: relative; isolation: isolate; overflow: clip; padding: 38px 36px 70px; max-width: 1700px; margin: auto; }
-main::before, main::after { content: ''; position: absolute; pointer-events: none; z-index: -1; }
-main::before { width: 240px; height: 240px; right: -100px; bottom: -100px; background: var(--blue); border-radius: 44% 56% 30% 70% / 60% 36% 64% 40%; transform: rotate(-18deg); }
-main::after { width: 140px; height: 170px; left: -85px; bottom: 12px; background: var(--green); border-radius: 48% 52% 62% 38%; transform: rotate(24deg); }
 h1, h2, h3 { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; }
 h1 { font-size: clamp(32px, 4vw, 48px); line-height: 1.08; margin: 10px 0; letter-spacing: -1.3px; }
 h2 { font-size: 24px; margin: 0 0 12px; }
@@ -203,3 +200,17 @@ main { padding-bottom: 120px; }
 .app-header, .dock { color: var(--deep); }
 .patient-text strong, .patient-period, .dock-item:not(.is-active) { color: var(--deep); text-shadow: 0 0 8px color-mix(in srgb, white 70%, transparent); }
 .dock-item.is-active { text-shadow: none; }
+
+/* Anomalies page */
+.anomaly-head h2 { margin: 0 0 4px; }
+.anomaly-head p { margin: 0 0 18px; }
+.anomaly-list { display: grid; gap: 16px; }
+.anomaly-card { position: relative; border-radius: 30px 24px 38px 26px; background: var(--fill-plum); color: var(--white); overflow: hidden; }
+.anomaly-card.fill-blue { background: var(--fill-blue); }
+.anomaly-card.fill-green { background: var(--fill-green); }
+.anomaly-card.fill-teal { background: var(--fill-teal); }
+.anomaly-body { padding: 20px 22px 24px; --widget-fill: var(--fill-plum); }
+.recalibrate { position: absolute; top: 14px; right: 16px; z-index: 1; padding: 4px 12px; font-size: 12px; color: var(--white); background: color-mix(in srgb, white 18%, transparent); border: 1px solid color-mix(in srgb, white 45%, transparent); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.recalibrate:hover { background: color-mix(in srgb, white 30%, transparent); border-color: var(--white); }
+.recalibrate:active { transform: scale(.96); }
+.anomaly-card .sw-eyebrow { padding-right: 110px; }

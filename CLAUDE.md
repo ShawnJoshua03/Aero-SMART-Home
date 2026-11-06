@@ -182,7 +182,7 @@ scripts/
   1. Complete the manual native pointer-drag smoke check.
   2. Build additional widgets against the registry and data contract in WIDGET-API.md.
   3. Build the flashcard view (what changed, what matters now) from the demo data.
-  4. Build the full data view with trend charts, the body diagram, and a drag-and-drop layout saved to `preferences.json`.
+  4. Integrate the body-diagram and lungs-gauge widgets into the full data view with trend charts and a drag-and-drop layout saved to `preferences.json`.
   5. Add the researcher view over the same mock data.
   6. Add mascot and live-update motion.
 - Keep extensions plain JavaScript and local assets; no framework, bundler, or CDN.

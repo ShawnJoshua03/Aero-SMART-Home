@@ -1,25 +1,54 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
+const fs = require('node:fs/promises');
+const { pathToFileURL } = require('node:url');
+const { createPreferenceStore } = require('./preferences');
+
+const dataDirectory = path.join(__dirname, '..', 'data');
+const pagePath = path.join(__dirname, 'renderer', 'index.html');
+const pageURL = pathToFileURL(pagePath).href;
+
+function trustedSender(event) {
+  if (event.senderFrame !== event.sender.mainFrame || event.senderFrame.url !== pageURL) {
+    throw new Error('Untrusted IPC sender');
+  }
+}
 
 function createWindow() {
   const win = new BrowserWindow({
     width: 1280,
     height: 800,
+    minWidth: 760,
+    minHeight: 600,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
       nodeIntegration: false,
+      sandbox: true,
     },
   });
-  win.loadFile(path.join(__dirname, 'renderer', 'index.html'));
+  win.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
+  win.webContents.on('will-navigate', (event) => event.preventDefault());
+  win.loadFile(pagePath);
 }
 
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
+  const readData = async () => {
+    const [survey, responses] = await Promise.all(['survey', 'responses'].map(async (name) =>
+      JSON.parse(await fs.readFile(path.join(dataDirectory, `${name}.json`), 'utf8'))));
+    return { survey, ...responses };
+  };
+  const store = createPreferenceStore(path.join(app.getPath('userData'), 'preferences.json'),
+    path.join(dataDirectory, 'preferences.json'));
+  await store.initialize();
+  ipcMain.handle('getData', (event) => { trustedSender(event); return readData(); });
+  ipcMain.handle('getPrefs', (event) => { trustedSender(event); return store.read(); });
+  ipcMain.handle('savePrefs', (event, layout) => { trustedSender(event); return store.save(layout); });
   createWindow();
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
-});
+}).catch((error) => { console.error('Unable to start application:', error); app.quit(); });
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();

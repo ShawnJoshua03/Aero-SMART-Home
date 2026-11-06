@@ -1,6 +1,7 @@
-const { contextBridge } = require('electron');
+const { contextBridge, ipcRenderer } = require('electron');
 
-// Expose safe APIs to the renderer here.
 contextBridge.exposeInMainWorld('api', {
-  versions: process.versions,
+  getData: () => ipcRenderer.invoke('getData'),
+  getPrefs: () => ipcRenderer.invoke('getPrefs'),
+  savePrefs: (layout) => ipcRenderer.invoke('savePrefs', layout),
 });

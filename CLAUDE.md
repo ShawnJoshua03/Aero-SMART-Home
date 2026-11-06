@@ -35,6 +35,9 @@ Situations where the current view falls short:
 - Digital Health Hackathon 2026, Innovation Ventures, Cincinnati Children's Hospital Medical Center.
 - Principal Investigators: Kevin Hommel, Matt Wortman, Rachel Ramsey.
 
+### Tracker 
+- Doctors make apps with drag and drop.
+- Build trackers for patient groups, not only individuals.
 
 ## App Design Choices
 

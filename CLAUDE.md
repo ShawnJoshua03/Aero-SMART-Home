@@ -122,7 +122,7 @@ The bundled `data/preferences.json` seeds clinician settings on first run. The w
 | `#619a3c` | `--green` |
 | `#244946` | `--teal` |
 
-Use these as the base brand colors. Define any new color as a CSS variable in `styles.css`, not as a hard-coded value.
+Use these as the base brand colors. The canvas gives each widget a solid fill from this palette and sets `--widget-palette` to that color token. Widget charts use white and `color-mix()` tints or shades of `--widget-palette`; do not add new hex colors. Keep widget-specific color variables in that widget's CSS file.
 
 Lead design update: use large filled palette surfaces, not thin accents. Widget cards cycle plum, blue, green, and teal; tray and header chips use filled blobs/pills. Flat organic shapes decorate the headline and page edges. White text on card fills has contrast ratios of approximately 9.89, 4.97, 4.62, and 9.92 respectively: blue/green text-bearing surfaces mix 82% brand color with the existing dark ground. Decorative shapes retain the original palette. Drop-zone fills use color-mix() of palette variables. Decorations never receive pointer events.
 
@@ -145,9 +145,15 @@ src/
     styles.css       filled palette cards/blobs/pills, contrast-safe white text, serif headings, S/M/L grid
     renderer.js      starts canvas and reports startup failures
     canvas.js        widget tray, HTML5 drag/reorder, sizes, remove, patient changes, persistence
+    lib/
+      svg.js         shared SVG scale, path, and tick helpers
     widgets/
       registry.js    window.Widgets register/list/get extension API
       hello.js       placeholder patient check-in widget, all three sizes
+      trend-line.js/.css  patient trend chart with calibration band and mock live updates
+      kpi-tiles.js/.css   weekly indicators with deltas, sparklines, flip details
+      scatter.js/.css     metric comparison with week colours and selection
+      _dev/               standalone mock-data previews per widget group
 data/
   survey.json        six-question demo survey plus five body regions
   responses.json     six invented patients, 245 entries over 42 days, per-patient baselines

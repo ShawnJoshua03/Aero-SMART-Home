@@ -9,7 +9,7 @@ Source: howwefeel.org (observed). Nonprofit app by Yale Center for Emotional Int
 - Three-beat copy: check in, spot patterns over time, learn what helps now. Maps directly to our clinician flow.
 
 ## Apply to SMART@Home
-- Palette (from CLAUDE.md): #772152 plum, #0091b7 teal-blue, #619a3c green, #244946 deep teal. Use dark ground (#0b0f0f or #244946 darkened), palette colours as shape fills.
+- Palette (from CLAUDE.md): #772152 plum, #0091b7 teal-blue, #619a3c green, #244946 deep teal. The canvas assigns each widget a solid fill from this palette and exposes it as `--widget-palette`. Use white and `color-mix()` tints or shades of that token for chart marks, filled areas and text; do not add new hex colors. The outer application may keep its dark ground.
 - Type: serif display for headings (Georgia/Fraunces-like fallback stack), system sans for data.
 - Mascot: one blob character whose shape/colour reflects patient status (steady / drifting / needs attention). Idle animation (breathing, blink); reacts when new data arrives.
 - Live feel: values tick, sparklines draw in, cards ease in; mock data stream every few seconds.

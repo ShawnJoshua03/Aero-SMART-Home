@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SMART@Home chart widget preview</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="showcase.css" />
+  <link rel="stylesheet" href="../trend-line.css" />
+  <link rel="stylesheet" href="../kpi-tiles.css" />
+  <link rel="stylesheet" href="../scatter.css" />
+</head>
+<body>
+  <main>
+    <h1>Chart widgets</h1>
+    <p class="dev-intro">Standalone mock data · all four palette fills · no patient data</p>
+    <p class="demo-selection" id="selection" aria-live="polite">Select a scatter point to focus a day.</p>
+    <div id="showcase"></div>
+  </main>
+  <script src="../../lib/svg.js"></script>
+  <script src="registry-stub.js"></script>
+  <script src="../trend-line.js"></script>
+  <script src="../kpi-tiles.js"></script>
+  <script src="../scatter.js"></script>
+  <script src="showcase.js"></script>
+</body>
+</html>

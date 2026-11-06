@@ -1,0 +1,157 @@
+.scatter-widget {
+  --scatter-palette: var(--widget-palette, var(--teal));
+  --scatter-surface: color-mix(in srgb, var(--scatter-palette) 58%, black);
+  --scatter-plot: color-mix(in srgb, var(--scatter-palette) 76%, black);
+  --scatter-muted: color-mix(in srgb, white 84%, var(--scatter-palette));
+  --scatter-grid: color-mix(in srgb, white 32%, var(--scatter-palette));
+  --scatter-week-0: white;
+  --scatter-week-1: color-mix(in srgb, white 82%, var(--scatter-palette));
+  --scatter-week-2: color-mix(in srgb, white 64%, var(--scatter-palette));
+  --scatter-week-3: color-mix(in srgb, white 46%, var(--scatter-palette));
+  color: white;
+  font: 14px/1.45 system-ui, sans-serif;
+}
+
+.scatter-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 12px;
+  background: var(--scatter-surface);
+}
+
+.scatter-title {
+  flex: 1 1 100%;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.scatter-control {
+  min-height: 36px;
+  max-width: 100%;
+  padding: 6px 28px 6px 9px;
+  border: 2px solid var(--scatter-grid);
+  border-radius: 6px;
+  color: white;
+  background: var(--scatter-surface);
+  font: inherit;
+}
+
+.scatter-trend-toggle {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  accent-color: white;
+  cursor: pointer;
+}
+
+.scatter-control:focus-visible,
+.scatter-trend-toggle:focus-within {
+  outline: 3px solid white;
+  outline-offset: 3px;
+}
+
+.scatter-stage { min-height: 230px; }
+.scatter-widget.is-M .scatter-stage { min-height: 280px; }
+.scatter-widget.is-L .scatter-stage { min-height: 340px; }
+
+.scatter-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  overflow: visible;
+  background: var(--scatter-surface);
+}
+
+.scatter-field {
+  fill: var(--scatter-plot);
+}
+
+.scatter-grid {
+  stroke: var(--scatter-grid);
+  stroke-width: 1.5;
+}
+
+.scatter-axis {
+  fill: white;
+  font: 12px system-ui, sans-serif;
+}
+
+.scatter-point {
+  stroke: var(--scatter-plot);
+  stroke-width: 3;
+  cursor: pointer;
+  animation: scatter-pop 360ms ease-out both;
+  transition: r 140ms ease, opacity 140ms ease;
+}
+
+.scatter-week-0 { fill: var(--scatter-week-0); background: var(--scatter-week-0); }
+.scatter-week-1 { fill: var(--scatter-week-1); background: var(--scatter-week-1); }
+.scatter-week-2 { fill: var(--scatter-week-2); background: var(--scatter-week-2); }
+.scatter-week-3 { fill: var(--scatter-week-3); background: var(--scatter-week-3); }
+.scatter-point:hover,
+.scatter-point.is-selected {
+  r: 10;
+  stroke: white;
+  stroke-width: 3;
+}
+
+.scatter-point.is-dim { opacity: 0.48; }
+.scatter-fit {
+  fill: none;
+  stroke: white;
+  stroke-width: 3;
+  stroke-dasharray: 6 5;
+}
+
+.scatter-tooltip {
+  min-height: 24px;
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  color: white;
+  background: var(--scatter-surface);
+  font-size: 13px;
+}
+
+.scatter-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  color: white;
+  background: var(--scatter-surface);
+  font-size: 12px;
+}
+
+.scatter-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.scatter-legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.scatter-widget select:hover { border-color: white; }
+
+@keyframes scatter-pop {
+  from { opacity: 0.4; transform: scale(0.7); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scatter-point { animation: none; transition: none; }
+}

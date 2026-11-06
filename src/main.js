@@ -1,9 +1,11 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, session } = require('electron');
 const path = require('path');
 const fs = require('node:fs/promises');
 const { pathToFileURL } = require('node:url');
 const { createPreferenceStore } = require('./preferences');
 const { normalizeData } = require('./data');
+const { registerAero } = require('./aero/ipc');
+const { createRealSource } = require('./aero/realSource');
 
 const dataDirectory = path.join(__dirname, '..', 'data');
 const pagePath = path.join(__dirname, 'renderer', 'index.html');
@@ -42,6 +44,11 @@ app.whenReady().then(async () => {
   ipcMain.handle('getData', (event) => { trustedSender(event); return readData(); });
   ipcMain.handle('getPrefs', (event) => { trustedSender(event); return store.read(); });
   ipcMain.handle('savePrefs', (event, layout) => { trustedSender(event); return store.save(layout); });
+  // Microphone is allowed only for our own page (Aero push-to-talk).
+  const allowMic = (webContents, permission) => permission === 'media' && webContents.getURL() === pageURL;
+  session.defaultSession.setPermissionRequestHandler((webContents, permission, callback) => callback(allowMic(webContents, permission)));
+  session.defaultSession.setPermissionCheckHandler((webContents, permission) => Boolean(webContents) && allowMic(webContents, permission));
+  registerAero(ipcMain, trustedSender, { source: createRealSource(readData) });
   createWindow();
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();

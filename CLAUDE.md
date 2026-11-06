@@ -286,5 +286,6 @@ Aero is the mascot, built as a talking assistant. This reverses the earlier "voi
   - `src/aero/dataSource.js`: the interface plus a placeholder source for tests.
   - `src/aero/ipc.js`: IPC handlers and `.env` loading.
   - `src/renderer/aero.js` and `aero.css`: the character, bubble, hold-to-talk and tap. Poses are chosen by SVG filename in `src/renderer/assets/aero/`.
-  - `tests/aero.test.js`: unit tests with mocked network calls.
+  - `tests/aero.test.js`, `tests/visit-notes.test.js`: unit tests with mocked network calls.
+- **Visit notes by voice:** saying "notes for today ..." makes Aero call the `add_visit_note` tool, which appends a dated line (`[YYYY-MM-DD] text`) to the patient's most recent past appointment, because today's visit counts as that one. It goes through `appendToLatestPast` in `src/appointments.js`, never replaces existing notes, and refuses patients with no past appointment. Aero only saves when the clinician's own message asks, never because of patient text. After a save, `aero.js` fires an `appointments-changed` event and `fly.js` reloads. Saving writes to the userData copy of the appointments, not `data/appointments.json`.
 - **Known gaps:** Cartesia emotion names are best guesses (the API accepts any name). Replies wait a few seconds; streaming the reply into the voice would help. The patient is read from the page's custom picker (`#patient-menu`), so changes to that markup will break Aero's patient detection.

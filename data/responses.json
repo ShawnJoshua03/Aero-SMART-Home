@@ -47,6 +47,16 @@
           ]
         },
         {
+          "id": "breathlessness",
+          "type": "slider",
+          "prompt": "How breathless were you today?",
+          "min": 0,
+          "max": 10,
+          "step": 1,
+          "minLabel": "Not at all",
+          "maxLabel": "Severe"
+        },
+        {
           "id": "activity_limit",
           "type": "slider",
           "prompt": "How much did asthma limit your usual activities today?",
@@ -63,66 +73,6 @@
           "optional": true
         }
       ]
-    },
-    {
-      "id": "cold-daily",
-      "title": "Common Cold Daily Check-in",
-      "condition": "common cold",
-      "frequency": "daily",
-      "questions": [
-        {
-          "id": "overall_severity",
-          "type": "slider",
-          "prompt": "How bad do your cold symptoms feel today?",
-          "min": 0,
-          "max": 10,
-          "step": 1,
-          "minLabel": "No symptoms",
-          "maxLabel": "Very severe"
-        },
-        {
-          "id": "fever",
-          "type": "radio",
-          "prompt": "What was your highest temperature today?",
-          "options": [
-            "No fever",
-            "Low (99-100.3 F)",
-            "Moderate (100.4-102 F)",
-            "High (over 102 F)"
-          ]
-        },
-        {
-          "id": "symptoms",
-          "type": "mcq",
-          "prompt": "Which symptoms do you have today? (select all that apply)",
-          "options": [
-            "Runny nose",
-            "Stuffy nose",
-            "Sore throat",
-            "Cough",
-            "Sneezing",
-            "Headache",
-            "Body aches",
-            "Ear pain"
-          ]
-        },
-        {
-          "id": "sleep_quality",
-          "type": "slider",
-          "prompt": "How well did you sleep last night?",
-          "min": 1,
-          "max": 5,
-          "step": 1,
-          "minLabel": "Very poorly",
-          "maxLabel": "Very well"
-        },
-        {
-          "id": "note",
-          "type": "text",
-          "prompt": "Anything else you want your care team to know?",
-          "optional": true
-        }
-      ]
     }
   ],
   "patients": [
@@ -130,93 +80,67 @@
       "id": "pt-a1",
       "name": "Maya Johnson",
       "surveyId": "asthma-daily"
-    },
-    {
-      "id": "pt-a2",
-      "name": "Ethan Brooks",
-      "surveyId": "asthma-daily"
-    },
-    {
-      "id": "pt-a3",
-      "name": "Sofia Ramirez",
-      "surveyId": "asthma-daily"
-    },
-    {
-      "id": "pt-a4",
-      "name": "Liam Carter",
-      "surveyId": "asthma-daily"
-    },
-    {
-      "id": "pt-a5",
-      "name": "Ava Nguyen",
-      "surveyId": "asthma-daily"
-    },
-    {
-      "id": "pt-c1",
-      "name": "Noah Patel",
-      "surveyId": "cold-daily"
-    },
-    {
-      "id": "pt-c2",
-      "name": "Olivia Kim",
-      "surveyId": "cold-daily"
-    },
-    {
-      "id": "pt-c3",
-      "name": "Jackson Reed",
-      "surveyId": "cold-daily"
-    },
-    {
-      "id": "pt-c4",
-      "name": "Emma Davis",
-      "surveyId": "cold-daily"
-    },
-    {
-      "id": "pt-c5",
-      "name": "Lucas Moore",
-      "surveyId": "cold-daily"
     }
   ],
   "responses": [
     {
-      "id": "resp-a-01",
+      "id": "resp-001",
       "surveyId": "asthma-daily",
       "patientId": "pt-a1",
-      "submittedAt": "2026-10-26T08:10:00Z",
+      "submittedAt": "2026-07-28T07:41:00Z",
       "answers": {
         "day_symptoms": "No",
         "symptoms": [
-          "Coughing"
+          "Coughing",
+          "Tight chest"
         ],
         "night_waking": "No",
         "rescue_inhaler": "No",
+        "breathlessness": 2,
         "activity_limit": 2,
         "note": ""
       }
     },
     {
-      "id": "resp-a-02",
+      "id": "resp-002",
       "surveyId": "asthma-daily",
       "patientId": "pt-a1",
-      "submittedAt": "2026-11-02T08:25:00Z",
+      "submittedAt": "2026-07-29T07:16:00Z",
       "answers": {
-        "day_symptoms": "Yes",
+        "day_symptoms": "No",
         "symptoms": [
-          "Tight chest",
+          "Wheezing"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 1,
+        "note": "Normal day."
+      }
+    },
+    {
+      "id": "resp-003",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-07-30T07:18:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
           "Coughing",
           "Wheezing"
         ],
         "night_waking": "Yes",
-        "rescue_inhaler": "Yes",
-        "activity_limit": 7,
-        "note": "Chest feels tight most mornings now, getting worse each week."
+        "rescue_inhaler": "No",
+        "breathlessness": 3,
+        "activity_limit": 2,
+        "note": ""
       }
     },
     {
-      "id": "resp-a-03",
+      "id": "resp-004",
       "surveyId": "asthma-daily",
-      "patientId": "pt-a2",
-      "submittedAt": "2026-10-27T19:00:00Z",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-07-31T08:29:00Z",
       "answers": {
         "day_symptoms": "No",
         "symptoms": [
@@ -224,15 +148,88 @@
         ],
         "night_waking": "No",
         "rescue_inhaler": "No",
+        "breathlessness": 1,
+        "activity_limit": 2,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-005",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-01T07:17:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Coughing",
+          "Shortness of breath"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
         "activity_limit": 1,
         "note": ""
       }
     },
     {
-      "id": "resp-a-04",
+      "id": "resp-006",
       "surveyId": "asthma-daily",
-      "patientId": "pt-a2",
-      "submittedAt": "2026-11-03T19:12:00Z",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-02T07:05:00Z",
+      "answers": {
+        "day_symptoms": "Yes",
+        "symptoms": [
+          "Wheezing",
+          "Coughing"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 2,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-007",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-03T09:37:00Z",
+      "answers": {
+        "day_symptoms": "Yes",
+        "symptoms": [
+          "Tight chest",
+          "Coughing"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 3,
+        "activity_limit": 1,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-008",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-04T09:38:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Coughing",
+          "Chest pain"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 2,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-009",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-05T08:10:00Z",
       "answers": {
         "day_symptoms": "No",
         "symptoms": [
@@ -240,102 +237,105 @@
         ],
         "night_waking": "No",
         "rescue_inhaler": "No",
-        "activity_limit": 1,
-        "note": "Feeling fine."
-      }
-    },
-    {
-      "id": "resp-a-05",
-      "surveyId": "asthma-daily",
-      "patientId": "pt-a3",
-      "submittedAt": "2026-10-27T07:45:00Z",
-      "answers": {
-        "day_symptoms": "No",
-        "symptoms": [
-          "None"
-        ],
-        "night_waking": "No",
-        "rescue_inhaler": "No",
-        "activity_limit": 0,
+        "breathlessness": 3,
+        "activity_limit": 2,
         "note": ""
       }
     },
     {
-      "id": "resp-a-06",
+      "id": "resp-010",
       "surveyId": "asthma-daily",
-      "patientId": "pt-a3",
-      "submittedAt": "2026-11-03T07:50:00Z",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-06T08:46:00Z",
       "answers": {
-        "day_symptoms": "Yes",
+        "day_symptoms": "No",
         "symptoms": [
-          "Tight chest",
           "Wheezing",
-          "Shortness of breath",
           "Chest pain"
         ],
-        "night_waking": "Yes",
-        "rescue_inhaler": "Yes",
-        "activity_limit": 9,
-        "note": "Was around a lot of smoke at a bonfire party. Scary night, used my inhaler many times."
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 3,
+        "activity_limit": 3,
+        "note": ""
       }
     },
     {
-      "id": "resp-a-07",
+      "id": "resp-011",
       "surveyId": "asthma-daily",
-      "patientId": "pt-a4",
-      "submittedAt": "2026-10-20T20:30:00Z",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-07T08:24:00Z",
       "answers": {
         "day_symptoms": "Yes",
         "symptoms": [
           "Coughing",
           "Shortness of breath"
         ],
-        "night_waking": "Yes",
-        "rescue_inhaler": "Yes",
-        "activity_limit": 4,
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 3,
+        "activity_limit": 2,
         "note": ""
       }
     },
     {
-      "id": "resp-a-08",
+      "id": "resp-012",
       "surveyId": "asthma-daily",
-      "patientId": "pt-a4",
-      "submittedAt": "2026-11-03T20:05:00Z",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-08T08:39:00Z",
       "answers": {
-        "day_symptoms": "Yes",
+        "day_symptoms": "No",
         "symptoms": [
-          "Coughing",
-          "Tight chest"
+          "Chest pain",
+          "Coughing"
         ],
-        "night_waking": "Yes",
-        "rescue_inhaler": "Yes",
-        "activity_limit": 5,
-        "note": "Sorry, missed a bunch of days. Busy with exams."
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 1,
+        "note": "Slept okay."
       }
     },
     {
-      "id": "resp-a-09",
+      "id": "resp-013",
       "surveyId": "asthma-daily",
-      "patientId": "pt-a5",
-      "submittedAt": "2026-10-27T08:00:00Z",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-09T09:19:00Z",
       "answers": {
         "day_symptoms": "Yes",
         "symptoms": [
-          "Wheezing",
-          "Coughing",
-          "Tight chest"
+          "Coughing"
         ],
-        "night_waking": "Yes",
+        "night_waking": "No",
         "rescue_inhaler": "Yes",
-        "activity_limit": 6,
-        "note": "Rough day, coughed a lot overnight."
+        "breathlessness": 4,
+        "activity_limit": 2,
+        "note": ""
       }
     },
     {
-      "id": "resp-a-10",
+      "id": "resp-014",
       "surveyId": "asthma-daily",
-      "patientId": "pt-a5",
-      "submittedAt": "2026-11-03T08:15:00Z",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-10T08:21:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Chest pain",
+          "Shortness of breath"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 3,
+        "activity_limit": 3,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-015",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-11T08:05:00Z",
       "answers": {
         "day_symptoms": "No",
         "symptoms": [
@@ -343,177 +343,1502 @@
         ],
         "night_waking": "No",
         "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 1,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-016",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-12T07:36:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Coughing"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
         "activity_limit": 2,
-        "note": "Much better since the new controller dose."
-      }
-    },
-    {
-      "id": "resp-c-01",
-      "surveyId": "cold-daily",
-      "patientId": "pt-c1",
-      "submittedAt": "2026-10-30T09:00:00Z",
-      "answers": {
-        "overall_severity": 8,
-        "fever": "Moderate (100.4-102 F)",
-        "symptoms": [
-          "Runny nose",
-          "Sore throat",
-          "Cough",
-          "Body aches",
-          "Headache"
-        ],
-        "sleep_quality": 2,
-        "note": "Day 2 of symptoms, feel awful."
-      }
-    },
-    {
-      "id": "resp-c-02",
-      "surveyId": "cold-daily",
-      "patientId": "pt-c1",
-      "submittedAt": "2026-11-03T09:10:00Z",
-      "answers": {
-        "overall_severity": 3,
-        "fever": "No fever",
-        "symptoms": [
-          "Stuffy nose",
-          "Cough"
-        ],
-        "sleep_quality": 4,
         "note": ""
       }
     },
     {
-      "id": "resp-c-03",
-      "surveyId": "cold-daily",
-      "patientId": "pt-c2",
-      "submittedAt": "2026-10-31T21:00:00Z",
+      "id": "resp-017",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-13T07:34:00Z",
       "answers": {
-        "overall_severity": 4,
-        "fever": "No fever",
+        "day_symptoms": "No",
         "symptoms": [
-          "Runny nose",
-          "Sneezing"
+          "Wheezing",
+          "Chest pain"
         ],
-        "sleep_quality": 4,
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 3,
+        "activity_limit": 3,
         "note": ""
       }
     },
     {
-      "id": "resp-c-04",
-      "surveyId": "cold-daily",
-      "patientId": "pt-c2",
-      "submittedAt": "2026-11-04T21:20:00Z",
+      "id": "resp-018",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-14T08:24:00Z",
       "answers": {
-        "overall_severity": 7,
-        "fever": "Low (99-100.3 F)",
+        "day_symptoms": "Yes",
         "symptoms": [
-          "Stuffy nose",
-          "Sore throat",
-          "Cough",
-          "Ear pain"
+          "Shortness of breath"
         ],
-        "sleep_quality": 2,
-        "note": "Getting worse, now my right ear hurts."
-      }
-    },
-    {
-      "id": "resp-c-05",
-      "surveyId": "cold-daily",
-      "patientId": "pt-c3",
-      "submittedAt": "2026-11-01T08:30:00Z",
-      "answers": {
-        "overall_severity": 2,
-        "fever": "No fever",
-        "symptoms": [
-          "Sneezing"
-        ],
-        "sleep_quality": 5,
+        "night_waking": "Yes",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 4,
+        "activity_limit": 3,
         "note": ""
       }
     },
     {
-      "id": "resp-c-06",
-      "surveyId": "cold-daily",
-      "patientId": "pt-c3",
-      "submittedAt": "2026-11-02T08:35:00Z",
+      "id": "resp-019",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-15T09:23:00Z",
       "answers": {
-        "overall_severity": 9,
-        "fever": "High (over 102 F)",
+        "day_symptoms": "No",
         "symptoms": [
-          "Sore throat",
-          "Cough",
-          "Headache",
-          "Body aches",
-          "Stuffy nose"
+          "Coughing",
+          "Tight chest"
         ],
-        "sleep_quality": 1,
-        "note": "Fever came on suddenly overnight, shivering and very weak."
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 1,
+        "note": "A bit dusty at school."
       }
     },
     {
-      "id": "resp-c-07",
-      "surveyId": "cold-daily",
-      "patientId": "pt-c4",
-      "submittedAt": "2026-10-29T18:00:00Z",
+      "id": "resp-020",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-16T08:48:00Z",
       "answers": {
-        "overall_severity": 5,
-        "fever": "Low (99-100.3 F)",
+        "day_symptoms": "Yes",
         "symptoms": [
-          "Runny nose",
-          "Sore throat",
-          "Headache"
+          "Chest pain",
+          "Tight chest"
         ],
-        "sleep_quality": 3,
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 3,
         "note": ""
       }
     },
     {
-      "id": "resp-c-08",
-      "surveyId": "cold-daily",
-      "patientId": "pt-c4",
-      "submittedAt": "2026-11-05T18:15:00Z",
+      "id": "resp-021",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-17T08:50:00Z",
       "answers": {
-        "overall_severity": 4,
-        "fever": "No fever",
+        "day_symptoms": "No",
         "symptoms": [
-          "Stuffy nose",
-          "Cough"
+          "Wheezing"
         ],
-        "sleep_quality": 3,
-        "note": "Forgot to log for a week, still have a lingering cough."
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 1,
+        "note": "Pollen count high today."
       }
     },
     {
-      "id": "resp-c-09",
-      "surveyId": "cold-daily",
-      "patientId": "pt-c5",
-      "submittedAt": "2026-11-02T07:30:00Z",
+      "id": "resp-022",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-18T08:22:00Z",
       "answers": {
-        "overall_severity": 5,
-        "fever": "No fever",
+        "day_symptoms": "No",
         "symptoms": [
-          "Runny nose",
-          "Stuffy nose",
-          "Sneezing"
+          "Chest pain",
+          "Tight chest"
         ],
-        "sleep_quality": 3,
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 3,
+        "activity_limit": 3,
         "note": ""
       }
     },
     {
-      "id": "resp-c-10",
-      "surveyId": "cold-daily",
-      "patientId": "pt-c5",
-      "submittedAt": "2026-11-05T07:40:00Z",
+      "id": "resp-023",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-19T08:56:00Z",
       "answers": {
-        "overall_severity": 5,
-        "fever": "No fever",
+        "day_symptoms": "No",
         "symptoms": [
-          "Runny nose",
-          "Stuffy nose"
+          "Coughing",
+          "Tight chest"
         ],
-        "sleep_quality": 3,
-        "note": "About the same as before."
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 2,
+        "note": "A bit dusty at school."
+      }
+    },
+    {
+      "id": "resp-024",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-20T09:09:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Coughing",
+          "Tight chest"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 3,
+        "activity_limit": 2,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-025",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-21T07:14:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Coughing",
+          "Wheezing"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 2,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-026",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-22T07:19:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Coughing"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 2,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-027",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-23T08:42:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Coughing",
+          "Tight chest"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 2,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-028",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-24T09:23:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Wheezing",
+          "Shortness of breath"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 1,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-029",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-25T09:28:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Tight chest"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 3,
+        "note": "A bit dusty at school."
+      }
+    },
+    {
+      "id": "resp-030",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-26T07:24:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "None"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 1,
+        "activity_limit": 0,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-031",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-27T08:12:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "None"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 1,
+        "activity_limit": 1,
+        "note": "Felt fine, played soccer."
+      }
+    },
+    {
+      "id": "resp-032",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-28T07:41:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "None"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 1,
+        "activity_limit": 0,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-033",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-29T09:49:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "None"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 1,
+        "activity_limit": 0,
+        "note": "Normal day."
+      }
+    },
+    {
+      "id": "resp-034",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-30T07:45:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Shortness of breath"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 3,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-035",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-08-31T08:15:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Chest pain"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 2,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-036",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-01T09:09:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Shortness of breath"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 1,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-037",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-02T07:25:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "None"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 1,
+        "activity_limit": 1,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-038",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-03T08:02:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Wheezing"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 1,
+        "activity_limit": 0,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-039",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-04T09:02:00Z",
+      "answers": {
+        "day_symptoms": "Yes",
+        "symptoms": [
+          "Shortness of breath",
+          "Wheezing",
+          "Chest pain",
+          "Tight chest"
+        ],
+        "night_waking": "Yes",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 9,
+        "activity_limit": 7,
+        "note": "Woke up gasping, could barely walk up the stairs."
+      }
+    },
+    {
+      "id": "resp-040",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-05T09:56:00Z",
+      "answers": {
+        "day_symptoms": "Yes",
+        "symptoms": [
+          "Shortness of breath",
+          "Wheezing",
+          "Tight chest"
+        ],
+        "night_waking": "Yes",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 9,
+        "activity_limit": 7,
+        "note": "Still very short of breath, used inhaler a lot."
+      }
+    },
+    {
+      "id": "resp-041",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-06T08:20:00Z",
+      "answers": {
+        "day_symptoms": "Yes",
+        "symptoms": [
+          "Shortness of breath",
+          "Chest pain",
+          "Wheezing",
+          "Coughing"
+        ],
+        "night_waking": "Yes",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 9,
+        "activity_limit": 8,
+        "note": "Better after urgent care visit, still shaky."
+      }
+    },
+    {
+      "id": "resp-042",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-07T07:18:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "None"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 1,
+        "activity_limit": 0,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-043",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-08T07:10:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "None"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 0,
+        "activity_limit": 0,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-044",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-09T07:56:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Tight chest",
+          "Wheezing"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 0,
+        "activity_limit": 0,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-045",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-10T08:18:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "None"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 1,
+        "activity_limit": 0,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-046",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-11T07:51:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Wheezing",
+          "Shortness of breath"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 2,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-047",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-12T07:53:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "None"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 1,
+        "activity_limit": 2,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-048",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-13T08:51:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "None"
+        ],
+        "night_waking": "Yes",
+        "rescue_inhaler": "No",
+        "breathlessness": 0,
+        "activity_limit": 0,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-049",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-14T09:52:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Chest pain"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 1,
+        "activity_limit": 1,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-050",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-15T08:24:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "None"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 1,
+        "activity_limit": 1,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-051",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-16T09:24:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Tight chest"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 1,
+        "activity_limit": 1,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-052",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-17T08:59:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Wheezing",
+          "Coughing"
+        ],
+        "night_waking": "Yes",
+        "rescue_inhaler": "No",
+        "breathlessness": 1,
+        "activity_limit": 1,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-053",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-18T09:16:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "None"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 1,
+        "activity_limit": 1,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-054",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-19T09:12:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Wheezing"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 2,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-055",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-20T07:13:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "None"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 1,
+        "activity_limit": 0,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-056",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-21T09:41:00Z",
+      "answers": {
+        "day_symptoms": "Yes",
+        "symptoms": [
+          "Shortness of breath",
+          "Chest pain",
+          "Coughing"
+        ],
+        "night_waking": "Yes",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 9,
+        "activity_limit": 6,
+        "note": "Sudden tightness after cleaning the garage."
+      }
+    },
+    {
+      "id": "resp-057",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-22T09:42:00Z",
+      "answers": {
+        "day_symptoms": "Yes",
+        "symptoms": [
+          "Coughing"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 2,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-058",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-23T08:33:00Z",
+      "answers": {
+        "day_symptoms": "Yes",
+        "symptoms": [
+          "Tight chest"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 3,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-059",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-24T07:43:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Shortness of breath"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 2,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-060",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-25T08:11:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Coughing",
+          "Chest pain"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 3,
+        "activity_limit": 2,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-061",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-26T09:29:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Coughing"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 3,
+        "activity_limit": 2,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-062",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-27T08:57:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Tight chest"
+        ],
+        "night_waking": "Yes",
+        "rescue_inhaler": "No",
+        "breathlessness": 3,
+        "activity_limit": 3,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-063",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-28T08:51:00Z",
+      "answers": {
+        "day_symptoms": "Yes",
+        "symptoms": [
+          "Coughing",
+          "Tight chest"
+        ],
+        "night_waking": "Yes",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 4,
+        "activity_limit": 4,
+        "note": "Woke up three times last night coughing."
+      }
+    },
+    {
+      "id": "resp-064",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-29T09:35:00Z",
+      "answers": {
+        "day_symptoms": "Yes",
+        "symptoms": [
+          "Chest pain",
+          "Shortness of breath",
+          "Coughing"
+        ],
+        "night_waking": "Yes",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 5,
+        "activity_limit": 5,
+        "note": "Another rough night."
+      }
+    },
+    {
+      "id": "resp-065",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-09-30T07:36:00Z",
+      "answers": {
+        "day_symptoms": "Yes",
+        "symptoms": [
+          "Shortness of breath",
+          "Tight chest"
+        ],
+        "night_waking": "Yes",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 4,
+        "activity_limit": 3,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-066",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-01T08:28:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Wheezing"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 3,
+        "activity_limit": 3,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-067",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-02T09:09:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Wheezing"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 3,
+        "activity_limit": 2,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-068",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-03T09:09:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Tight chest"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 1,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-069",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-04T07:29:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Coughing"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 2,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-070",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-05T07:00:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Coughing",
+          "Wheezing"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 3,
+        "activity_limit": 1,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-071",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-06T07:47:00Z",
+      "answers": {
+        "day_symptoms": "Yes",
+        "symptoms": [
+          "Tight chest"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 4,
+        "activity_limit": 3,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-072",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-07T07:18:00Z",
+      "answers": {
+        "day_symptoms": "Yes",
+        "symptoms": [
+          "Shortness of breath",
+          "Coughing"
+        ],
+        "night_waking": "Yes",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 7,
+        "activity_limit": 5,
+        "note": "Cough started, chest feeling heavy."
+      }
+    },
+    {
+      "id": "resp-073",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-08T07:37:00Z",
+      "answers": {
+        "day_symptoms": "Yes",
+        "symptoms": [
+          "Shortness of breath",
+          "Chest pain",
+          "Wheezing"
+        ],
+        "night_waking": "Yes",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 7,
+        "activity_limit": 5,
+        "note": "Worse than yesterday."
+      }
+    },
+    {
+      "id": "resp-074",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-09T08:44:00Z",
+      "answers": {
+        "day_symptoms": "Yes",
+        "symptoms": [
+          "Shortness of breath",
+          "Tight chest",
+          "Chest pain"
+        ],
+        "night_waking": "Yes",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 8,
+        "activity_limit": 7,
+        "note": "Wheezing all day."
+      }
+    },
+    {
+      "id": "resp-075",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-10T08:17:00Z",
+      "answers": {
+        "day_symptoms": "Yes",
+        "symptoms": [
+          "Shortness of breath",
+          "Coughing",
+          "Wheezing"
+        ],
+        "night_waking": "Yes",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 8,
+        "activity_limit": 7,
+        "note": "Slowly easing."
+      }
+    },
+    {
+      "id": "resp-076",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-11T08:40:00Z",
+      "answers": {
+        "day_symptoms": "Yes",
+        "symptoms": [
+          "Shortness of breath",
+          "Chest pain"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 7,
+        "activity_limit": 5,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-077",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-12T09:27:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Coughing",
+          "Tight chest"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 3,
+        "activity_limit": 3,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-078",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-13T09:32:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Wheezing",
+          "Tight chest"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 3,
+        "activity_limit": 2,
+        "note": "Slept okay."
+      }
+    },
+    {
+      "id": "resp-079",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-14T08:43:00Z",
+      "answers": {
+        "day_symptoms": "Yes",
+        "symptoms": [
+          "Shortness of breath",
+          "Wheezing"
+        ],
+        "night_waking": "Yes",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 4,
+        "activity_limit": 4,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-080",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-15T07:48:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Wheezing"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 1,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-081",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-16T07:59:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Coughing"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 3,
+        "activity_limit": 2,
+        "note": "Cold air made my chest tight."
+      }
+    },
+    {
+      "id": "resp-082",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-17T09:02:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Shortness of breath"
+        ],
+        "night_waking": "Yes",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 1,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-083",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-18T07:21:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Shortness of breath",
+          "Wheezing"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 3,
+        "activity_limit": 1,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-084",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-19T08:39:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Shortness of breath"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 2,
+        "activity_limit": 1,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-085",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-20T07:57:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Tight chest"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 3,
+        "activity_limit": 2,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-086",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-21T09:56:00Z",
+      "answers": {
+        "day_symptoms": "Yes",
+        "symptoms": [
+          "Coughing",
+          "Shortness of breath"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 3,
+        "activity_limit": 2,
+        "note": "A bit dusty at school."
+      }
+    },
+    {
+      "id": "resp-087",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-22T07:31:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "None"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 1,
+        "activity_limit": 1,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-088",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-23T08:47:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Coughing",
+          "Chest pain"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 1,
+        "activity_limit": 2,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-089",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-24T09:36:00Z",
+      "answers": {
+        "day_symptoms": "Yes",
+        "symptoms": [
+          "Shortness of breath",
+          "Tight chest",
+          "Coughing"
+        ],
+        "night_waking": "Yes",
+        "rescue_inhaler": "Yes",
+        "breathlessness": 9,
+        "activity_limit": 7,
+        "note": "Ran for the bus and couldn't catch my breath."
+      }
+    },
+    {
+      "id": "resp-090",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-25T08:31:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "None"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 1,
+        "activity_limit": 1,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-091",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-26T09:41:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "None"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 1,
+        "activity_limit": 1,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-092",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-27T09:07:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Tight chest"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 3,
+        "activity_limit": 2,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-093",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-28T08:06:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Wheezing",
+          "Chest pain"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 1,
+        "activity_limit": 2,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-094",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-29T09:50:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Wheezing"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 2,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-095",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-30T09:42:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Tight chest"
+        ],
+        "night_waking": "Yes",
+        "rescue_inhaler": "No",
+        "breathlessness": 1,
+        "activity_limit": 0,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-096",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-31T07:17:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "None"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 1,
+        "activity_limit": 1,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-097",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-11-01T07:15:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Wheezing",
+          "Coughing"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 1,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-098",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-11-02T08:25:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Shortness of breath",
+          "Wheezing"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 1,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-099",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-11-03T09:18:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Coughing",
+          "Shortness of breath"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 2,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-100",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-11-04T08:34:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Tight chest"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "breathlessness": 2,
+        "activity_limit": 1,
+        "note": ""
       }
     }
   ]

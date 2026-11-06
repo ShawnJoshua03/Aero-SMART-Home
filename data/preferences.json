@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "resolution": {
+    "order": ["patients", "surveys", "general"],
+    "note": "For each setting, use the first layer that defines it: patient-specific, then survey-wide, then clinician general. A layer that omits a setting falls through to the next. Field ids are question ids from the survey in responses.json."
+  },
+  "clinicians": {
+    "clin-001": {
+      "name": "Dr. Demo Pulmonologist",
+      "specialty": "pulmonology",
+      "general": {
+        "defaultTimeRange": "30d",
+        "flashcardsFirst": ["anomaly", "worsening", "adherence-gap"],
+        "maxFlashcards": 6,
+        "fieldDefaults": {
+          "priorityFields": [],
+          "hiddenFields": ["note"],
+          "chartTypes": { "slider": "line", "radio": "bar", "mcq": "bar", "text": "list" }
+        }
+      },
+      "surveys": {
+        "asthma-daily": {
+          "defaultTimeRange": "14d",
+          "priorityFields": ["breathlessness", "rescue_inhaler", "night_waking"],
+          "hiddenFields": [],
+          "chartTypes": { "breathlessness": "line", "rescue_inhaler": "bar", "night_waking": "timeline", "triggers": "heatmap" },
+          "layout": ["breathlessness", "rescue_inhaler", "night_waking", "triggers", "note"]
+        },
+        "cold-daily": {
+          "defaultTimeRange": "7d",
+          "priorityFields": ["fever", "overall_severity"],
+          "hiddenFields": ["sleep_quality"],
+          "chartTypes": { "overall_severity": "line", "fever": "timeline", "symptoms": "bar" },
+          "layout": ["fever", "overall_severity", "symptoms", "note"]
+        }
+      },
+      "patients": {
+        "pt-a1": {
+          "defaultTimeRange": "90d",
+          "priorityFields": ["breathlessness", "night_waking", "triggers"],
+          "hiddenFields": [],
+          "chartTypes": { "breathlessness": "area" },
+          "flashcardsFirst": ["worsening"]
+        },
+        "pt-a4": {
+          "priorityFields": ["rescue_inhaler"],
+          "flashcardsFirst": ["adherence-gap"]
+        },
+        "pt-c2": {
+          "priorityFields": ["symptoms", "fever", "overall_severity"],
+          "hiddenFields": [],
+          "chartTypes": { "symptoms": "heatmap" }
+        }
+      }
+    }
+  }
+}

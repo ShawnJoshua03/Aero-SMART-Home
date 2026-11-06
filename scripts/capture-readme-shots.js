@@ -47,13 +47,18 @@ app.whenReady().then(async () => {
     if (visible && hideAero) { await win.webContents.removeInsertedCSS(hideAero); hideAero = null; }
     if (!visible && !hideAero) hideAero = await win.webContents.insertCSS('.aero { display: none !important; }');
   };
-  const say = (text, face) => js(`(() => {
+  // Aero rests off-screen; the tab on the right edge calls him out. Make sure he is out before he speaks.
+  const callOut = async () => {
+    await js(`(() => { const root = document.querySelector('.aero'); if (!root.classList.contains('is-out')) document.querySelector('.aero-tab').click(); })()`);
+    await sleep(700);
+  };
+  const say = async (text, face) => { await callOut(); await js(`(() => {
     const bubble = document.querySelector('.aero-bubble');
     bubble.textContent = ${JSON.stringify(text)};
     bubble.dataset.kind = 'aero';
     bubble.hidden = false;
     document.querySelector('.aero-face').src = 'assets/aero/${face}';
-  })()`);
+  })()`); };
 
   await aero(false);
   await page('fly');

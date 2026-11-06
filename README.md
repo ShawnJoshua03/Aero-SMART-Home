@@ -36,23 +36,23 @@ Three pages over the same patient data, so the answer to "what do I look at firs
     <td align="center" width="25%"><img src="docs/images/fly.png" alt="Appointments page" width="100%"></td>
     <td align="center" width="25%"><img src="docs/images/fly-flashcards.png" alt="Pre-visit flashcards" width="100%"></td>
     <td align="center" width="25%"><img src="docs/images/anomalies.png" alt="Anomalies page" width="100%"></td>
-    <td align="center" width="25%"><img src="docs/images/data.png" alt="Customizable data page" width="100%"></td>
+    <td align="center" width="25%"><img src="docs/images/data.png" alt="Nest, the customizable page" width="100%"></td>
   </tr>
   <tr>
     <td valign="top"><b>Fly</b><br>Every appointment as a card. Past visits open to a snapshot of the weeks before, plus notes.</td>
     <td valign="top"><b>Flashcards</b><br>Tap the upcoming visit for a quick deck of what changed since the last one. Anomalies always make the deck.</td>
     <td valign="top"><b>Anomalies</b><br>Days that were unusual <i>for this patient</i>, marked against a threshold from their own history.</td>
-    <td valign="top"><b>Data</b><br>The deep-review page. Pick, resize and reorder the cards you want. Your layout is saved.</td>
+    <td valign="top"><b>Nest</b><br>The deep-review page. Pick, resize and reorder the cards you want. Your layout is saved.</td>
   </tr>
 </table>
 
-Fly is the "on the way to the room" view. Data is for when you want to dig in.
+Fly is the "on the way to the room" view. Nest is for when you want to dig in.
 
 ## Meet Aero
 
 <img src="docs/images/aero-poses.png" alt="Eight poses of Aero the crane: calm, listening, thinking, talking, good news, anomaly, concerned, asleep." width="100%">
 
-Aero is a small crane who lives in the corner of the screen. **Hold him and ask a question. Let go and he answers**, out loud and in a bubble above him. He answers from the patient's own data, in one sentence, because you are about to walk into a room.
+Aero is a small crane who waits just off the edge of the screen. Tap the little tab on the right edge to call him out. **Hold him and ask a question. Let go and he answers**, out loud and in a bubble above him. He answers from the patient's own data, in one sentence, because you are about to walk into a room. After ten quiet seconds he tucks himself away again.
 
 <table>
   <tr>
@@ -126,7 +126,7 @@ npm run verify:electron  # launches the app and checks the basics
 ```mermaid
 flowchart LR
   subgraph R["Window: no Node access"]
-    P["Pages: Fly, Anomalies, Data"]
+    P["Pages: Fly, Anomalies, Nest"]
     A["Aero: hold to talk, bubble"]
   end
   subgraph M["Main process: keys live here"]

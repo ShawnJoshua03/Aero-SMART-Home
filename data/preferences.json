@@ -160,30 +160,30 @@
           {
             "instanceId": "night-rescue-trend-1",
             "widgetId": "night-rescue-trend",
-            "size": "L",
-            "config": {}
-          },
-          {
-            "instanceId": "symptom-frequency-1",
-            "widgetId": "symptom-frequency",
-            "size": "L",
-            "config": {}
-          },
-          {
-            "instanceId": "symptom-timing-1",
-            "widgetId": "symptom-timing",
-            "size": "L",
+            "size": "M",
             "config": {}
           },
           {
             "instanceId": "activity-limit-trend-1",
             "widgetId": "activity-limit-trend",
-            "size": "L",
+            "size": "M",
+            "config": {}
+          },
+          {
+            "instanceId": "symptom-frequency-1",
+            "widgetId": "symptom-frequency",
+            "size": "M",
+            "config": {}
+          },
+          {
+            "instanceId": "symptom-timing-1",
+            "widgetId": "symptom-timing",
+            "size": "M",
             "config": {}
           }
         ]
       },
-      "layoutVersion": 2
+      "layoutVersion": 3
     }
   },
   "activeClinicianId": "clin-001"

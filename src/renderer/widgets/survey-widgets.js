@@ -82,10 +82,13 @@
   function lineChart(root, opts) {
     var big = !!root.closest('.card-modal-dialog');
     // In the modal the viewBox matches the real pixel width, so text and strokes keep true size.
-    var W = big ? Math.max(300, Math.round(root.clientWidth)) : 600;
-    var H = big ? Math.round(Math.min(window.innerHeight * 0.55, Math.max(260, W * 0.55))) : 210;
-    var L = big ? 40 : 34, R = 12, T = 14, B = big ? 32 : 26;
-    var steps = big && W > 520 ? 8 : 4;
+    // Wide cards (browser layout) are measured too, so they are not just a scaled-up phone chart.
+    var measured = Math.round(root.clientWidth);
+    var px = big || measured > 640;
+    var W = px ? Math.max(300, measured) : 600;
+    var H = big ? Math.round(Math.min(window.innerHeight * 0.55, Math.max(260, W * 0.55))) : px ? Math.round(Math.min(320, Math.max(210, W * 0.3))) : 210;
+    var L = px ? 40 : 34, R = 12, T = 14, B = px ? 32 : 26;
+    var steps = px && W > 520 ? 8 : 4;
     var all = [].concat.apply([], opts.series.map(function (x) { return x.points; }));
     var tMin = Math.min.apply(null, all.map(function (p) { return p.t; }));
     var tMax = Math.max.apply(null, all.map(function (p) { return p.t; }));

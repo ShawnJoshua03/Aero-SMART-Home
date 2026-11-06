@@ -141,6 +141,7 @@ src/
     index.html       local scripts/styles, CSP default-src 'self', patient selector and canvas shell
     styles.css       filled palette cards/blobs/pills, contrast-safe white text, serif headings, S/M/L grid
     renderer.js      starts canvas and reports startup failures
+    nav.js           bottom dock: Fly / Anomalies / Data page switching and transitions
     canvas.js        hamburger tray drawer, HTML5 drag/reorder, sizes, remove, patient changes, persistence
     lib/
       svg.js         shared SVG scale, path, and tick helpers
@@ -186,7 +187,8 @@ scripts/
 
 - Current state: foundation (isolated IPC, persistent canvas, patient selector, widget registry) plus the single-patient, 100-record asthma dataset and seven default widgets wired to it. WIDGET-API.md still describes the older data shape (baseline, bodyReports, 6 patients); the Data flow section above is current.
 - Known gaps: the older widgets (trend-line, kpi-tiles, scatter, body-diagram, lungs-gauge, fun widgets) are not connected to the new schema. `WIDGET-API.md` still describes the old data shape.
-- Cards: clicking a card body opens it enlarged in a modal (re-rendered at size L, charts sized to real pixels). The `kpi` widget shows one variable per card (chosen with its dropdown, saved in `config.metric`); consecutive KPI cards sit in one horizontally scrolling rail. The default layout is four KPI cards (check-ins, avg breathlessness, peak, top symptom) plus five charts; bumping `layoutVersion` in `data/preferences.json` replaces an older saved layout.
+- Cards: clicking a card body opens it enlarged in a modal (re-rendered at size L, charts sized to real pixels). The `kpi` widget shows one variable per card (chosen with its dropdown, saved in `config.metric`); consecutive KPI cards are grouped: stacked vertically on phones (under 641 px) and in one horizontal row in a wide browser window. Chart cards pair up (M = half width) on wide windows and go full width on phones. The default layout is four KPI cards (check-ins, avg breathlessness, peak, top symptom) plus five charts; bumping `layoutVersion` in `data/preferences.json` replaces an older saved layout.
+- Pages: a floating frosted-glass dock at the bottom (`#dock`, `nav.js`) switches between Fly, Anomalies and Data with slide/fade transitions. Data is the widget canvas described above (the in-depth summary). Fly (the flashcard / pre-flight view) and Anomalies are empty placeholders for now.
 - Layout: the window is phone-sized and the page fits its width with no horizontal scroll (single-column cards under 640 px). The top bar is a sticky, floating, glossy translucent pill: hamburger plus a patient-name button (`#patient-button`) that opens a patient dropdown (no wordmark or mock-data badge). The widget tray is an off-canvas drawer opened from the header hamburger (`#tray-toggle`); it slides away during a drag so the canvas is the drop target. `npm test` and `npm run verify:electron` pass against the single-patient dataset.
 - Earlier verification (old dataset): npm test and npm run verify:electron passed. npm start opened the desktop app; Add, S sizing, and button reordering were observed. HTML5 drag handlers, S/M/L, removal, patient switching, and persistence across separate processes pass in Electron. Native pointer drag automation did not trigger a drop; a manual pointer-drag check remains outstanding.
 - Likely next steps:

@@ -141,8 +141,65 @@ body { max-width: 100%; overflow-x: clip; }
 .card-modal-dialog .eyebrow, .card-modal-dialog .muted { color: var(--white); }
 .card-modal-dialog :focus-visible { outline-color: var(--white); }
 
-/* Consecutive KPI cards scroll sideways in one rail */
-.kpi-rail { grid-column: 1 / -1; display: flex; gap: 12px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; padding: 4px 2px 12px; scrollbar-width: thin; }
-.kpi-rail > .widget-card { flex: 0 0 min(78%, 260px); scroll-snap-align: start; }
+/* Consecutive KPI cards stack vertically in one group */
+.kpi-rail { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 12px; }
 .kpi-rail .widget-toolbar { padding: 8px 12px; }
 .kpi-rail .widget-body { min-height: 0; padding: 14px 16px 16px; }
+
+/* Browser-style (wide) layout: KPI cards in a row, charts side by side. Phones keep the single column above. */
+@media (min-width: 641px) {
+  .kpi-rail { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .patient-picker { flex: 0 1 380px; }
+  .app-header { margin: 14px auto 0; width: calc(100% - 48px); top: 14px; }
+  main { padding: 28px 24px 70px; }
+}
+@media (min-width: 1100px) {
+  .app-header { width: calc(100% - 72px); }
+  main { padding: 32px 36px 70px; }
+  .kpi-rail { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+.kpi-rail > .widget-card { grid-column: auto; }
+
+/* Bottom dock: floating frosted-glass page navigation */
+main { padding-bottom: 120px; }
+.dock { position: fixed; z-index: 20; left: 50%; bottom: 14px; transform: translateX(-50%); display: grid; grid-template-columns: repeat(3, 1fr); width: min(420px, calc(100% - 24px)); padding: 6px; border-radius: 30px; overflow: hidden;
+  background: linear-gradient(180deg, color-mix(in srgb, white 78%, transparent), color-mix(in srgb, white 42%, transparent));
+  border: 1px solid color-mix(in srgb, white 80%, transparent);
+  -webkit-backdrop-filter: blur(18px) saturate(1.7); backdrop-filter: blur(18px) saturate(1.7);
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--deep) 22%, transparent), inset 0 1px 0 white, inset 0 -1px 0 color-mix(in srgb, var(--teal) 10%, transparent); }
+.dock::before { content: ''; position: absolute; pointer-events: none; inset: 0 0 52% 0; background: linear-gradient(180deg, color-mix(in srgb, white 60%, transparent), transparent); }
+.dock-indicator { position: absolute; top: 6px; bottom: 6px; left: 6px; width: calc((100% - 12px) / 3); border-radius: 24px; background: var(--plum); box-shadow: 0 4px 12px color-mix(in srgb, var(--plum) 40%, transparent), inset 0 1px 0 color-mix(in srgb, white 35%, transparent); transition: transform .32s cubic-bezier(.3, 1.3, .5, 1); pointer-events: none; }
+.dock-item { position: relative; display: grid; justify-items: center; gap: 2px; padding: 9px 6px 7px; border: 0; border-radius: 24px; background: transparent; color: var(--teal); font-size: 12px; transition: color .25s; }
+.dock-item:hover { border-color: transparent; color: var(--plum); }
+.dock-item.is-active, .dock-item.is-active:hover { color: var(--white); }
+.dock-item svg { transition: transform .25s; }
+.dock-item.is-active svg { transform: translateY(-1px) scale(1.08); }
+
+/* Page transitions */
+.page[hidden] { display: none; }
+.page { animation-duration: .3s; animation-timing-function: ease-out; animation-fill-mode: both; }
+.page.from-right { animation-name: page-from-right; }
+.page.from-left { animation-name: page-from-left; }
+.page.is-leaving { transition: opacity .14s ease-in, transform .14s ease-in; opacity: 0; }
+.page.to-left { transform: translateX(-28px); }
+.page.to-right { transform: translateX(28px); }
+@keyframes page-from-right { from { opacity: 0; transform: translateX(36px); } to { opacity: 1; transform: none; } }
+@keyframes page-from-left { from { opacity: 0; transform: translateX(-36px); } to { opacity: 1; transform: none; } }
+.page:not(.is-active):not(.is-leaving) { min-height: 50vh; }
+@media (prefers-reduced-motion: reduce) { .dock-indicator, .page { transition: none; animation: none; } }
+
+/* Top and bottom bars: more see-through glass. Blur and brightness keep text legible over dark cards. */
+.app-header, .dock {
+  background: linear-gradient(180deg, color-mix(in srgb, white 46%, transparent), color-mix(in srgb, white 20%, transparent));
+  border-color: color-mix(in srgb, white 55%, transparent);
+  -webkit-backdrop-filter: blur(22px) saturate(1.8) brightness(1.18); backdrop-filter: blur(22px) saturate(1.8) brightness(1.18);
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--deep) 16%, transparent), inset 0 1px 0 color-mix(in srgb, white 90%, transparent), inset 0 -1px 0 color-mix(in srgb, white 20%, transparent);
+}
+.app-header::before, .dock::before { background: linear-gradient(180deg, color-mix(in srgb, white 38%, transparent), transparent); }
+.patient-button, .app-header .tray-toggle { background: color-mix(in srgb, white 30%, transparent); border-color: color-mix(in srgb, white 55%, transparent); }
+.app-header .tray-toggle:hover { background: color-mix(in srgb, white 55%, transparent); }
+.patient-menu { background: color-mix(in srgb, white 62%, transparent); -webkit-backdrop-filter: blur(22px) saturate(1.8) brightness(1.18); backdrop-filter: blur(22px) saturate(1.8) brightness(1.18); }
+.app-header, .dock { color: var(--deep); }
+.patient-text strong, .patient-period, .dock-item:not(.is-active) { color: var(--deep); text-shadow: 0 0 8px color-mix(in srgb, white 70%, transparent); }
+.dock-item.is-active { text-shadow: none; }

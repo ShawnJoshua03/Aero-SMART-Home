@@ -126,7 +126,7 @@
     closeModal();
     cleanups.splice(0).forEach(cleanup => { try { cleanup(); } catch (error) { console.error(error); } });
     grid.replaceChildren();
-    let rail = null; // consecutive KPI cards share one horizontally scrolling rail
+    let rail = null; // consecutive KPI cards are grouped in one vertical stack
     layout.widgets.forEach((item, index) => {
       const widget = window.Widgets.get(item.widgetId);
       const card = document.createElement('article');
@@ -161,7 +161,7 @@
           rail = document.createElement('div');
           rail.className = 'kpi-rail';
           rail.setAttribute('role', 'group');
-          rail.setAttribute('aria-label', 'KPI cards, scroll sideways');
+          rail.setAttribute('aria-label', 'KPI cards');
           grid.append(rail);
         }
         rail.append(card);
@@ -234,7 +234,6 @@
       button.addEventListener('click', () => setMenu(menu.hidden));
       document.addEventListener('click', (event) => { if (!event.target.closest('.patient-picker')) setMenu(false); });
       document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !menu.hidden) { setMenu(false); button.focus(); } });
-      document.getElementById('period-label').textContent = `${data.period.start} – ${data.period.end} · ${data.period.expectedDays} days`;
       const setTray = (open) => {
         document.body.classList.toggle('tray-open', open);
         document.getElementById('tray-scrim').hidden = !open;
@@ -246,6 +245,12 @@
       document.getElementById('tray-close').addEventListener('click', () => setTray(false));
       document.getElementById('tray-scrim').addEventListener('click', () => setTray(false));
       document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && document.body.classList.contains('tray-open')) setTray(false); });
+      // Re-measure charts when the window is resized (phone <-> browser layouts).
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => { if (document.getElementById('card-modal').hidden) renderGrid(); }, 250);
+      });
       document.getElementById('card-modal-close').addEventListener('click', closeModal);
       document.getElementById('card-modal-backdrop').addEventListener('click', closeModal);
       document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeModal(); });

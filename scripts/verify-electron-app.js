@@ -49,7 +49,7 @@ async function verifyRenderer(stage) {
     return 'persisted size, order, and removal restored in a new process';
   }
   check(cards().length === 9, 'First-run defaults must be four KPI cards plus five charts');
-  check(document.querySelectorAll('.kpi-rail > .widget-card').length === 4, 'KPI cards must sit in one scrolling rail');
+  check(document.querySelectorAll('.kpi-rail > .widget-card').length === 4, 'KPI cards must sit in one vertical stack');
   const text = cards().map(card => card.querySelector('.widget-body').textContent).join('|');
   check(!/could not render|not registered|No check-ins/.test(text), 'A default widget failed to render');
   check(cards()[0].textContent.includes('100'), 'First KPI card must show 100 check-ins');
@@ -66,6 +66,14 @@ async function verifyRenderer(stage) {
     target.dispatchEvent(new DragEvent('drop', { bubbles: true, cancelable: true, dataTransfer }));
     source.dispatchEvent(new DragEvent('dragend', { bubbles: true, dataTransfer }));
   };
+  const dockItems = [...document.querySelectorAll('.dock-item')];
+  check(dockItems.map(item => item.dataset.page).join() === 'fly,anomalies,data', 'Dock must offer Fly, Anomalies, Data');
+  check(document.getElementById('page-data').classList.contains('is-active') && !document.getElementById('page-data').hidden, 'Data is the default page');
+  for (const name of ['fly', 'anomalies', 'data']) {
+    dockItems.find(item => item.dataset.page === name).click();
+    await until(() => !document.getElementById('page-' + name).hidden && ['fly', 'anomalies', 'data'].filter(other => other !== name).every(other => document.getElementById('page-' + other).hidden));
+    check(dockItems.find(item => item.dataset.page === name).getAttribute('aria-current') === 'page', 'Dock marks the current page');
+  }
   drag(document.querySelector('.palette-item'), document.querySelector('.drop-zone'));
   check(cards().length === 10, 'Tray drop must add a card');
   const addedId = cards()[9].dataset.instanceId;

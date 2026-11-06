@@ -46,13 +46,12 @@
     const { data, patientId } = window.Canvas.context();
     if (!data) return;
     if (!doc) { load(); return; }
-    const patient = data.patients.find((p) => p.id === patientId);
     const mine = doc.appointments.filter((a) => a.patientId === patientId);
     const upcoming = mine.filter((a) => a.status === 'upcoming').sort((a, b) => a.start.localeCompare(b.start));
     const past = mine.filter((a) => a.status !== 'upcoming').sort((a, b) => b.start.localeCompare(a.start));
     page.replaceChildren();
     const head = el('div', 'fly-head');
-    head.append(el('h2', null, 'Appointments'), el('p', 'muted', `${patient ? patient.name + ': ' : ''}${upcoming.length} upcoming, ${past.length} past`));
+    head.append(el('h2', null, 'Appointments'));
     const list = el('div', 'fly-list');
     if (!mine.length) list.append(el('p', 'muted', 'No appointments for this patient.'));
     upcoming.forEach((appt) => list.append(card(appt, true, 0)));
@@ -137,9 +136,8 @@
   }
 
   function buildNotes(appt) {
-    modalBody.append(el('h3', 'fly-section', 'Where things stood'), el('p', 'fly-hint', 'The 14 days of check-ins before this visit.'), snapshot(appt));
-    modalBody.append(el('h3', 'fly-section', 'Visit notes'));
-    const label = el('label', 'fly-hint', 'Notes stay with this appointment and appear in the next visit\'s flashcards.');
+    modalBody.append(snapshot(appt));
+    const label = el('label', 'sr-only', 'Visit notes');
     label.htmlFor = 'fly-notes';
     const area = document.createElement('textarea');
     area.id = 'fly-notes';
@@ -194,84 +192,127 @@
     const prevAppt = doc.appointments.filter((a) => a.patientId === patientId && a.status !== 'upcoming' && a.start < appt.start).sort((a, b) => b.start.localeCompare(a.start))[0];
     const sinceT = prevAppt ? dateOnly(prevAppt.start) : rs[0].t - DAY;
     const since = rs.filter((r) => r.t > sinceT);
-    const sinceLabel = prevAppt ? `last visit (${S.shortDate(sinceT)})` : 'the first check-in';
+    const sinceLabel = prevAppt ? `the last visit (${S.shortDate(sinceT)})` : 'the first check-in';
     const recent = rs.slice(-14), prior = rs.slice(-28, -14);
+    const week = rs.slice(-7);
+    const weekdayShort = (t) => new Date(t).toLocaleDateString('en-US', { weekday: 'short', timeZone: 'UTC' });
+    const weekLabel = (r) => weekdayShort(r.t);
     const avg = (rows, id) => S.mean(rows.map((r) => S.num(r.a[id])).filter((x) => x != null));
     const count = (rows, id) => rows.filter((r) => S.yes(r.a[id])).length;
+    const calendarWeek = [];
+    for (let t = last.t - 6 * DAY; t <= last.t; t += DAY) calendarWeek.push(t);
+    const byT = new Map(rs.map((r) => [r.t, r]));
+    const weekRange = `${S.shortDate(calendarWeek[0])} to ${S.shortDate(last.t)}`;
     const out = {};
 
+    // Anomalies
     const an = S.anomalies(rs.filter((r) => S.num(r.a[Q.breathless]) != null), Q.breathless);
     const flagged = an.days.filter((r) => r.t > sinceT);
     const eps = S.episodes(flagged);
     out.anomaly = {
       label: 'Anomalies', tone: flagged.length ? 'attention' : 'calm',
-      headline: flagged.length ? plural(flagged.length, 'unusual day') : 'Nothing unusual',
+      headline: flagged.length ? plural(flagged.length, 'unusual breathlessness day') : 'No unusual breathlessness',
       sub: `since ${sinceLabel}`,
-      details: eps.length
-        ? eps.slice().reverse().map((e) => `${e.start === e.end ? S.shortDate(e.start) : S.shortDate(e.start) + ' to ' + S.shortDate(e.end)}: peak ${e.peak}, ${plural(e.count, 'day')}`)
-            .concat([`Flagged above ${plain(an.cut)} (this patient's mean + 2 SD; mock model).`])
-        : ['Every score stayed inside this patient\'s normal range.'],
+      figure: { type: 'bars', title: 'Breathlessness, last 7 days', max: 10, line: { value: an.cut, label: 'alert ' + plain(an.cut) },
+        items: week.map((r) => ({ label: weekLabel(r), value: S.num(r.a[Q.breathless]) || 0, hot: r.a[Q.breathless] > an.cut })) },
+      details: flagged.length
+        ? [`${plural(flagged.length, 'day')} since ${sinceLabel} scored well above what is normal for this patient, grouped into ${plural(eps.length, 'episode')}.`]
+            .concat(eps.slice().reverse().map((e) => `${e.start === e.end ? S.shortDate(e.start) : S.shortDate(e.start) + ' to ' + S.shortDate(e.end)}: breathlessness peaked at ${e.peak} over ${plural(e.count, 'day')}.`))
+            .concat([`The alert line for this patient is ${plain(an.cut)}: their own average plus two standard deviations. A score above it is flagged even if it would look ordinary for someone else.`, 'The model that sets this line is mocked in the prototype.'])
+        : [`No day since ${sinceLabel} rose above this patient's alert line of ${plain(an.cut)}.`, 'The line is their own average plus two standard deviations, so it adapts to how this patient usually feels.', 'The model that sets this line is mocked in the prototype.'],
     };
 
+    // Trend
     const dBreath = prior.length ? avg(recent, Q.breathless) - avg(prior, Q.breathless) : null;
     const verdict = dBreath == null ? 'Not enough history' : dBreath > 0.5 ? 'Worsening' : dBreath < -0.5 ? 'Improving' : 'Steady';
+    const dAct = prior.length ? avg(recent, Q.activity) - avg(prior, Q.activity) : null;
     out.worsening = {
       label: 'Trend', tone: verdict === 'Worsening' ? 'attention' : 'calm',
-      headline: verdict,
+      headline: dBreath == null ? 'Not enough history' : dBreath > 0.5 ? 'Breathlessness increased' : dBreath < -0.5 ? 'Breathlessness decreased' : 'Breathlessness steady',
       sub: dBreath == null ? '' : `breathlessness ${plain(avg(recent, Q.breathless))} vs ${plain(avg(prior, Q.breathless))} the 14 days before`,
+      figure: { type: 'bars', title: 'Breathlessness, last 7 days', max: 10,
+        line: prior.length ? { value: avg(prior, Q.breathless), label: 'prev avg ' + plain(avg(prior, Q.breathless)) } : null,
+        items: week.map((r) => ({ label: weekLabel(r), value: S.num(r.a[Q.breathless]) || 0, hot: false })) },
       details: prior.length ? [
-        `Breathlessness: ${plain(avg(recent, Q.breathless))} (last 14 days) vs ${plain(avg(prior, Q.breathless))} (14 days before).`,
-        `Activity limit: ${plain(avg(recent, Q.activity))} vs ${plain(avg(prior, Q.activity))}.`,
-        `Rescue inhaler days: ${count(recent, Q.rescue)} vs ${count(prior, Q.rescue)}.`,
-        `Night waking: ${count(recent, Q.night)} vs ${count(prior, Q.night)} nights.`,
-      ] : ['Fewer than 28 days of check-ins so far.'],
+        `Overall the picture is ${verdict.toLowerCase()}: breathlessness averaged ${plain(avg(recent, Q.breathless))} over the last 14 days, against ${plain(avg(prior, Q.breathless))} in the 14 days before (a change of ${plain(dBreath)}).`,
+        `Activity limitation moved from ${plain(avg(prior, Q.activity))} to ${plain(avg(recent, Q.activity))} (${dAct > 0 ? 'more' : 'less'} limited).`,
+        `The rescue inhaler was used on ${count(recent, Q.rescue)} of the last 14 days, compared with ${count(prior, Q.rescue)} of the 14 before.`,
+        `Night waking happened on ${count(recent, Q.night)} nights, compared with ${count(prior, Q.night)} before.`,
+      ] : ['There are fewer than 28 days of check-ins, so a two-week comparison is not possible yet.'],
     };
 
+    // Check-in gaps
     const expected = Math.max(0, Math.round((last.t - sinceT) / DAY));
     const have = new Set(since.map((r) => r.t));
     const missing = [];
     for (let t = sinceT + DAY; t <= last.t; t += DAY) if (!have.has(t)) missing.push(t);
     out['adherence-gap'] = {
       label: 'Check-in gaps', tone: missing.length ? 'attention' : 'calm',
-      headline: missing.length ? plural(missing.length, 'missed check-in') : 'No gaps',
+      headline: missing.length ? plural(missing.length, 'missed check-in') : 'Checked in every day',
       sub: `${since.length} of ${expected} days reported since ${sinceLabel}`,
-      details: missing.length ? [`Missing: ${missing.slice(0, 8).map((t) => S.shortDate(t)).join(', ')}${missing.length > 8 ? '…' : ''}`, 'A missing day is not proof that medication was missed.'] : ['The patient checked in every day since the last visit.'],
+      figure: { type: 'dots', title: 'Check-ins (filled = reported)',
+        items: calendarWeek.map((t) => ({ label: weekdayShort(t), on: byT.has(t), title: S.shortDate(t) })) },
+      details: missing.length
+        ? [`The patient reported on ${since.length} of ${expected} days since ${sinceLabel} and skipped ${plural(missing.length, 'day')}.`, `Missing: ${missing.slice(0, 8).map((t) => S.shortDate(t)).join(', ')}${missing.length > 8 ? ' and more' : ''}.`, 'A missing day is not proof that medication was missed; it only means no report arrived.']
+        : [`The patient checked in on all ${expected} days since ${sinceLabel}.`, 'Complete reporting means the other numbers in this deck can be trusted as a full picture of the period.'],
     };
 
+    // Last visit
     out['last-visit'] = {
       label: 'Last visit', tone: 'calm',
-      headline: prevAppt ? S.shortDate(dateOnly(prevAppt.start)) : 'No earlier visit',
+      headline: prevAppt ? 'Last seen ' + S.shortDate(dateOnly(prevAppt.start)) : 'No earlier visit',
       sub: prevAppt ? `${prevAppt.type} · ${prevAppt.clinician}` : '',
-      details: prevAppt ? [prevAppt.notes && prevAppt.notes.trim() ? prevAppt.notes : 'No notes were left for this visit.'] : ['This is the first appointment on record.'],
+      details: [prevAppt ? (prevAppt.notes && prevAppt.notes.trim() ? prevAppt.notes : 'No notes were left for this visit.') : 'No earlier visit on record.'],
     };
 
+    // Symptoms
+    const weekTally = {};
+    week.forEach((r) => S.symptomList(r).forEach((x) => { weekTally[x] = (weekTally[x] || 0) + 1; }));
     const tally = {};
     since.forEach((r) => S.symptomList(r).forEach((x) => { tally[x] = (tally[x] || 0) + 1; }));
     const names = Object.keys(tally).sort((a, b) => tally[b] - tally[a]);
+    const figNames = names.slice(0, 4);
     out.symptoms = {
       label: 'Symptoms', tone: 'calm',
-      headline: names[0] || 'None reported', sub: names[0] ? `${tally[names[0]]} of ${since.length} days since ${sinceLabel}` : '',
-      details: names.length ? names.slice(0, 5).map((n) => `${n}: ${plural(tally[n], 'day')}`) : ['No symptoms were reported.'],
+      headline: names[0] ? names[0] + ' was most common' : 'No symptoms reported', sub: names[0] ? `${tally[names[0]]} of ${since.length} days since ${sinceLabel}` : '',
+      figure: figNames.length ? { type: 'heat', title: 'Symptoms, last 7 days',
+        days: week.map(weekLabel), rows: figNames.map((n) => ({ name: n, cells: week.map((r) => S.symptomList(r).includes(n)) })) } : null,
+      details: names.length
+        ? [`${names[0]} was the most common symptom: ${plural(tally[names[0]], 'day')} of ${since.length} since ${sinceLabel}.`].concat(names.slice(1, 5).map((n) => `${n} followed on ${plural(tally[n], 'day')} (${Math.round(100 * tally[n] / since.length)}%).`))
+            .concat([`In the last week the most reported was ${Object.keys(weekTally).sort((a, b) => weekTally[b] - weekTally[a])[0] || 'nothing'}.`])
+        : ['No symptoms were reported since the last visit.'],
     };
 
-    const eventCard = (id, label, noun) => {
+    // Night waking / rescue inhaler
+    const eventCard = (id, key, label, noun, sentence, headlineNone, headlineSome) => {
       const n = count(since, id), before = count(prior, id);
-      out[id === Q.night ? 'night_waking' : 'rescue_inhaler'] = {
+      out[key] = {
         label, tone: n > since.length * 0.4 ? 'attention' : 'calm',
-        headline: `${n} of ${since.length}`, sub: `${noun} since ${sinceLabel}`,
-        details: [`${Math.round(100 * n / Math.max(1, since.length))}% of days since the last visit.`, `Last 14 days: ${count(recent, id)}. The 14 before: ${before}.`],
+        headline: n === 0 ? headlineNone : headlineSome(n), sub: `${noun} since ${sinceLabel}`,
+        figure: { type: 'dots', title: `${label} (filled = yes)`,
+          items: calendarWeek.map((t) => ({ label: weekdayShort(t), on: byT.has(t) && S.yes(byT.get(t).a[id]), title: S.shortDate(t) })) },
+        details: [`${sentence} on ${plural(n, 'day')} of ${since.length} since ${sinceLabel}, which is ${Math.round(100 * n / Math.max(1, since.length))}% of days.`,
+          `Over the last 14 days it happened ${count(recent, id)} times, compared with ${before} in the 14 days before.`,
+          `In the last week: ${count(week, id)} of ${week.length} days.`],
       };
     };
-    eventCard(Q.night, 'Night waking', 'nights woken');
-    eventCard(Q.rescue, 'Rescue inhaler', 'days used');
+    eventCard(Q.night, 'night_waking', 'Night waking', 'nights woken', 'Asthma woke the patient', 'No night waking', (n) => 'Woke up on ' + plural(n, 'night'));
+    eventCard(Q.rescue, 'rescue_inhaler', 'Rescue inhaler', 'days used', 'The rescue inhaler was used', 'No rescue inhaler use', (n) => 'Rescue inhaler used on ' + plural(n, 'day'));
 
-    const aSince = avg(since, Q.activity), aBefore = avg(rs.filter((r) => r.t <= sinceT).slice(-since.length || -14), Q.activity);
+    // Activity limit
+    const aSince = avg(since, Q.activity);
+    const aBefore = avg(rs.filter((r) => r.t <= sinceT).slice(-since.length || -14), Q.activity);
     out.activity_limit = {
       label: 'Activity limit', tone: 'calm',
-      headline: plain(aSince), sub: `average since ${sinceLabel} (0 to 10)`,
-      details: [`Before the last visit it averaged ${plain(aBefore)}.`, `Last 14 days: ${plain(avg(recent, Q.activity))}.`],
+      headline: aBefore == null || Number.isNaN(aBefore) ? 'Activity limit ' + plain(aSince) : aSince - aBefore > 0.5 ? 'Activity limit increased' : aSince - aBefore < -0.5 ? 'Activity limit decreased' : 'Activity limit unchanged', sub: `average since ${sinceLabel} (0 to 10)`,
+      figure: { type: 'bars', title: 'Activity limit, last 7 days', max: 10,
+        items: week.map((r) => ({ label: weekLabel(r), value: S.num(r.a[Q.activity]) || 0, hot: false })) },
+      details: [`Activity limitation averaged ${plain(aSince)} out of 10 since ${sinceLabel}; in the same number of days before that visit it averaged ${plain(aBefore)}.`,
+        `Over the last 14 days it averaged ${plain(avg(recent, Q.activity))}, and ${plain(avg(prior, Q.activity))} in the 14 days before that.`,
+        'Higher numbers mean asthma limited the patient\'s usual activities more.'],
     };
 
+    // Weekday pattern
     const weekly = Array.from({ length: 7 }, () => []);
     rs.slice(-56).forEach((r) => { const v = S.num(r.a[Q.breathless]); if (v != null) weekly[new Date(r.t).getUTCDay()].push(v); });
     const names7 = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -281,11 +322,67 @@
       const hi = valid.reduce((a, b) => (b.m > a.m ? b : a)), lo = valid.reduce((a, b) => (b.m < a.m ? b : a));
       out.pattern = {
         label: 'Pattern', tone: 'calm',
-        headline: `${names7[hi.i]}s run highest`, sub: `average breathlessness by weekday, last 8 weeks`,
-        details: [`Highest: ${names7[hi.i]} (${plain(hi.m)}). Lowest: ${names7[lo.i]} (${plain(lo.m)}).`].concat(valid.map((x) => `${names7[x.i]}: ${plain(x.m)}`)),
+        headline: `Breathlessness peaks on ${names7[hi.i]}s`, sub: 'average breathlessness by weekday, last 8 weeks',
+        figure: { type: 'bars', title: 'Breathlessness by weekday', max: 10,
+          items: means.map((m, i) => ({ label: names7[i].slice(0, 3), value: m == null ? 0 : m, hot: i === hi.i })) },
+        details: [`Breathlessness is highest on ${names7[hi.i]}s (average ${plain(hi.m)}) and lowest on ${names7[lo.i]}s (average ${plain(lo.m)}).`,
+          'This uses the last 8 weeks of check-ins and may reflect routine, such as school or work days, rather than anything clinical.',
+          valid.map((x) => `${names7[x.i].slice(0, 3)} ${plain(x.m)}`).join(' · ')],
       };
     }
     return out;
+  }
+
+  // Small figures for the back of a flashcard (last week of data).
+  function figure(fig) {
+    const wrap = el('figure', 'fig');
+    if (fig.type === 'bars') {
+      const NS = 'http://www.w3.org/2000/svg';
+      const W = 340, H = 220, top = 24, bottom = 28, n = fig.items.length;
+      const svg = document.createElementNS(NS, 'svg');
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+      svg.setAttribute('class', 'fig-svg');
+      svg.setAttribute('role', 'img');
+      svg.setAttribute('aria-label', fig.title);
+      const slot = W / n, bw = slot * 0.6, plot = H - top - bottom;
+      const yOf = (v) => top + plot * (1 - Math.min(v, fig.max) / fig.max);
+      const mk = (tag, attrs, text) => { const node = document.createElementNS(NS, tag); Object.entries(attrs).forEach(([k, v]) => node.setAttribute(k, v)); if (text != null) node.textContent = text; return node; };
+      svg.append(mk('line', { x1: 0, x2: W, y1: top + plot, y2: top + plot, class: 'fig-axis' }));
+      fig.items.forEach((item, i) => {
+        const x = i * slot + (slot - bw) / 2, y = yOf(item.value);
+        svg.append(mk('rect', { x, y, width: bw, height: Math.max(2, top + plot - y), rx: 5, class: 'fig-bar' + (item.hot ? ' hot' : '') }));
+        svg.append(mk('text', { x: x + bw / 2, y: y - 5, class: 'fig-val', 'text-anchor': 'middle' }, plain(item.value, Number.isInteger(item.value) ? 0 : 1)));
+        svg.append(mk('text', { x: x + bw / 2, y: H - 8, class: 'fig-label', 'text-anchor': 'middle' }, item.label));
+      });
+      if (fig.line) {
+        const y = yOf(fig.line.value);
+        svg.append(mk('line', { x1: 0, x2: W, y1: y, y2: y, class: 'fig-line' }));
+        svg.append(mk('text', { x: W, y: y - 4, class: 'fig-line-label', 'text-anchor': 'end' }, fig.line.label));
+      }
+      wrap.append(svg);
+    } else if (fig.type === 'dots') {
+      const row = el('div', 'fig-dots');
+      fig.items.forEach((item) => {
+        const cell = el('div', 'fig-dot-cell');
+        const dot = el('span', 'fig-dot' + (item.on ? ' on' : ''));
+        dot.title = item.title + (item.on ? ': yes' : ': no');
+        cell.append(dot, el('span', 'fig-label', item.label));
+        row.append(cell);
+      });
+      wrap.append(row);
+    } else if (fig.type === 'heat') {
+      const grid = el('div', 'fig-heat');
+      grid.style.gridTemplateColumns = `minmax(70px, auto) repeat(${fig.days.length}, minmax(0, 1fr))`;
+      fig.rows.forEach((row) => {
+        grid.append(el('span', 'fig-heat-name', row.name));
+        row.cells.forEach((on) => grid.append(el('span', 'fig-heat-cell' + (on ? ' on' : ''))));
+      });
+      grid.append(el('span'));
+      fig.days.forEach((d) => { const label = el('span', 'fig-label', d.slice(0, 2)); label.title = d; grid.append(label); });
+      wrap.append(grid);
+    }
+    wrap.prepend(el('figcaption', 'fig-title', fig.title));
+    return wrap;
   }
 
   function deckOrder(available) {
@@ -301,8 +398,6 @@
   function buildDeck(appt) {
     const available = cards(appt);
     const order = deckOrder(available);
-    const clinician = prefs?.clinicians?.[prefs.activeClinicianId];
-    modalBody.append(el('p', 'fly-hint', `${clinician ? 'Ordered by ' + clinician.name + '\'s preferences. ' : ''}Tap a card to flip it.`));
     if (!order.length) { modalBody.append(el('p', 'muted', 'No check-ins to summarise yet.')); return; }
     let index = 0, flipped = false;
     const stage = el('div', 'deck');
@@ -329,10 +424,12 @@
       const c = available[order[index]];
       flash.className = `flash fill-${FILLS[index % FILLS.length]} tone-${c.tone}`;
       flash.setAttribute('aria-label', `${c.label}: ${c.headline}. ${flipped ? 'Showing details.' : 'Press to flip.'}`);
-      front.replaceChildren(el('p', 'flash-kind', c.label), el('p', 'flash-headline', c.headline), el('p', 'flash-sub', c.sub), el('p', 'flash-flip', 'Tap to flip'));
+      front.replaceChildren(el('p', 'flash-kind', c.label), el('p', 'flash-headline', c.headline));
       const ul = el('ul', 'flash-details');
       c.details.forEach((line) => ul.append(el('li', null, line)));
-      back.replaceChildren(el('p', 'flash-kind', c.label), ul);
+      back.replaceChildren(el('p', 'flash-kind', c.label), ...(c.figure ? [figure(c.figure)] : [ul]));
+      back.classList.toggle('has-figure', Boolean(c.figure));
+      back.setAttribute('aria-label', c.details.join(' '));
       inner.classList.toggle('is-flipped', flipped);
       front.setAttribute('aria-hidden', String(flipped));
       back.setAttribute('aria-hidden', String(!flipped));

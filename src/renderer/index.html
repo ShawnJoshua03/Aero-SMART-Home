@@ -37,8 +37,7 @@
     <div class="workspace">
       <section class="canvas-panel" aria-labelledby="canvas-heading">
         <div class="canvas-toolbar"><h2 id="canvas-heading">Your patient view</h2><span id="save-status" role="status" aria-live="polite">Loading workspace…</span><button id="retry-save" hidden>Retry save</button></div>
-        <p id="canvas-help" class="muted">Drop on a card to insert before it. Drop below to place at the end.</p>
-        <div id="canvas" class="canvas-grid" aria-describedby="canvas-help"></div>
+        <div id="canvas" class="canvas-grid"></div>
       </section>
     </div>
     </div>
@@ -61,10 +60,8 @@
   <div id="tray-scrim" class="tray-scrim" hidden></div>
   <aside id="tray-drawer" class="palette-panel" aria-labelledby="palette-heading" aria-hidden="true">
     <button id="tray-close" class="tray-close" type="button" aria-label="Close widget tray">×</button>
-    <p class="eyebrow">MAKE IT YOURS</p><h2 id="palette-heading">Widget tray</h2>
-    <p class="muted">Drag a widget into your view, or select Add.</p>
+    <h2 id="palette-heading">Widget tray</h2>
     <div id="palette"></div>
-    <p class="tray-note">Move cards by their handles. Choose S, M or L to change their size.</p>
   </aside>
   <div id="card-modal" class="card-modal" hidden>
     <div class="card-modal-backdrop" id="card-modal-backdrop"></div>
@@ -78,6 +75,13 @@
     <article id="fly-modal-dialog" class="card-modal-dialog fly-dialog" role="dialog" aria-modal="true" aria-labelledby="fly-modal-title">
       <div class="card-modal-head"><div><p id="fly-modal-tag" class="fly-tag"></p><h2 id="fly-modal-title"></h2></div><button id="fly-modal-close" class="card-modal-close" type="button" aria-label="Close">×</button></div>
       <div id="fly-modal-body" class="fly-modal-body"></div>
+    </article>
+  </div>
+  <div id="anomaly-modal" class="card-modal" hidden>
+    <div class="card-modal-backdrop" id="anomaly-modal-backdrop"></div>
+    <article id="anomaly-modal-dialog" class="card-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="anomaly-modal-title">
+      <div class="card-modal-head"><h2 id="anomaly-modal-title"></h2><button id="anomaly-modal-close" class="card-modal-close" type="button" aria-label="Close enlarged view">×</button></div>
+      <div id="anomaly-modal-body" class="widget-body"></div>
     </article>
   </div>
   <script src="widgets/registry.js"></script>

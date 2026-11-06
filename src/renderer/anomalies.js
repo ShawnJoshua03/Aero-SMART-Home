@@ -3,21 +3,48 @@
   const page = document.getElementById('page-anomalies');
   const cards = [{ widgetId: 'anomaly-breathlessness', fill: 'plum' }];
   let cleanups = [];
+  let modalCleanup = null, modalReturn = null;
+  const modal = document.getElementById('anomaly-modal');
+  const modalBody = document.getElementById('anomaly-modal-body');
+
+  // Phones show only the chart on the card; tapping opens everything (legend, summary, episodes) in a modal.
+  function closeModal() {
+    if (modal.hidden) return;
+    if (modalCleanup) { try { modalCleanup(); } catch (error) { console.error(error); } modalCleanup = null; }
+    modalBody.replaceChildren();
+    modal.hidden = true;
+    document.body.classList.remove('modal-open');
+    modalReturn?.focus();
+  }
+  function openModal(widget, ctx, from) {
+    modalReturn = from;
+    document.getElementById('anomaly-modal-title').textContent = widget.title;
+    modalBody.replaceChildren();
+    modal.hidden = false; // visible before rendering so the chart can measure its width
+    document.body.classList.add('modal-open');
+    try {
+      const cleanup = widget.render(modalBody, { ...ctx, size: 'L', config: {}, onChange() {} });
+      if (typeof cleanup === 'function') modalCleanup = cleanup;
+    } catch (error) {
+      console.error(error);
+      modalBody.textContent = 'This chart could not render.';
+    }
+    document.getElementById('anomaly-modal-close').focus();
+  }
+  document.getElementById('anomaly-modal-close').addEventListener('click', closeModal);
+  document.getElementById('anomaly-modal-backdrop').addEventListener('click', closeModal);
+  document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeModal(); });
 
   function render() {
     const { data, patientId } = window.Canvas.context();
     if (!data) return;
     cleanups.splice(0).forEach((fn) => { try { fn(); } catch (error) { console.error(error); } });
-    const patient = data.patients.find((p) => p.id === patientId);
     page.replaceChildren();
     const head = document.createElement('div');
     head.className = 'anomaly-head';
     const title = document.createElement('h2');
     title.textContent = 'Needs attention';
-    const sub = document.createElement('p');
-    sub.className = 'muted';
-    sub.textContent = (patient ? patient.name + ': ' : '') + 'flagged against their own baseline.';
-    head.append(title, sub);
+    head.append(title);
     const list = document.createElement('div');
     list.className = 'anomaly-list';
     cards.forEach(({ widgetId, fill }) => {
@@ -33,7 +60,17 @@
       // Intentionally does nothing yet; the demo explains that it re-trains the model.
       const body = document.createElement('div');
       body.className = 'anomaly-body';
-      card.append(recal, body);
+      recal.addEventListener('click', (event) => event.stopPropagation());
+      const hint = document.createElement('p');
+      hint.className = 'anomaly-tap';
+      hint.textContent = 'Tap for details';
+      card.tabIndex = 0;
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-label', widget.title + ': open details');
+      const open = () => openModal(widget, { data, patientId }, card);
+      card.addEventListener('click', open);
+      card.addEventListener('keydown', (event) => { if (event.target === card && (event.key === 'Enter' || event.key === ' ')) { event.preventDefault(); open(); } });
+      card.append(recal, body, hint);
       list.append(card);
       try {
         const cleanup = widget.render(body, { data, patientId, size: 'L', config: {}, onChange() {} });

@@ -63,7 +63,7 @@
   function shell(el, title, sub) {
     var root = h('div', 'sw');
     root.append(h('p', 'sw-eyebrow', title));
-    if (sub) root.append(h('p', 'sw-sub', sub));
+    if (sub) root.append(h('p', 'sw-sub sw-intro', sub));
     el.append(root);
     return root;
   }
@@ -163,7 +163,6 @@
         marks: an.days.map(function (r) { return { t: r.t, y: r.a[Q.breathless], title: shortDate(r.t) + ': ' + r.a[Q.breathless] + ' (unusual for this patient)' }; }),
         legend: [{ name: 'Daily', cls: 'sw-main' }, { name: '7-day average', cls: 'sw-soft' }, { name: 'Unusual day (above ' + fmt(an.cut) + ')', cls: 'sw-dot' }],
       });
-      root.append(h('p', 'sw-sub', an.days.length + ' unusual day' + (an.days.length === 1 ? '' : 's') + " versus this patient's own baseline (mock rule: mean + 2 SD)."));
     },
   });
 
@@ -367,7 +366,6 @@
       map.append(h('span', 'sw-heat-name'));
       for (var w2 = 0; w2 < weeks; w2++) map.append(h('span', 'sw-week', w2 % 4 === 0 ? shortDate(t0 + w2 * 7 * DAY) : ''));
       root.append(map);
-      root.append(h('p', 'sw-sub', 'Darker cells mean more days that week. Each column is 7 days from ' + shortDate(t0) + '.'));
     },
   });
 

@@ -219,3 +219,21 @@ main { padding-bottom: 120px; }
 .aero { translate: 0 var(--aero-shift, 0px); transition: translate .35s cubic-bezier(.3, 1.2, .5, 1); }
 .aero.aero-dragging { transition: none; }
 @media (prefers-reduced-motion: reduce) { .aero { transition: none; } }
+
+/* Anomalies page scaling: capped width on desktop, chart-only cards on phones (tap for the modal). */
+.anomaly-head, .anomaly-list { max-width: 780px; }
+.anomaly-card { cursor: zoom-in; }
+.anomaly-card:focus-visible { outline: 3px solid var(--plum); outline-offset: 3px; }
+.anomaly-tap { display: none; margin: 0; padding: 0 22px 14px; font-size: 11px; text-align: right; }
+@media (max-width: 640px) {
+  .anomaly-card .sw-sub, .anomaly-card .sw-legend, .anomaly-card .sw-episodes { display: none; }
+  .anomaly-tap { display: block; }
+  .anomaly-body { padding-bottom: 6px; }
+}
+
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.anomaly-body { padding-top: 48px; }
+.anomaly-head p, .fly-head p { display: none; }
+
+.canvas-toolbar { margin-bottom: 14px; }
+.anomaly-head h2, .fly-head h2 { margin-bottom: 14px; }

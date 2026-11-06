@@ -113,10 +113,7 @@
       item.className = 'palette-item';
       const title = document.createElement('strong');
       title.textContent = widget.title;
-      const sizes = document.createElement('span');
-      sizes.className = 'muted';
-      sizes.textContent = widget.sizes.join(' / ');
-      item.append(title, sizes, button('Add +', `Add ${widget.title}`, () => add(widget.id)));
+      item.append(title, button('Add +', `Add ${widget.title}`, () => add(widget.id)));
       draggable(item, { widgetId: widget.id });
       palette.append(item);
     });

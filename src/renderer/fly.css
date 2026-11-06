@@ -37,7 +37,7 @@
 
 /* Flashcard deck */
 .deck { display: grid; gap: 14px; justify-items: center; margin-top: 8px; }
-.flash { --flash-fill: var(--fill-plum); width: min(100%, 460px); height: min(380px, 56vh); perspective: 1200px; cursor: pointer; outline-offset: 4px; }
+.flash { --flash-fill: var(--fill-plum); width: min(100%, 520px); height: min(520px, 68vh); perspective: 1200px; cursor: pointer; outline-offset: 4px; }
 .flash.fill-plum { --flash-fill: var(--fill-plum); }
 .flash.fill-blue { --flash-fill: var(--fill-blue); }
 .flash.fill-green { --flash-fill: var(--fill-green); }
@@ -51,7 +51,8 @@
 .flash-headline { margin: auto 0 6px; font: 400 clamp(30px, 8vw, 44px)/1.1 Georgia, serif; overflow-wrap: anywhere; }
 .flash-sub { margin: 0; font-size: 14px; }
 .flash-flip { margin: auto 0 0; padding-top: 16px; font-size: 11px; opacity: .85; text-align: right; }
-.flash-details { margin: 14px 0 0; padding-left: 18px; display: grid; gap: 8px; font-size: 14px; line-height: 1.45; }
+.flash-details { margin: 14px 0 0; padding-left: 20px; display: grid; gap: 12px; font-size: 17px; line-height: 1.5; }
+.flash-back .flash-kind { font-size: 12px; }
 .deck-nav { display: flex; align-items: center; gap: 16px; }
 .deck-step { padding: 6px 16px; background: color-mix(in srgb, white 16%, transparent); color: var(--white); border-color: color-mix(in srgb, white 40%, transparent); }
 .deck-step:disabled { opacity: .3; }
@@ -61,3 +62,48 @@
 .deck-dots i.is-on { background: var(--white); transform: scale(1.35); }
 @media (prefers-reduced-motion: reduce) { .flash-inner, .fly-card { transition: none; } }
 @media (max-width: 640px) { .fly-list { grid-template-columns: 1fr; } .fly-modal-body { padding: 14px 16px 22px; } }
+
+/* Figures on the back of a flashcard */
+.fig { margin: 12px 0 0; }
+.fig-svg { display: block; width: 100%; height: auto; }
+.fig-axis { stroke: color-mix(in srgb, white 45%, transparent); stroke-width: 1; }
+.fig-bar { fill: color-mix(in srgb, white 42%, transparent); }
+.fig-bar.hot { fill: var(--white); }
+.fig-val { fill: var(--white); font-size: 12px; font-weight: 600; }
+.fig-label { fill: var(--white); font-size: 12px; }
+.fig-line { stroke: var(--white); stroke-width: 1.2; stroke-dasharray: 5 4; }
+.fig-line-label { fill: var(--white); font-size: 11px; }
+.fig-title { margin: 0 0 14px; font: 400 20px/1.2 Georgia, serif; }
+.fig-dots { display: flex; justify-content: space-between; gap: 4px; }
+.fig-dot-cell { display: grid; justify-items: center; gap: 6px; font-size: 12px; }
+.fig-dot { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--white); }
+.fig-dot.on { background: var(--white); }
+.fig-heat { display: grid; gap: 5px; align-items: center; font-size: 12px; }
+.fig-heat-name { font-size: 13px; }
+.fig-heat-cell { aspect-ratio: 1; max-height: 26px; border-radius: 6px; border: 1.5px solid color-mix(in srgb, white 55%, transparent); }
+.fig-heat-cell.on { background: var(--white); border-color: var(--white); }
+.fig-heat .fig-label { text-align: center; font-size: 11px; }
+
+@media (max-width: 640px) { .flash { height: min(520px, 58vh); } }
+
+.flash-front { justify-content: center; }
+.flash-front .flash-kind { position: absolute; top: 24px; left: 26px; }
+.flash-front .flash-headline { margin: 0; font-size: clamp(32px, 9vw, 48px); }
+
+.flash-back.has-figure { justify-content: center; }
+.flash-back.has-figure .flash-kind { position: absolute; top: 24px; left: 26px; }
+.flash-back.has-figure .fig { margin: 20px 0 0; }
+.fig-val { font-size: 13px; }
+.fig-label { font-size: 13px; }
+.fig-dot { width: 34px; height: 34px; }
+.fig-heat-cell { max-height: 34px; }
+.fig-heat-name { font-size: 14px; }
+@media (max-width: 640px) { .fig-dot { width: 28px; height: 28px; } }
+
+.flash-details:has(> li:only-child) { padding-left: 0; list-style: none; }
+
+/* The small category label stays for screen readers only. */
+.flash-kind { position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.flash-face { justify-content: center; }
+.flash-back.has-figure .fig { margin: 0; }
+.fly-meta { margin-top: 0; }

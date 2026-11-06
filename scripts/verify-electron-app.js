@@ -76,6 +76,11 @@ async function verifyRenderer(stage) {
   }
   await until(() => document.querySelectorAll('#page-anomalies .sw-band').length > 0);
   check(document.querySelectorAll('#page-anomalies svg.sw-chart').length === 1 && document.querySelectorAll('#page-anomalies .sw-band').length > 0, 'Anomalies page needs a chart with highlighted bands: ' + document.querySelectorAll('#page-anomalies svg.sw-chart').length + '/' + document.querySelectorAll('#page-anomalies .sw-band').length + ' ' + document.getElementById('page-anomalies').innerHTML.length);
+  document.querySelector('#page-anomalies .anomaly-card').click();
+  await until(() => !document.getElementById('anomaly-modal').hidden);
+  check(document.querySelectorAll('#anomaly-modal .sw-episode').length > 0 && document.querySelector('#anomaly-modal svg.sw-chart'), 'Anomaly modal shows the full details');
+  document.getElementById('anomaly-modal-close').click();
+  check(document.getElementById('anomaly-modal').hidden, 'Anomaly modal closes');
   check([...document.querySelectorAll('#page-anomalies button')].some(b => b.textContent === 'Recalibrate'), 'Recalibrate button expected');
   dockItems.find(item => item.dataset.page === 'fly').click();
   await until(() => document.querySelectorAll('.fly-card').length === 8);

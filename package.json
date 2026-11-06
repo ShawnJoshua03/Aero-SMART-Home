@@ -1,0 +1,14 @@
+{
+  "name": "smart-home-clinician-view",
+  "version": "0.1.0",
+  "description": "SMART@Home clinician data view",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "license": "UNLICENSED",
+  "private": true,
+  "devDependencies": {
+    "electron": "^45.2.3"
+  }
+}

@@ -1,0 +1,10 @@
+:root {
+  --plum: #772152;
+  --blue: #0091b7;
+  --green: #619a3c;
+  --teal: #244946;
+}
+body { margin: 0; font-family: system-ui, sans-serif; color: var(--teal); }
+header { background: var(--plum); color: #fff; padding: 12px 24px; }
+h1 { margin: 0; font-size: 1.25rem; }
+main { padding: 24px; }

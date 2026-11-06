@@ -15,9 +15,11 @@
   <link rel="stylesheet" href="widgets/night-moon.css" />
   <link rel="stylesheet" href="widgets/change-ticker.css" />
   <link rel="stylesheet" href="widgets/air-quality.css" />
+  <link rel="stylesheet" href="widgets/survey-widgets.css" />
 </head>
 <body>
   <header class="app-header">
+    <button id="tray-toggle" class="tray-toggle" type="button" aria-label="Open widget tray" aria-expanded="false" aria-controls="tray-drawer">☰</button>
     <div class="wordmark">SMART<span>@Home</span></div>
     <span class="view-pill">Clinician workspace</span>
     <span class="demo-label">Mock data only</span>
@@ -27,7 +29,9 @@
       <div class="patient-control"><label for="patient-select">Patient</label><select id="patient-select" disabled></select><p id="period-label" class="muted"></p></div>
     </section>
     <div class="workspace">
-      <aside class="palette-panel" aria-labelledby="palette-heading">
+      <div id="tray-scrim" class="tray-scrim" hidden></div>
+      <aside id="tray-drawer" class="palette-panel" aria-labelledby="palette-heading" aria-hidden="true">
+        <button id="tray-close" class="tray-close" type="button" aria-label="Close widget tray">×</button>
         <p class="eyebrow">MAKE IT YOURS</p><h2 id="palette-heading">Widget tray</h2>
         <p class="muted">Drag a widget into your view, or select Add.</p>
         <div id="palette"></div>
@@ -53,6 +57,7 @@
   <script src="widgets/night-moon.js"></script>
   <script src="widgets/change-ticker.js"></script>
   <script src="widgets/air-quality.js"></script>
+  <script src="widgets/survey-widgets.js"></script>
   <!-- Register additional widget scripts here, before canvas startup. -->
   <script src="canvas.js"></script>
   <script src="renderer.js"></script>

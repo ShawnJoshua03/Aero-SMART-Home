@@ -61,11 +61,14 @@
       event.dataTransfer.setData('text/plain', payload.widgetId ?? payload.instanceId);
       event.dataTransfer.effectAllowed = payload.widgetId ? 'copy' : 'move';
       grid.classList.add('drag-active');
+      // Slide the tray away after the drag has begun so the whole canvas is a drop target.
+      setTimeout(() => document.body.classList.add('dragging'), 0);
     });
     el.addEventListener('dragend', clearDrop);
   }
 
   function clearDrop() {
+    document.body.classList.remove('dragging');
     grid.classList.remove('drag-active');
     grid.querySelectorAll('.drop-before').forEach(el => el.classList.remove('drop-before'));
   }
@@ -157,6 +160,17 @@
       selector.disabled = false;
       selector.addEventListener('change', () => { layout.patientId = selector.value; changed(); });
       document.getElementById('period-label').textContent = `${data.period.start} — ${data.period.end} · ${data.period.expectedDays} days`;
+      const setTray = (open) => {
+        document.body.classList.toggle('tray-open', open);
+        document.getElementById('tray-scrim').hidden = !open;
+        document.getElementById('tray-toggle').setAttribute('aria-expanded', String(open));
+        document.getElementById('tray-drawer').setAttribute('aria-hidden', String(!open));
+        (open ? document.getElementById('tray-close') : document.getElementById('tray-toggle')).focus();
+      };
+      document.getElementById('tray-toggle').addEventListener('click', () => setTray(!document.body.classList.contains('tray-open')));
+      document.getElementById('tray-close').addEventListener('click', () => setTray(false));
+      document.getElementById('tray-scrim').addEventListener('click', () => setTray(false));
+      document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && document.body.classList.contains('tray-open')) setTray(false); });
       retry.addEventListener('click', save);
       grid.addEventListener('dragover', (event) => {
         if (!event.dataTransfer.types.includes(MIME)) return;

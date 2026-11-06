@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('node:fs/promises');
 const { pathToFileURL } = require('node:url');
 const { createPreferenceStore } = require('./preferences');
+const { normalizeData } = require('./data');
 
 const dataDirectory = path.join(__dirname, '..', 'data');
 const pagePath = path.join(__dirname, 'renderer', 'index.html');
@@ -16,10 +17,10 @@ function trustedSender(event) {
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 1280,
-    height: 800,
-    minWidth: 760,
-    minHeight: 600,
+    width: 390,
+    height: 844,
+    minWidth: 320,
+    minHeight: 568,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
@@ -33,14 +34,11 @@ function createWindow() {
 }
 
 app.whenReady().then(async () => {
-  const readData = async () => {
-    const [survey, responses] = await Promise.all(['survey', 'responses'].map(async (name) =>
-      JSON.parse(await fs.readFile(path.join(dataDirectory, `${name}.json`), 'utf8'))));
-    return { survey, ...responses };
-  };
+  const readData = async () =>
+    normalizeData(JSON.parse(await fs.readFile(path.join(dataDirectory, 'responses.json'), 'utf8')));
   const store = createPreferenceStore(path.join(app.getPath('userData'), 'preferences.json'),
     path.join(dataDirectory, 'preferences.json'));
-  await store.initialize();
+  await store.initialize((await readData()).patients.map((patient) => patient.id));
   ipcMain.handle('getData', (event) => { trustedSender(event); return readData(); });
   ipcMain.handle('getPrefs', (event) => { trustedSender(event); return store.read(); });
   ipcMain.handle('savePrefs', (event, layout) => { trustedSender(event); return store.save(layout); });

@@ -22,14 +22,38 @@ function validateLayout(layout) {
   return JSON.parse(JSON.stringify({ patientId: layout.patientId, widgets }));
 }
 
+// A writable file seeded by an older build may lack the active clinician or point at a patient
+// that no longer exists. Keep the clinician's other settings but restore a usable layout.
+function repair(prefs, defaultPrefs, patientIds) {
+  let changed = false;
+  if (!prefs.clinicians || typeof prefs.clinicians !== 'object') { prefs.clinicians = {}; changed = true; }
+  if (!prefs.clinicians[prefs.activeClinicianId]) {
+    prefs.activeClinicianId = defaultPrefs.activeClinicianId;
+    changed = true;
+  }
+  const clinician = prefs.clinicians[prefs.activeClinicianId] ??= { name: defaultPrefs.clinicians[defaultPrefs.activeClinicianId].name };
+  const fallback = defaultPrefs.clinicians[defaultPrefs.activeClinicianId].layout;
+  const layout = clinician.layout;
+  const valid = layout && typeof layout.patientId === 'string' && Array.isArray(layout.widgets) &&
+    (!patientIds || patientIds.includes(layout.patientId));
+  if (!valid) { clinician.layout = structuredClone(fallback); changed = true; }
+  return changed;
+}
+
 function createPreferenceStore(filename, defaults) {
   let pending = Promise.resolve();
   const readFile = async () => JSON.parse(await fs.readFile(filename, 'utf8'));
   return {
-    async initialize() {
+    async initialize(patientIds) {
       await fs.mkdir(path.dirname(filename), { recursive: true });
       try { await fs.copyFile(defaults, filename, constants.COPYFILE_EXCL); }
       catch (error) { if (error.code !== 'EEXIST') throw error; }
+      const prefs = await readFile();
+      if (repair(prefs, JSON.parse(await fs.readFile(defaults, 'utf8')), patientIds)) {
+        await fs.writeFile(`${filename}.tmp`, `${JSON.stringify(prefs, null, 2)}
+`, 'utf8');
+        await fs.rename(`${filename}.tmp`, filename);
+      }
     },
     async read() { await pending; return readFile(); },
     save(layout) {

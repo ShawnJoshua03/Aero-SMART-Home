@@ -133,12 +133,38 @@ package.json         scripts: `npm start` runs `electron .`; entry point `src/ma
 package-lock.json    locked dependency versions
 .gitignore           node_modules/, dist/, out/
 src/
-  main.js            main process: creates a 1280x800 BrowserWindow, loads renderer/index.html
-  preload.js         contextBridge exposes `window.api.versions` to the renderer
+  main.js            isolated BrowserWindow (390x844 phone-sized, min 320x568); validated getData/getPrefs/savePrefs IPC handlers
+  data.js            normalizeData(): turns responses.json {surveys, patients, responses} into {survey, surveys, patients, entries, period}
+  preload.js         exposes only window.api.getData(), getPrefs(), savePrefs(layout)
+  preferences.js     validated, serialized, atomic saves to userData/preferences.json
   renderer/
-    index.html       page shell, CSP `default-src 'self'`, header and `#app` mount point
-    styles.css       CSS variables for the four palette colors, basic header and main styling
-    renderer.js      placeholder: prints Electron and Chrome versions into `#app`
+    index.html       local scripts/styles, CSP default-src 'self', patient selector and canvas shell
+    styles.css       filled palette cards/blobs/pills, contrast-safe white text, serif headings, S/M/L grid
+    renderer.js      starts canvas and reports startup failures
+    canvas.js        hamburger tray drawer, HTML5 drag/reorder, sizes, remove, patient changes, persistence
+    lib/
+      svg.js         shared SVG scale, path, and tick helpers
+    widgets/
+      registry.js    window.Widgets register/list/get extension API
+      hello.js       placeholder patient check-in widget, all three sizes
+      survey-widgets.js/.css  the seven default widgets, driven by survey answers: checkin-count, breathlessness-trend, night-rescue-trend, kpi-board, symptom-frequency, symptom-timing, activity-limit-trend
+      trend-line.js/.css  patient trend chart with calibration band and mock live updates
+      kpi-tiles.js/.css   weekly indicators with deltas, sparklines, flip details
+      scatter.js/.css     metric comparison with week colours and selection
+      body-diagram.js/.css  interactive asthma body map with history scrubber
+      lungs-gauge.js/.css   severity-paced breathing lungs
+      adherence-heatmap, trigger-bubbles, night-moon, change-ticker, air-quality (.js/.css)  fun widgets
+      (trend-line through air-quality were written for the older data shape: baselines, bodyReports, controller_taken. They are still in the tray but are NOT yet connected to the current schema.)
+      _dev/               standalone mock-data previews per widget group
+data/
+  responses.json     single source of truth: one asthma-daily survey, one patient (pt-a1), 100 daily responses (2026-07-28 to 2026-11-04) with planted anomalies
+  preferences.json   resolution rules (patients > surveys > general) for clinician clin-001, plus activeClinicianId and the default 7-widget layout
+  legacy-demo/       the earlier 6-patient dataset and old preferences; not loaded by the app
+tests/
+  foundation.test.js preference store and registry tests (its dataset test still targets the removed data/survey.json and needs rewriting)
+scripts/
+  verify-electron.js      launches two disposable-profile Electron test processes
+  verify-electron-app.js  bridge, HTML5 events, canvas controls, and restart smoke checks
 ```
 
 ## Architecture and tech stack
@@ -150,9 +176,18 @@ src/
 - Security settings: `contextIsolation: true`, `nodeIntegration: false`, and a CSP in `index.html`. The CSP blocks inline scripts and remote resources. Keep scripts and styles in separate local files.
 - Run the app with `npm start`.
 
+### Data flow
+- `data/responses.json` holds `{ surveys, patients, responses }`. Each response is `{ id, surveyId, patientId, submittedAt, answers }`. Answers use the survey's question ids: radio values are `"Yes"`/`"No"`, mcq values are arrays of option labels (`["None"]` means no symptoms), sliders are numbers, text is a string.
+- Main process reads it through `src/data.js` (`normalizeData`) and returns `{ survey, surveys, patients, entries, period }` from `window.api.getData()`. `entries[]` is `{ id, patientId, surveyId, date, timestamp, answers }`, sorted by time. There are no `baseline` or `bodyReports` fields in this schema; widgets compute per-patient baselines themselves (mock rule: mean + 2 SD).
+- Widgets filter `data.entries` by `ctx.patientId` and the survey id. The canvas passes `{ data, patientId, size, onChange }`.
+- Default layout (in `data/preferences.json` under `clinicians.clin-001.layout`, active via `activeClinicianId`): check-in count (S), breathlessness trend (L), night waking and rescue inhaler 7-day counts (L), KPI board (M), symptom frequency (M), symptoms by week heatmap (L), activity limitation trend with weekly rate of change (L). The writable copy in userData is only seeded once, so delete it to pick up changes to the bundled layout.
+
 ## Status and next steps
 
-- Current state: bare scaffold. No clinician view, researcher view, mock data, or tests exist yet.
+- Current state: foundation (isolated IPC, persistent canvas, patient selector, widget registry) plus the single-patient, 100-record asthma dataset and seven default widgets wired to it. WIDGET-API.md still describes the older data shape (baseline, bodyReports, 6 patients); the Data flow section above is current.
+- Known gaps: the older widgets (trend-line, kpi-tiles, scatter, body-diagram, lungs-gauge, fun widgets) are not connected to the new schema. `WIDGET-API.md` still describes the old data shape.
+- Layout: the window is phone-sized and the page fits its width with no horizontal scroll (single-column cards under 640 px). The widget tray is an off-canvas drawer opened from the header hamburger (`#tray-toggle`); it slides away during a drag so the canvas is the drop target. `npm test` and `npm run verify:electron` pass against the single-patient dataset.
+- Earlier verification (old dataset): npm test and npm run verify:electron passed. npm start opened the desktop app; Add, S sizing, and button reordering were observed. HTML5 drag handlers, S/M/L, removal, patient switching, and persistence across separate processes pass in Electron. Native pointer drag automation did not trigger a drop; a manual pointer-drag check remains outstanding.
 - Likely next steps:
   1. Create the demo dataset (see "Demo dataset" below).
   2. Create `data/preferences.json` with a default layout for one demo clinician, and wire load and save through the main process and preload.
@@ -164,12 +199,14 @@ src/
 
 ## Demo dataset
 
+Current state: one asthma survey, one patient, 100 daily records in `data/responses.json`. Planted anomalies: a 3-day breathlessness spike (records 39-41), single-day spikes (56, 89), a night-waking cluster (63-65), and a 5-day flare (72-76). The older six-patient cohort lives in `data/legacy-demo/`.
+
 For the demo we use fake data from one survey. Everything is invented. No real patient data.
 - **Survey:** 5 to 6 questions that a doctor has pushed to patients with asthma. Mix the input types: sliders, radio buttons, multiple choice, and one free-text question.
 - **Example questions** (adjust as needed): breathlessness this week (slider 0 to 10), rescue inhaler uses today (number or radio buttons), night-time waking (radio buttons: yes or no), daily controller medication taken (yes or no), triggers noticed (multiple choice), and an optional free-text note. The body diagram may also be included, for example chest or throat discomfort.
 - **Patients:** a small cohort, around 5 to 8 patients, with entries over several weeks.
 - **Patterns to build in on purpose**, so the views have something to show: one patient with a worsening trend, one with missed days (adherence gap), one with a sudden spike (anomaly), and one stable patient.
-- **Location:** `data/` folder, for example `data/survey.json` (the questions and types) and `data/responses.json` (patient answers with timestamps).
+- **Location:** `data/responses.json` holds the survey definitions, patients, and responses together.
 - Design the data so more surveys can be added later. Do not hard-code asthma into the view code.
 
 ## Working conventions

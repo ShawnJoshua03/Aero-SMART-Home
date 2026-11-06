@@ -1,0 +1,39 @@
+.sw {
+  --sw-palette: var(--widget-palette, var(--widget-fill, var(--teal)));
+  --sw-soft: color-mix(in srgb, white 55%, var(--sw-palette));
+  --sw-faint: color-mix(in srgb, white 22%, var(--sw-palette));
+  --sw-panel: color-mix(in srgb, black 24%, var(--sw-palette));
+  color: white;
+}
+.sw-eyebrow { margin: 0 0 4px; font-size: 11px; font-weight: 650; letter-spacing: .14em; text-transform: uppercase; }
+.sw-sub { margin: 0 0 10px; font-size: 12px; }
+.sw-big { margin: 4px 0; font: 700 56px/1 Georgia, serif; }
+.sw-chart { display: block; width: 100%; height: auto; }
+.sw-grid { stroke: var(--sw-faint); stroke-width: 1; }
+.sw-threshold { stroke: var(--sw-soft); stroke-width: 1; stroke-dasharray: 4 4; }
+.sw-tick { fill: white; font-size: 11px; }
+.sw-line { fill: none; stroke-width: 2.2; stroke-linejoin: round; stroke-linecap: round; }
+.sw-main { stroke: white; }
+.sw-soft { stroke: var(--sw-soft); }
+.sw-alt { stroke: var(--sw-soft); stroke-dasharray: 6 3; }
+.sw-mark { fill: var(--sw-palette); stroke: white; stroke-width: 2.5; }
+.sw-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 6px; font-size: 12px; }
+.sw-key { display: inline-flex; align-items: center; gap: 6px; }
+.sw-swatch { display: inline-block; width: 16px; height: 4px; border-radius: 2px; }
+.sw-swatch.sw-main { background: white; }
+.sw-swatch.sw-soft { background: var(--sw-soft); }
+.sw-swatch.sw-alt { background: repeating-linear-gradient(90deg, var(--sw-soft) 0 6px, transparent 6px 9px); }
+.sw-swatch.sw-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--sw-palette); border: 2px solid white; }
+.sw-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-top: 8px; }
+.sw-tile { display: grid; gap: 2px; padding: 12px 14px; border-radius: 18px; background: var(--sw-panel); }
+.sw-tile-label { font-size: 11px; }
+.sw-tile-value { font: 700 24px/1.1 Georgia, serif; }
+.sw-tile-note { font-size: 11px; }
+.sw-bars { display: grid; gap: 8px; }
+.sw-bar-row { display: grid; grid-template-columns: minmax(80px, 34%) 1fr auto; align-items: center; gap: 10px; font-size: 12px; }
+.sw-bar-track { height: 14px; border-radius: 7px; background: var(--sw-panel); overflow: hidden; }
+.sw-bar-fill { height: 100%; border-radius: 7px; background: white; }
+.sw-bar-count { white-space: nowrap; }
+.sw-heat { display: grid; gap: 3px; align-items: center; font-size: 11px; }
+.sw-cell { aspect-ratio: 1; min-height: 12px; border-radius: 4px; background: color-mix(in srgb, white calc(var(--level) * 100%), var(--sw-panel)); }
+.sw-week { font-size: 9px; white-space: nowrap; overflow: visible; }

@@ -1,0 +1,63 @@
+/* Fly page: appointment cards and their modals */
+.fly-head h2 { margin: 0 0 4px; }
+.fly-head p { margin: 0 0 18px; }
+.fly-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.fly-card { --fly-fill: var(--fill-blue); display: grid; align-content: start; gap: 4px; padding: 18px 20px 20px; border-radius: 30px 24px 38px 26px; background: var(--fly-fill); color: var(--white); cursor: pointer; transition: transform .18s ease, box-shadow .18s ease; }
+.fly-card.fill-plum { --fly-fill: var(--fill-plum); }
+.fly-card.fill-blue { --fly-fill: var(--fill-blue); }
+.fly-card.fill-green { --fly-fill: var(--fill-green); }
+.fly-card.fill-teal { --fly-fill: var(--fill-teal); }
+.fly-card:hover { transform: translateY(-3px); box-shadow: 0 12px 26px color-mix(in srgb, var(--deep) 25%, transparent); }
+.fly-card:focus-visible { outline: 3px solid var(--plum); outline-offset: 3px; }
+.fly-card.is-upcoming { grid-column: 1 / -1; padding: 22px 24px 24px; }
+.fly-tag { margin: 0; font-size: 10px; font-weight: 650; letter-spacing: .16em; text-transform: uppercase; }
+.fly-date { margin: 6px 0 0; font-size: 26px; }
+.fly-card.is-upcoming .fly-date { font-size: 34px; }
+.fly-when, .fly-who { margin: 0; font-size: 13px; }
+.fly-preview { margin: 10px 0 0; font-size: 13px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.fly-missing { font-style: italic; }
+
+.fly-dialog { --widget-fill: var(--deep); background: color-mix(in srgb, var(--teal) 70%, black); width: min(100%, 720px); }
+.fly-dialog.fly-past { background: var(--fill-teal); }
+.fly-dialog .card-modal-head h2 { font-size: 20px; }
+.fly-modal-body { padding: 16px 22px 26px; overflow-y: auto; }
+.fly-meta { margin: 0 0 6px; font-size: 14px; }
+.fly-section { margin: 20px 0 4px; font-size: 20px; }
+.fly-hint { display: block; margin: 0 0 10px; font-size: 12px; }
+.fly-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
+.fly-tile { display: grid; gap: 2px; padding: 12px 14px; border-radius: 18px; background: color-mix(in srgb, black 24%, var(--fill-teal)); }
+.fly-tile-label, .fly-tile-note { font-size: 11px; }
+.fly-tile-value { font: 700 26px/1.1 Georgia, serif; }
+.fly-notes { display: block; width: 100%; min-height: 140px; padding: 12px 14px; resize: vertical; border: 1px solid color-mix(in srgb, white 40%, transparent); border-radius: 18px; background: color-mix(in srgb, white 12%, transparent); color: var(--white); font: inherit; line-height: 1.5; }
+.fly-notes::placeholder { color: color-mix(in srgb, white 70%, transparent); }
+.fly-notes-row { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+.fly-save { padding: 8px 20px; background: var(--white); color: var(--deep); border: 0; font-weight: 600; }
+.fly-save:disabled { opacity: .6; }
+.fly-status { font-size: 12px; }
+
+/* Flashcard deck */
+.deck { display: grid; gap: 14px; justify-items: center; margin-top: 8px; }
+.flash { --flash-fill: var(--fill-plum); width: min(100%, 460px); height: min(380px, 56vh); perspective: 1200px; cursor: pointer; outline-offset: 4px; }
+.flash.fill-plum { --flash-fill: var(--fill-plum); }
+.flash.fill-blue { --flash-fill: var(--fill-blue); }
+.flash.fill-green { --flash-fill: var(--fill-green); }
+.flash.fill-teal { --flash-fill: var(--fill-teal); }
+.flash-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .5s cubic-bezier(.3, 1.1, .5, 1); }
+.flash-inner.is-flipped { transform: rotateY(180deg); }
+.flash-face { position: absolute; inset: 0; display: flex; flex-direction: column; padding: 24px 26px; border-radius: 30px 24px 38px 26px; background: var(--flash-fill); border: 1px solid color-mix(in srgb, white 40%, transparent); backface-visibility: hidden; -webkit-backface-visibility: hidden; overflow: auto; box-shadow: 0 14px 30px color-mix(in srgb, black 30%, transparent); }
+.flash-back { transform: rotateY(180deg); }
+.flash.tone-attention .flash-face { box-shadow: 0 0 0 3px var(--white), 0 14px 30px color-mix(in srgb, black 30%, transparent); }
+.flash-kind { margin: 0; font-size: 11px; font-weight: 650; letter-spacing: .16em; text-transform: uppercase; }
+.flash-headline { margin: auto 0 6px; font: 400 clamp(30px, 8vw, 44px)/1.1 Georgia, serif; overflow-wrap: anywhere; }
+.flash-sub { margin: 0; font-size: 14px; }
+.flash-flip { margin: auto 0 0; padding-top: 16px; font-size: 11px; opacity: .85; text-align: right; }
+.flash-details { margin: 14px 0 0; padding-left: 18px; display: grid; gap: 8px; font-size: 14px; line-height: 1.45; }
+.deck-nav { display: flex; align-items: center; gap: 16px; }
+.deck-step { padding: 6px 16px; background: color-mix(in srgb, white 16%, transparent); color: var(--white); border-color: color-mix(in srgb, white 40%, transparent); }
+.deck-step:disabled { opacity: .3; }
+.deck-count { min-width: 56px; text-align: center; font-size: 13px; }
+.deck-dots { display: flex; gap: 6px; }
+.deck-dots i { width: 8px; height: 8px; border-radius: 50%; background: color-mix(in srgb, white 35%, transparent); transition: transform .2s, background .2s; }
+.deck-dots i.is-on { background: var(--white); transform: scale(1.35); }
+@media (prefers-reduced-motion: reduce) { .flash-inner, .fly-card { transition: none; } }
+@media (max-width: 640px) { .fly-list { grid-template-columns: 1fr; } .fly-modal-body { padding: 14px 16px 22px; } }

@@ -4,6 +4,8 @@ contextBridge.exposeInMainWorld('api', {
   getData: () => ipcRenderer.invoke('getData'),
   getPrefs: () => ipcRenderer.invoke('getPrefs'),
   savePrefs: (layout) => ipcRenderer.invoke('savePrefs', layout),
+  getAppointments: () => ipcRenderer.invoke('getAppointments'),
+  saveAppointmentNotes: (id, notes) => ipcRenderer.invoke('saveAppointmentNotes', id, notes),
   aero: {
     status: () => ipcRenderer.invoke('aero:status'),
     greet: (patientId) => ipcRenderer.invoke('aero:greet', patientId),

@@ -4,6 +4,7 @@ const fs = require('node:fs/promises');
 const { pathToFileURL } = require('node:url');
 const { createPreferenceStore } = require('./preferences');
 const { normalizeData } = require('./data');
+const { createAppointmentStore } = require('./appointments');
 const { registerAero } = require('./aero/ipc');
 const { createRealSource } = require('./aero/realSource');
 
@@ -41,6 +42,11 @@ app.whenReady().then(async () => {
   const store = createPreferenceStore(path.join(app.getPath('userData'), 'preferences.json'),
     path.join(dataDirectory, 'preferences.json'));
   await store.initialize((await readData()).patients.map((patient) => patient.id));
+  const appointments = createAppointmentStore(path.join(app.getPath('userData'), 'appointments.json'),
+    path.join(dataDirectory, 'appointments.json'));
+  await appointments.initialize();
+  ipcMain.handle('getAppointments', (event) => { trustedSender(event); return appointments.read(); });
+  ipcMain.handle('saveAppointmentNotes', (event, id, notes) => { trustedSender(event); return appointments.saveNotes(id, notes); });
   ipcMain.handle('getData', (event) => { trustedSender(event); return readData(); });
   ipcMain.handle('getPrefs', (event) => { trustedSender(event); return store.read(); });
   ipcMain.handle('savePrefs', (event, layout) => { trustedSender(event); return store.save(layout); });

@@ -1,0 +1,76 @@
+{
+  "appointments": [
+    {
+      "id": "appt-001",
+      "patientId": "pt-a1",
+      "start": "2026-08-06T09:30",
+      "type": "Routine follow-up",
+      "clinician": "Dr. Demo Pulmonologist",
+      "status": "past",
+      "notes": "Baseline review. Breathlessness steady around 2, controller taken consistently. No changes to the plan. Reinforced daily check-ins."
+    },
+    {
+      "id": "appt-002",
+      "patientId": "pt-a1",
+      "start": "2026-08-20T10:00",
+      "type": "Routine follow-up",
+      "clinician": "Dr. Demo Pulmonologist",
+      "status": "past",
+      "notes": "Stable. Mild coughing on most days, no night waking pattern. Discussed pollen season and likely triggers."
+    },
+    {
+      "id": "appt-003",
+      "patientId": "pt-a1",
+      "start": "2026-09-03T14:15",
+      "type": "Routine follow-up",
+      "clinician": "Dr. Demo Pulmonologist",
+      "status": "past",
+      "notes": "Doing well. Inhaler technique reviewed. Asked patient to contact the clinic if symptoms change."
+    },
+    {
+      "id": "appt-004",
+      "patientId": "pt-a1",
+      "start": "2026-09-10T11:00",
+      "type": "Urgent follow-up",
+      "clinician": "Dr. Demo Pulmonologist",
+      "status": "past",
+      "notes": "Flare Sep 4-6: breathlessness 9, woke up gasping, urgent care visit. Likely viral trigger. Oral steroid course completed. Rescue inhaler technique rechecked. Review in two weeks."
+    },
+    {
+      "id": "appt-005",
+      "patientId": "pt-a1",
+      "start": "2026-09-24T09:45",
+      "type": "Follow-up",
+      "clinician": "Dr. Demo Pulmonologist",
+      "status": "past",
+      "notes": "Recovered. Single spike on Sep 21 after exertion in cold air; advised reliever before exercise. Continue controller."
+    },
+    {
+      "id": "appt-006",
+      "patientId": "pt-a1",
+      "start": "2026-10-15T13:30",
+      "type": "Follow-up",
+      "clinician": "Dr. Demo Pulmonologist",
+      "status": "past",
+      "notes": ""
+    },
+    {
+      "id": "appt-007",
+      "patientId": "pt-a1",
+      "start": "2026-10-29T10:15",
+      "type": "Follow-up",
+      "clinician": "Dr. Demo Pulmonologist",
+      "status": "past",
+      "notes": "Oct 7-11 flare settled after about five days. Another spike on Oct 24 after running for the bus. Will consider stepping up the controller if there is another episode within a month. Patient to note triggers."
+    },
+    {
+      "id": "appt-008",
+      "patientId": "pt-a1",
+      "start": "2026-11-13T09:30",
+      "type": "Follow-up",
+      "clinician": "Dr. Demo Pulmonologist",
+      "status": "upcoming",
+      "notes": ""
+    }
+  ]
+}

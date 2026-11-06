@@ -214,3 +214,8 @@ main { padding-bottom: 120px; }
 .recalibrate:hover { background: color-mix(in srgb, white 30%, transparent); border-color: var(--white); }
 .recalibrate:active { transform: scale(.96); }
 .anomaly-card .sw-eyebrow { padding-right: 110px; }
+
+/* Aero steps aside (down to the bottom edge) while a modal is open; see aero-dodge.js. */
+.aero { translate: 0 var(--aero-shift, 0px); transition: translate .35s cubic-bezier(.3, 1.2, .5, 1); }
+.aero.aero-dragging { transition: none; }
+@media (prefers-reduced-motion: reduce) { .aero { transition: none; } }

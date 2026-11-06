@@ -38,7 +38,7 @@ async function verifyRenderer(stage) {
   const cards = () => [...document.querySelectorAll('.widget-card')];
   const saved = () => until(() => document.getElementById('save-status').textContent === 'Layout saved');
   await until(() => !document.getElementById('patient-button').disabled);
-  check(Object.keys(window.api).sort().join(',') === 'aero,getData,getPrefs,savePrefs', 'Bridge surface must be exact');
+  check(Object.keys(window.api).sort().join(',') === 'aero,getAppointments,getData,getPrefs,saveAppointmentNotes,savePrefs', 'Bridge surface must be exact');
   check(typeof window.require === 'undefined', 'Renderer must have no Node require');
   check(document.querySelector('[http-equiv="Content-Security-Policy"]').content === "default-src 'self'", 'CSP changed');
   const data = await window.api.getData();
@@ -68,14 +68,42 @@ async function verifyRenderer(stage) {
   };
   const dockItems = [...document.querySelectorAll('.dock-item')];
   check(dockItems.map(item => item.dataset.page).join() === 'fly,anomalies,data', 'Dock must offer Fly, Anomalies, Data');
-  check(document.getElementById('page-data').classList.contains('is-active') && !document.getElementById('page-data').hidden, 'Data is the default page');
+  check(document.getElementById('page-fly').classList.contains('is-active') && !document.getElementById('page-fly').hidden && document.getElementById('page-data').hidden, 'Fly is the default landing page');
   for (const name of ['fly', 'anomalies', 'data']) {
     dockItems.find(item => item.dataset.page === name).click();
     await until(() => !document.getElementById('page-' + name).hidden && ['fly', 'anomalies', 'data'].filter(other => other !== name).every(other => document.getElementById('page-' + other).hidden));
     check(dockItems.find(item => item.dataset.page === name).getAttribute('aria-current') === 'page', 'Dock marks the current page');
   }
-  check(document.querySelectorAll('#page-anomalies svg.sw-chart').length === 1 && document.querySelectorAll('#page-anomalies .sw-band').length > 0, 'Anomalies page needs a chart with highlighted bands');
+  await until(() => document.querySelectorAll('#page-anomalies .sw-band').length > 0);
+  check(document.querySelectorAll('#page-anomalies svg.sw-chart').length === 1 && document.querySelectorAll('#page-anomalies .sw-band').length > 0, 'Anomalies page needs a chart with highlighted bands: ' + document.querySelectorAll('#page-anomalies svg.sw-chart').length + '/' + document.querySelectorAll('#page-anomalies .sw-band').length + ' ' + document.getElementById('page-anomalies').innerHTML.length);
   check([...document.querySelectorAll('#page-anomalies button')].some(b => b.textContent === 'Recalibrate'), 'Recalibrate button expected');
+  dockItems.find(item => item.dataset.page === 'fly').click();
+  await until(() => document.querySelectorAll('.fly-card').length === 8);
+  check(document.querySelectorAll('.fly-card.is-upcoming').length === 1 && document.querySelectorAll('.fly-card:not(.is-upcoming)').length === 7, 'Fly page needs 1 upcoming and 7 past cards');
+  check([...document.querySelectorAll('.fly-tag')].filter(t => t.textContent === 'Past appointment').length === 7, 'Cards must say past/upcoming');
+  document.querySelector('.fly-card.is-upcoming').click();
+  await until(() => !document.getElementById('fly-modal').hidden && document.querySelector('.flash'));
+  const kinds = [];
+  for (let i = 0; i < 6; i++) {
+    kinds.push(document.querySelector('.flash-kind').textContent);
+    const next = document.querySelector('.deck-step[aria-label="Next card"]');
+    if (next.disabled) break;
+    next.click();
+  }
+  check(kinds.length === 6 && kinds[0] === 'Trend' && kinds.includes('Anomalies'), 'Deck follows preferences: ' + kinds.join());
+  document.getElementById('fly-modal-close').click();
+  check(document.getElementById('fly-modal').hidden, 'Flashcard modal closes');
+  const emptyPast = [...document.querySelectorAll('.fly-card:not(.is-upcoming)')].find(c => c.querySelector('.fly-missing'));
+  check(emptyPast, 'A past appointment starts without notes');
+  emptyPast.click();
+  await until(() => document.getElementById('fly-notes'));
+  document.getElementById('fly-notes').value = 'Smoke test note';
+  document.querySelector('.fly-save').click();
+  await until(() => document.querySelector('.fly-status').textContent === 'Saved');
+  document.getElementById('fly-modal-close').click();
+  await until(() => !document.querySelector('.fly-missing'));
+  dockItems.find(item => item.dataset.page === 'data').click();
+  await until(() => !document.getElementById('page-data').hidden);
   drag(document.querySelector('.palette-item'), document.querySelector('.drop-zone'));
   check(cards().length === 10, 'Tray drop must add a card');
   const addedId = cards()[9].dataset.instanceId;

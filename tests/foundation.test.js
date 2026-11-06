@@ -73,3 +73,26 @@ test('registry validates extensions and protects registration metadata', async (
   assert.throws(() => window.Widgets.register({ ...widget, id: 'bad', sizes: ['XL'] }));
   assert.equal(window.Widgets.get('missing'), undefined);
 });
+
+test('appointments: 7 past and 1 upcoming, notes persist and only valid ids/notes are accepted', async t => {
+  const seed = require('../data/appointments.json');
+  assert.equal(seed.appointments.length, 8);
+  assert.equal(seed.appointments.filter(a => a.status === 'past').length, 7);
+  assert.equal(seed.appointments.filter(a => a.status === 'upcoming').length, 1);
+  const { createAppointmentStore } = require('../src/appointments');
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'smart-home-appt-'));
+  t.after(() => fs.rm(dir, { recursive: true, force: true }));
+  const filename = path.join(dir, 'appointments.json');
+  const defaults = path.resolve(__dirname, '../data/appointments.json');
+  const store = createAppointmentStore(filename, defaults);
+  await store.initialize();
+  const empty = seed.appointments.find(a => a.status === 'past' && !a.notes);
+  assert(empty, 'one past visit starts without notes');
+  await Promise.all(['one', 'two', 'three'].map(text => store.saveNotes(empty.id, text)));
+  const restarted = createAppointmentStore(filename, defaults);
+  await restarted.initialize();
+  assert.equal((await restarted.read()).appointments.find(a => a.id === empty.id).notes, 'three');
+  await assert.rejects(store.saveNotes('nope', 'x'));
+  await assert.rejects(store.saveNotes(empty.id, 'x'.repeat(5001)));
+  await assert.rejects(store.saveNotes(empty.id, 42));
+});

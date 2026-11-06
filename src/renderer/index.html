@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="widgets/change-ticker.css" />
   <link rel="stylesheet" href="widgets/air-quality.css" />
   <link rel="stylesheet" href="widgets/survey-widgets.css" />
+  <link rel="stylesheet" href="fly.css" />
   <link rel="stylesheet" href="aero.css" />
 </head>
 <body>
@@ -30,9 +31,9 @@
     </div>
   </header>
   <main id="app">
-    <div id="page-fly" class="page" data-page="fly" role="region" aria-label="Fly" hidden></div>
+    <div id="page-fly" class="page is-active" data-page="fly" role="region" aria-label="Fly"></div>
     <div id="page-anomalies" class="page" data-page="anomalies" role="region" aria-label="Anomalies" hidden></div>
-    <div id="page-data" class="page is-active" data-page="data" role="region" aria-label="Data">
+    <div id="page-data" class="page" data-page="data" role="region" aria-label="Data" hidden>
     <div class="workspace">
       <section class="canvas-panel" aria-labelledby="canvas-heading">
         <div class="canvas-toolbar"><h2 id="canvas-heading">Your patient view</h2><span id="save-status" role="status" aria-live="polite">Loading workspace…</span><button id="retry-save" hidden>Retry save</button></div>
@@ -44,7 +45,7 @@
   </main>
   <nav id="dock" class="dock" aria-label="Pages">
     <span class="dock-indicator" aria-hidden="true"></span>
-    <button type="button" class="dock-item" data-page="fly" aria-controls="page-fly">
+    <button type="button" class="dock-item is-active" data-page="fly" aria-controls="page-fly" aria-current="page">
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 3 3 10.5l7 2.5 2.5 7z"/><path d="m10 13 4-4"/></svg>
       <span>Fly</span>
     </button>
@@ -52,7 +53,7 @@
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5 2.5 20h19z"/><path d="M12 10v4.5"/><path d="M12 17.3v.2"/></svg>
       <span>Anomalies</span>
     </button>
-    <button type="button" class="dock-item is-active" data-page="data" aria-controls="page-data" aria-current="page">
+    <button type="button" class="dock-item" data-page="data" aria-controls="page-data">
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M21 20H3"/></svg>
       <span>Data</span>
     </button>
@@ -70,6 +71,13 @@
     <article id="card-modal-dialog" class="card-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="card-modal-title">
       <div class="card-modal-head"><h2 id="card-modal-title"></h2><button id="card-modal-close" class="card-modal-close" type="button" aria-label="Close enlarged view">×</button></div>
       <div id="card-modal-body" class="widget-body"></div>
+    </article>
+  </div>
+  <div id="fly-modal" class="card-modal" hidden>
+    <div class="card-modal-backdrop" id="fly-modal-backdrop"></div>
+    <article id="fly-modal-dialog" class="card-modal-dialog fly-dialog" role="dialog" aria-modal="true" aria-labelledby="fly-modal-title">
+      <div class="card-modal-head"><div><p id="fly-modal-tag" class="fly-tag"></p><h2 id="fly-modal-title"></h2></div><button id="fly-modal-close" class="card-modal-close" type="button" aria-label="Close">×</button></div>
+      <div id="fly-modal-body" class="fly-modal-body"></div>
     </article>
   </div>
   <script src="widgets/registry.js"></script>
@@ -91,6 +99,8 @@
   <script src="renderer.js"></script>
   <script src="nav.js"></script>
   <script src="anomalies.js"></script>
+  <script src="fly.js"></script>
   <script src="aero.js"></script>
+  <script src="aero-dodge.js"></script>
 </body>
 </html>

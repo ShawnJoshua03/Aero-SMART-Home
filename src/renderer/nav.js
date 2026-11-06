@@ -6,7 +6,7 @@
   const items = [...dock.querySelectorAll('.dock-item')];
   const pages = Object.fromEntries(order.map((name) => [name, document.getElementById('page-' + name)]));
   const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let current = 'data', timer;
+  let current = 'fly', timer; // Fly is the landing page
 
   function place(name) {
     const index = order.indexOf(name);

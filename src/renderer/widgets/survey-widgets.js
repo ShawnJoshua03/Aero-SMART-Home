@@ -397,4 +397,6 @@
       ]));
     },
   });
+  // Shared helpers for pages that build their own summaries (Fly).
+  window.SurveyStats = { rows: rows, anomalies: anomalies, episodes: episodes, mean: mean, num: num, yes: yes, symptomList: symptomList, shortDate: shortDate, DAY: DAY, Q: Q };
 }());

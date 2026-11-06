@@ -7,8 +7,34 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header><h1>SMART@Home Clinician Data View</h1></header>
-  <main id="app"></main>
+  <header class="app-header">
+    <div class="wordmark">SMART<span>@Home</span></div>
+    <span class="view-pill">Clinician workspace</span>
+    <span class="demo-label">Mock data only</span>
+  </header>
+  <main id="app">
+    <section class="intro">
+      <div><p class="eyebrow">FULL DATA VIEW</p><h1>A little context.<br>A clearer picture.</h1></div>
+      <div class="patient-control"><label for="patient-select">Patient</label><select id="patient-select" disabled></select><p id="period-label" class="muted"></p></div>
+    </section>
+    <div class="workspace">
+      <aside class="palette-panel" aria-labelledby="palette-heading">
+        <p class="eyebrow">MAKE IT YOURS</p><h2 id="palette-heading">Widget tray</h2>
+        <p class="muted">Drag a widget into your view, or select Add.</p>
+        <div id="palette"></div>
+        <p class="tray-note">Move cards by their handles. Choose S, M or L to change their size.</p>
+      </aside>
+      <section class="canvas-panel" aria-labelledby="canvas-heading">
+        <div class="canvas-toolbar"><h2 id="canvas-heading">Your patient view</h2><span id="save-status" role="status" aria-live="polite">Loading workspace…</span><button id="retry-save" hidden>Retry save</button></div>
+        <p id="canvas-help" class="muted">Drop on a card to insert before it. Drop below to place at the end.</p>
+        <div id="canvas" class="canvas-grid" aria-describedby="canvas-help"></div>
+      </section>
+    </div>
+  </main>
+  <script src="widgets/registry.js"></script>
+  <script src="widgets/hello.js"></script>
+  <!-- Register additional widget scripts here, before canvas startup. -->
+  <script src="canvas.js"></script>
   <script src="renderer.js"></script>
 </body>
 </html>

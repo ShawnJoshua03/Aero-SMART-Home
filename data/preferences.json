@@ -8,8 +8,62 @@
         "patientId": "patient-001",
         "widgets": [
           {
-            "instanceId": "hello-1",
-            "widgetId": "hello",
+            "instanceId": "trend-line-1",
+            "widgetId": "trend-line",
+            "size": "L",
+            "config": {}
+          },
+          {
+            "instanceId": "kpi-tiles-1",
+            "widgetId": "kpi-tiles",
+            "size": "L",
+            "config": {}
+          },
+          {
+            "instanceId": "body-diagram-1",
+            "widgetId": "body-diagram",
+            "size": "M",
+            "config": {}
+          },
+          {
+            "instanceId": "lungs-gauge-1",
+            "widgetId": "lungs-gauge",
+            "size": "S",
+            "config": {}
+          },
+          {
+            "instanceId": "scatter-1",
+            "widgetId": "scatter",
+            "size": "M",
+            "config": {}
+          },
+          {
+            "instanceId": "adherence-heatmap-1",
+            "widgetId": "adherence-heatmap",
+            "size": "M",
+            "config": {}
+          },
+          {
+            "instanceId": "trigger-bubbles-1",
+            "widgetId": "trigger-bubbles",
+            "size": "M",
+            "config": {}
+          },
+          {
+            "instanceId": "night-moon-1",
+            "widgetId": "night-moon",
+            "size": "M",
+            "config": {}
+          },
+          {
+            "instanceId": "change-ticker-1",
+            "widgetId": "change-ticker",
+            "size": "L",
+            "config": {}
+          },
+          {
+            "instanceId": "air-quality-1",
+            "widgetId": "air-quality",
             "size": "M",
             "config": {}
           }

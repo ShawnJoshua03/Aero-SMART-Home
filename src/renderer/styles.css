@@ -4,14 +4,14 @@
   --green: #619a3c;
   --teal: #244946;
   color-scheme: dark;
-  --ground: #0b0f0f;
-  --surface: #141b1a;
-  --card: #1b2523;
-  --ink: #f5f3eb;
-  --muted: #a8bab3;
-  --line: #354740;
-  --accent: #b7db9a;
-  --white: #ffffff;
+  --ground: color-mix(in srgb, var(--teal) 22%, black);
+  --surface: color-mix(in srgb, var(--teal) 38%, black);
+  --card: color-mix(in srgb, var(--teal) 55%, black);
+  --ink: white;
+  --muted: color-mix(in srgb, var(--teal) 30%, white);
+  --line: color-mix(in srgb, var(--teal) 70%, var(--green));
+  --accent: color-mix(in srgb, var(--green) 55%, white);
+  --white: white;
   /* Solid palette surfaces; blue/green deepen just enough for small white text. */
   --fill-plum: var(--plum);
   --fill-blue: color-mix(in srgb, var(--blue) 82%, var(--ground));

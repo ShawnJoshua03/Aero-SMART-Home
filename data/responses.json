@@ -1,0 +1,520 @@
+{
+  "surveys": [
+    {
+      "id": "asthma-daily",
+      "title": "Asthma Daily Check-in",
+      "condition": "asthma",
+      "frequency": "daily",
+      "questions": [
+        {
+          "id": "day_symptoms",
+          "type": "radio",
+          "prompt": "Have you had asthma symptoms 3 or more times today?",
+          "options": [
+            "Yes",
+            "No"
+          ]
+        },
+        {
+          "id": "symptoms",
+          "type": "mcq",
+          "prompt": "Which symptoms do you have today? (select all that apply)",
+          "options": [
+            "Tight chest",
+            "Coughing",
+            "Wheezing",
+            "Shortness of breath",
+            "Chest pain",
+            "None"
+          ]
+        },
+        {
+          "id": "night_waking",
+          "type": "radio",
+          "prompt": "Did asthma wake you up last night?",
+          "options": [
+            "Yes",
+            "No"
+          ]
+        },
+        {
+          "id": "rescue_inhaler",
+          "type": "radio",
+          "prompt": "Have you used your rescue inhaler today?",
+          "options": [
+            "Yes",
+            "No"
+          ]
+        },
+        {
+          "id": "activity_limit",
+          "type": "slider",
+          "prompt": "How much did asthma limit your usual activities today?",
+          "min": 0,
+          "max": 10,
+          "step": 1,
+          "minLabel": "Not at all",
+          "maxLabel": "Completely"
+        },
+        {
+          "id": "note",
+          "type": "text",
+          "prompt": "Anything else you want your care team to know?",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "id": "cold-daily",
+      "title": "Common Cold Daily Check-in",
+      "condition": "common cold",
+      "frequency": "daily",
+      "questions": [
+        {
+          "id": "overall_severity",
+          "type": "slider",
+          "prompt": "How bad do your cold symptoms feel today?",
+          "min": 0,
+          "max": 10,
+          "step": 1,
+          "minLabel": "No symptoms",
+          "maxLabel": "Very severe"
+        },
+        {
+          "id": "fever",
+          "type": "radio",
+          "prompt": "What was your highest temperature today?",
+          "options": [
+            "No fever",
+            "Low (99-100.3 F)",
+            "Moderate (100.4-102 F)",
+            "High (over 102 F)"
+          ]
+        },
+        {
+          "id": "symptoms",
+          "type": "mcq",
+          "prompt": "Which symptoms do you have today? (select all that apply)",
+          "options": [
+            "Runny nose",
+            "Stuffy nose",
+            "Sore throat",
+            "Cough",
+            "Sneezing",
+            "Headache",
+            "Body aches",
+            "Ear pain"
+          ]
+        },
+        {
+          "id": "sleep_quality",
+          "type": "slider",
+          "prompt": "How well did you sleep last night?",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "minLabel": "Very poorly",
+          "maxLabel": "Very well"
+        },
+        {
+          "id": "note",
+          "type": "text",
+          "prompt": "Anything else you want your care team to know?",
+          "optional": true
+        }
+      ]
+    }
+  ],
+  "patients": [
+    {
+      "id": "pt-a1",
+      "name": "Maya Johnson",
+      "surveyId": "asthma-daily"
+    },
+    {
+      "id": "pt-a2",
+      "name": "Ethan Brooks",
+      "surveyId": "asthma-daily"
+    },
+    {
+      "id": "pt-a3",
+      "name": "Sofia Ramirez",
+      "surveyId": "asthma-daily"
+    },
+    {
+      "id": "pt-a4",
+      "name": "Liam Carter",
+      "surveyId": "asthma-daily"
+    },
+    {
+      "id": "pt-a5",
+      "name": "Ava Nguyen",
+      "surveyId": "asthma-daily"
+    },
+    {
+      "id": "pt-c1",
+      "name": "Noah Patel",
+      "surveyId": "cold-daily"
+    },
+    {
+      "id": "pt-c2",
+      "name": "Olivia Kim",
+      "surveyId": "cold-daily"
+    },
+    {
+      "id": "pt-c3",
+      "name": "Jackson Reed",
+      "surveyId": "cold-daily"
+    },
+    {
+      "id": "pt-c4",
+      "name": "Emma Davis",
+      "surveyId": "cold-daily"
+    },
+    {
+      "id": "pt-c5",
+      "name": "Lucas Moore",
+      "surveyId": "cold-daily"
+    }
+  ],
+  "responses": [
+    {
+      "id": "resp-a-01",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-10-26T08:10:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Coughing"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "activity_limit": 2,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-a-02",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a1",
+      "submittedAt": "2026-11-02T08:25:00Z",
+      "answers": {
+        "day_symptoms": "Yes",
+        "symptoms": [
+          "Tight chest",
+          "Coughing",
+          "Wheezing"
+        ],
+        "night_waking": "Yes",
+        "rescue_inhaler": "Yes",
+        "activity_limit": 7,
+        "note": "Chest feels tight most mornings now, getting worse each week."
+      }
+    },
+    {
+      "id": "resp-a-03",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a2",
+      "submittedAt": "2026-10-27T19:00:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "None"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "activity_limit": 1,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-a-04",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a2",
+      "submittedAt": "2026-11-03T19:12:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Coughing"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "activity_limit": 1,
+        "note": "Feeling fine."
+      }
+    },
+    {
+      "id": "resp-a-05",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a3",
+      "submittedAt": "2026-10-27T07:45:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "None"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "activity_limit": 0,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-a-06",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a3",
+      "submittedAt": "2026-11-03T07:50:00Z",
+      "answers": {
+        "day_symptoms": "Yes",
+        "symptoms": [
+          "Tight chest",
+          "Wheezing",
+          "Shortness of breath",
+          "Chest pain"
+        ],
+        "night_waking": "Yes",
+        "rescue_inhaler": "Yes",
+        "activity_limit": 9,
+        "note": "Was around a lot of smoke at a bonfire party. Scary night, used my inhaler many times."
+      }
+    },
+    {
+      "id": "resp-a-07",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a4",
+      "submittedAt": "2026-10-20T20:30:00Z",
+      "answers": {
+        "day_symptoms": "Yes",
+        "symptoms": [
+          "Coughing",
+          "Shortness of breath"
+        ],
+        "night_waking": "Yes",
+        "rescue_inhaler": "Yes",
+        "activity_limit": 4,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-a-08",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a4",
+      "submittedAt": "2026-11-03T20:05:00Z",
+      "answers": {
+        "day_symptoms": "Yes",
+        "symptoms": [
+          "Coughing",
+          "Tight chest"
+        ],
+        "night_waking": "Yes",
+        "rescue_inhaler": "Yes",
+        "activity_limit": 5,
+        "note": "Sorry, missed a bunch of days. Busy with exams."
+      }
+    },
+    {
+      "id": "resp-a-09",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a5",
+      "submittedAt": "2026-10-27T08:00:00Z",
+      "answers": {
+        "day_symptoms": "Yes",
+        "symptoms": [
+          "Wheezing",
+          "Coughing",
+          "Tight chest"
+        ],
+        "night_waking": "Yes",
+        "rescue_inhaler": "Yes",
+        "activity_limit": 6,
+        "note": "Rough day, coughed a lot overnight."
+      }
+    },
+    {
+      "id": "resp-a-10",
+      "surveyId": "asthma-daily",
+      "patientId": "pt-a5",
+      "submittedAt": "2026-11-03T08:15:00Z",
+      "answers": {
+        "day_symptoms": "No",
+        "symptoms": [
+          "Coughing"
+        ],
+        "night_waking": "No",
+        "rescue_inhaler": "No",
+        "activity_limit": 2,
+        "note": "Much better since the new controller dose."
+      }
+    },
+    {
+      "id": "resp-c-01",
+      "surveyId": "cold-daily",
+      "patientId": "pt-c1",
+      "submittedAt": "2026-10-30T09:00:00Z",
+      "answers": {
+        "overall_severity": 8,
+        "fever": "Moderate (100.4-102 F)",
+        "symptoms": [
+          "Runny nose",
+          "Sore throat",
+          "Cough",
+          "Body aches",
+          "Headache"
+        ],
+        "sleep_quality": 2,
+        "note": "Day 2 of symptoms, feel awful."
+      }
+    },
+    {
+      "id": "resp-c-02",
+      "surveyId": "cold-daily",
+      "patientId": "pt-c1",
+      "submittedAt": "2026-11-03T09:10:00Z",
+      "answers": {
+        "overall_severity": 3,
+        "fever": "No fever",
+        "symptoms": [
+          "Stuffy nose",
+          "Cough"
+        ],
+        "sleep_quality": 4,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-c-03",
+      "surveyId": "cold-daily",
+      "patientId": "pt-c2",
+      "submittedAt": "2026-10-31T21:00:00Z",
+      "answers": {
+        "overall_severity": 4,
+        "fever": "No fever",
+        "symptoms": [
+          "Runny nose",
+          "Sneezing"
+        ],
+        "sleep_quality": 4,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-c-04",
+      "surveyId": "cold-daily",
+      "patientId": "pt-c2",
+      "submittedAt": "2026-11-04T21:20:00Z",
+      "answers": {
+        "overall_severity": 7,
+        "fever": "Low (99-100.3 F)",
+        "symptoms": [
+          "Stuffy nose",
+          "Sore throat",
+          "Cough",
+          "Ear pain"
+        ],
+        "sleep_quality": 2,
+        "note": "Getting worse, now my right ear hurts."
+      }
+    },
+    {
+      "id": "resp-c-05",
+      "surveyId": "cold-daily",
+      "patientId": "pt-c3",
+      "submittedAt": "2026-11-01T08:30:00Z",
+      "answers": {
+        "overall_severity": 2,
+        "fever": "No fever",
+        "symptoms": [
+          "Sneezing"
+        ],
+        "sleep_quality": 5,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-c-06",
+      "surveyId": "cold-daily",
+      "patientId": "pt-c3",
+      "submittedAt": "2026-11-02T08:35:00Z",
+      "answers": {
+        "overall_severity": 9,
+        "fever": "High (over 102 F)",
+        "symptoms": [
+          "Sore throat",
+          "Cough",
+          "Headache",
+          "Body aches",
+          "Stuffy nose"
+        ],
+        "sleep_quality": 1,
+        "note": "Fever came on suddenly overnight, shivering and very weak."
+      }
+    },
+    {
+      "id": "resp-c-07",
+      "surveyId": "cold-daily",
+      "patientId": "pt-c4",
+      "submittedAt": "2026-10-29T18:00:00Z",
+      "answers": {
+        "overall_severity": 5,
+        "fever": "Low (99-100.3 F)",
+        "symptoms": [
+          "Runny nose",
+          "Sore throat",
+          "Headache"
+        ],
+        "sleep_quality": 3,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-c-08",
+      "surveyId": "cold-daily",
+      "patientId": "pt-c4",
+      "submittedAt": "2026-11-05T18:15:00Z",
+      "answers": {
+        "overall_severity": 4,
+        "fever": "No fever",
+        "symptoms": [
+          "Stuffy nose",
+          "Cough"
+        ],
+        "sleep_quality": 3,
+        "note": "Forgot to log for a week, still have a lingering cough."
+      }
+    },
+    {
+      "id": "resp-c-09",
+      "surveyId": "cold-daily",
+      "patientId": "pt-c5",
+      "submittedAt": "2026-11-02T07:30:00Z",
+      "answers": {
+        "overall_severity": 5,
+        "fever": "No fever",
+        "symptoms": [
+          "Runny nose",
+          "Stuffy nose",
+          "Sneezing"
+        ],
+        "sleep_quality": 3,
+        "note": ""
+      }
+    },
+    {
+      "id": "resp-c-10",
+      "surveyId": "cold-daily",
+      "patientId": "pt-c5",
+      "submittedAt": "2026-11-05T07:40:00Z",
+      "answers": {
+        "overall_severity": 5,
+        "fever": "No fever",
+        "symptoms": [
+          "Runny nose",
+          "Stuffy nose"
+        ],
+        "sleep_quality": 3,
+        "note": "About the same as before."
+      }
+    }
+  ]
+}

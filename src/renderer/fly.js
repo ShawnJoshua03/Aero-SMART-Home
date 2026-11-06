@@ -449,4 +449,6 @@
   }
 
   window.addEventListener('canvas:rendered', render);
+  // The data can finish loading before this script runs, and the event only fires once. Draw now if it already has.
+  if (window.Canvas?.context().data) render();
 })();

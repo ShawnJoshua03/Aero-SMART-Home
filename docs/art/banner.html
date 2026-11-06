@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Aero banner</title>
+<style>
+  /* Source for docs/images/banner.png. Palette colours only; rendered by scripts/capture-readme-art.js. */
+  :root { --plum: #772152; --blue: #0091b7; --green: #619a3c; --teal: #244946; }
+  * { box-sizing: border-box; }
+  body { margin: 0; width: 1400px; height: 480px; overflow: hidden; position: relative; background: var(--teal); color: white; font-family: 'Segoe UI', system-ui, sans-serif; }
+  .blob { position: absolute; border-radius: 50%; }
+  .b1 { width: 560px; height: 560px; right: 40px; top: -150px; background: color-mix(in srgb, var(--blue) 55%, var(--teal)); }
+  .b2 { width: 380px; height: 380px; right: 380px; bottom: -190px; background: color-mix(in srgb, var(--plum) 80%, var(--teal)); }
+  .b3 { width: 200px; height: 200px; left: 560px; top: 40px; background: color-mix(in srgb, var(--green) 50%, var(--teal)); }
+  .copy { position: absolute; left: 72px; top: 0; bottom: 0; width: 760px; display: flex; flex-direction: column; justify-content: center; }
+  .eyebrow { font-size: 15px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; opacity: .85; }
+  h1 { margin: 6px 0 4px; font-family: Georgia, 'Times New Roman', serif; font-size: 150px; line-height: 1; font-weight: 400; letter-spacing: -.02em; }
+  .tag { font-family: Georgia, 'Times New Roman', serif; font-size: 40px; line-height: 1.15; margin: 0 0 18px; }
+  .sub { font-size: 19px; line-height: 1.45; margin: 0; max-width: 620px; opacity: .92; }
+  .crane { position: absolute; right: 90px; bottom: 0; height: 470px; }
+</style>
+</head>
+<body>
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+  <div class="copy">
+    <div class="eyebrow">SMART@Home &nbsp;·&nbsp; Clinician data view</div>
+    <h1>Aero</h1>
+    <p class="tag">Know what changed before you walk into the room.</p>
+    <p class="sub">A talking crane that reads your patient's check-ins, flags what is unusual for <em>that</em> patient, and takes your notes by voice.</p>
+  </div>
+  <img class="crane" src="../../src/renderer/assets/aero/aero-wave-animated.svg" alt="">
+</body>
+</html>

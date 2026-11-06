@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Aero poses</title>
+<style>
+  /* Source for docs/images/aero-poses.png. Palette colours only; rendered by scripts/capture-readme-art.js. */
+  :root { --plum: #772152; --blue: #0091b7; --green: #619a3c; --teal: #244946; }
+  * { box-sizing: border-box; }
+  body { margin: 0; width: 1400px; padding: 40px 48px 44px; background: color-mix(in srgb, var(--teal) 8%, white); color: var(--teal); font-family: 'Segoe UI', system-ui, sans-serif; }
+  h2 { margin: 0 0 22px; font-family: Georgia, 'Times New Roman', serif; font-size: 34px; font-weight: 400; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .card { background: white; border-radius: 28px; padding: 18px 16px 20px; text-align: center; border: 1px solid color-mix(in srgb, var(--teal) 14%, white); }
+  .card img { height: 250px; display: block; margin: 0 auto 10px; }
+  .card b { display: block; font-size: 22px; font-family: Georgia, 'Times New Roman', serif; font-weight: 400; }
+  .card span { display: block; margin-top: 4px; font-size: 15px; color: color-mix(in srgb, var(--teal) 70%, white); }
+</style>
+</head>
+<body>
+  <h2>How Aero shows what he is doing</h2>
+  <div class="grid">
+    <div class="card"><img src="../../src/renderer/assets/aero/aero-calm-animated.svg" alt=""><b>Calm</b><span>Idle, ready when you are</span></div>
+    <div class="card"><img src="../../src/renderer/assets/aero/aero-peek-animated.svg" alt=""><b>Listening</b><span>While you hold him to talk</span></div>
+    <div class="card"><img src="../../src/renderer/assets/aero/aero-thinking-animated.svg" alt=""><b>Thinking</b><span>Checking the patient's data</span></div>
+    <div class="card"><img src="../../src/renderer/assets/aero/aero-talk-animated.svg" alt=""><b>Talking</b><span>Reading you the answer</span></div>
+    <div class="card"><img src="../../src/renderer/assets/aero/aero-happy-animated.svg" alt=""><b>Good news</b><span>Things are improving</span></div>
+    <div class="card"><img src="../../src/renderer/assets/aero/aero-alert-animated.svg" alt=""><b>Anomaly</b><span>Unusual for this patient</span></div>
+    <div class="card"><img src="../../src/renderer/assets/aero/aero-sad-animated.svg" alt=""><b>Concerned</b><span>A worrying trend</span></div>
+    <div class="card"><img src="../../src/renderer/assets/aero/aero-sleepy-animated.svg" alt=""><b>Asleep</b><span>No API keys added yet</span></div>
+  </div>
+</body>
+</html>

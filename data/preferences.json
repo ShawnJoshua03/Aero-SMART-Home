@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "activeClinicianId": "clinician-demo",
+  "clinicians": {
+    "clinician-demo": {
+      "name": "Demo clinician",
+      "layout": {
+        "patientId": "patient-001",
+        "widgets": [
+          {
+            "instanceId": "hello-1",
+            "widgetId": "hello",
+            "size": "M",
+            "config": {}
+          }
+        ]
+      }
+    }
+  }
+}

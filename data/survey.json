@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "id": "survey-001",
+  "title": "Daily breathing check-in",
+  "condition": "Asthma",
+  "description": "Invented daily tracker for demonstration only.",
+  "schedule": {
+    "frequency": "daily",
+    "timezone": "America/New_York"
+  },
+  "questions": [
+    {
+      "id": "breathlessness",
+      "label": "How breathless did you feel today?",
+      "type": "slider",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "/10",
+      "required": true,
+      "higherIsWorse": true
+    },
+    {
+      "id": "rescue_uses",
+      "label": "How many times did you use your rescue inhaler today?",
+      "type": "number",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "uses",
+      "required": true,
+      "higherIsWorse": true
+    },
+    {
+      "id": "night_waking",
+      "label": "Did symptoms wake you last night?",
+      "type": "radio",
+      "options": [
+        {
+          "value": true,
+          "label": "Yes"
+        },
+        {
+          "value": false,
+          "label": "No"
+        }
+      ],
+      "required": true,
+      "higherIsWorse": true
+    },
+    {
+      "id": "controller_taken",
+      "label": "Did you take your daily controller medication?",
+      "type": "radio",
+      "options": [
+        {
+          "value": true,
+          "label": "Yes"
+        },
+        {
+          "value": false,
+          "label": "No"
+        }
+      ],
+      "required": true,
+      "higherIsWorse": false
+    },
+    {
+      "id": "triggers",
+      "label": "Which triggers did you notice today?",
+      "type": "multiple_choice",
+      "options": [
+        {
+          "value": "exercise",
+          "label": "Exercise"
+        },
+        {
+          "value": "pollen",
+          "label": "Pollen"
+        },
+        {
+          "value": "dust",
+          "label": "Dust"
+        },
+        {
+          "value": "cold_air",
+          "label": "Cold air"
+        },
+        {
+          "value": "illness",
+          "label": "Illness"
+        }
+      ],
+      "required": true
+    },
+    {
+      "id": "note",
+      "label": "Anything else you want your care team to know?",
+      "type": "text",
+      "required": false
+    }
+  ],
+  "bodyDiagram": {
+    "intensity": {
+      "min": 0,
+      "max": 10
+    },
+    "regions": [
+      {
+        "id": "nose_sinus",
+        "label": "Nose / sinus"
+      },
+      {
+        "id": "throat",
+        "label": "Throat"
+      },
+      {
+        "id": "chest",
+        "label": "Chest"
+      },
+      {
+        "id": "lung_left",
+        "label": "Left lung"
+      },
+      {
+        "id": "lung_right",
+        "label": "Right lung"
+      }
+    ]
+  }
+}

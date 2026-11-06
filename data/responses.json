@@ -1,0 +1,4577 @@
+{
+  "schemaVersion": 1,
+  "mock": true,
+  "period": {
+    "start": "2026-09-21",
+    "end": "2026-11-01",
+    "expectedDays": 42
+  },
+  "patients": [
+    {
+      "id": "patient-001",
+      "name": "Avery Morgan",
+      "surveyIds": [
+        "survey-001"
+      ],
+      "demoPattern": "worsening",
+      "baseline": {
+        "surveyId": "survey-001",
+        "start": "2026-09-21",
+        "end": "2026-10-04",
+        "method": "First 14 calendar days; population SD; band = mean +/- 2 SD, clamped to question range. Boolean mean is the proportion true.",
+        "stats": {
+          "breathlessness": {
+            "n": 14,
+            "mean": 2,
+            "stdDev": 0.756,
+            "bandLow": 0.488,
+            "bandHigh": 3.512
+          },
+          "rescue_uses": {
+            "n": 14,
+            "mean": 0.286,
+            "stdDev": 0.452,
+            "bandLow": 0,
+            "bandHigh": 1.189
+          },
+          "night_waking": {
+            "n": 14,
+            "mean": 0,
+            "stdDev": 0,
+            "bandLow": 0,
+            "bandHigh": 0
+          },
+          "controller_taken": {
+            "n": 14,
+            "mean": 1,
+            "stdDev": 0,
+            "bandLow": 1,
+            "bandHigh": 1
+          }
+        }
+      }
+    },
+    {
+      "id": "patient-002",
+      "name": "Jordan Ellis",
+      "surveyIds": [
+        "survey-001"
+      ],
+      "demoPattern": "adherence_gap",
+      "baseline": {
+        "surveyId": "survey-001",
+        "start": "2026-09-21",
+        "end": "2026-10-04",
+        "method": "First 14 calendar days; population SD; band = mean +/- 2 SD, clamped to question range. Boolean mean is the proportion true.",
+        "stats": {
+          "breathlessness": {
+            "n": 14,
+            "mean": 2,
+            "stdDev": 0.756,
+            "bandLow": 0.488,
+            "bandHigh": 3.512
+          },
+          "rescue_uses": {
+            "n": 14,
+            "mean": 0.286,
+            "stdDev": 0.452,
+            "bandLow": 0,
+            "bandHigh": 1.189
+          },
+          "night_waking": {
+            "n": 14,
+            "mean": 0,
+            "stdDev": 0,
+            "bandLow": 0,
+            "bandHigh": 0
+          },
+          "controller_taken": {
+            "n": 14,
+            "mean": 1,
+            "stdDev": 0,
+            "bandLow": 1,
+            "bandHigh": 1
+          }
+        }
+      }
+    },
+    {
+      "id": "patient-003",
+      "name": "Riley Brooks",
+      "surveyIds": [
+        "survey-001"
+      ],
+      "demoPattern": "sudden_spike",
+      "baseline": {
+        "surveyId": "survey-001",
+        "start": "2026-09-21",
+        "end": "2026-10-04",
+        "method": "First 14 calendar days; population SD; band = mean +/- 2 SD, clamped to question range. Boolean mean is the proportion true.",
+        "stats": {
+          "breathlessness": {
+            "n": 14,
+            "mean": 2,
+            "stdDev": 0.756,
+            "bandLow": 0.488,
+            "bandHigh": 3.512
+          },
+          "rescue_uses": {
+            "n": 14,
+            "mean": 0.286,
+            "stdDev": 0.452,
+            "bandLow": 0,
+            "bandHigh": 1.189
+          },
+          "night_waking": {
+            "n": 14,
+            "mean": 0,
+            "stdDev": 0,
+            "bandLow": 0,
+            "bandHigh": 0
+          },
+          "controller_taken": {
+            "n": 14,
+            "mean": 1,
+            "stdDev": 0,
+            "bandLow": 1,
+            "bandHigh": 1
+          }
+        }
+      }
+    },
+    {
+      "id": "patient-004",
+      "name": "Casey Lane",
+      "surveyIds": [
+        "survey-001"
+      ],
+      "demoPattern": "stable",
+      "baseline": {
+        "surveyId": "survey-001",
+        "start": "2026-09-21",
+        "end": "2026-10-04",
+        "method": "First 14 calendar days; population SD; band = mean +/- 2 SD, clamped to question range. Boolean mean is the proportion true.",
+        "stats": {
+          "breathlessness": {
+            "n": 14,
+            "mean": 2,
+            "stdDev": 0.756,
+            "bandLow": 0.488,
+            "bandHigh": 3.512
+          },
+          "rescue_uses": {
+            "n": 14,
+            "mean": 0.286,
+            "stdDev": 0.452,
+            "bandLow": 0,
+            "bandHigh": 1.189
+          },
+          "night_waking": {
+            "n": 14,
+            "mean": 0,
+            "stdDev": 0,
+            "bandLow": 0,
+            "bandHigh": 0
+          },
+          "controller_taken": {
+            "n": 14,
+            "mean": 1,
+            "stdDev": 0,
+            "bandLow": 1,
+            "bandHigh": 1
+          }
+        }
+      }
+    },
+    {
+      "id": "patient-005",
+      "name": "Taylor Quinn",
+      "surveyIds": [
+        "survey-001"
+      ],
+      "demoPattern": "improving",
+      "baseline": {
+        "surveyId": "survey-001",
+        "start": "2026-09-21",
+        "end": "2026-10-04",
+        "method": "First 14 calendar days; population SD; band = mean +/- 2 SD, clamped to question range. Boolean mean is the proportion true.",
+        "stats": {
+          "breathlessness": {
+            "n": 14,
+            "mean": 5.643,
+            "stdDev": 0.972,
+            "bandLow": 3.7,
+            "bandHigh": 7.586
+          },
+          "rescue_uses": {
+            "n": 14,
+            "mean": 2.071,
+            "stdDev": 0.593,
+            "bandLow": 0.885,
+            "bandHigh": 3.258
+          },
+          "night_waking": {
+            "n": 14,
+            "mean": 0.857,
+            "stdDev": 0.35,
+            "bandLow": 0.157,
+            "bandHigh": 1
+          },
+          "controller_taken": {
+            "n": 14,
+            "mean": 1,
+            "stdDev": 0,
+            "bandLow": 1,
+            "bandHigh": 1
+          }
+        }
+      }
+    },
+    {
+      "id": "patient-006",
+      "name": "Morgan Reed",
+      "surveyIds": [
+        "survey-001"
+      ],
+      "demoPattern": "variable",
+      "baseline": {
+        "surveyId": "survey-001",
+        "start": "2026-09-21",
+        "end": "2026-10-04",
+        "method": "First 14 calendar days; population SD; band = mean +/- 2 SD, clamped to question range. Boolean mean is the proportion true.",
+        "stats": {
+          "breathlessness": {
+            "n": 14,
+            "mean": 3.286,
+            "stdDev": 1.161,
+            "bandLow": 0.965,
+            "bandHigh": 5.607
+          },
+          "rescue_uses": {
+            "n": 14,
+            "mean": 0.857,
+            "stdDev": 0.639,
+            "bandLow": 0,
+            "bandHigh": 2.135
+          },
+          "night_waking": {
+            "n": 14,
+            "mean": 0.143,
+            "stdDev": 0.35,
+            "bandLow": 0,
+            "bandHigh": 0.843
+          },
+          "controller_taken": {
+            "n": 14,
+            "mean": 0.857,
+            "stdDev": 0.35,
+            "bandLow": 0.157,
+            "bandHigh": 1
+          }
+        }
+      }
+    }
+  ],
+  "entries": [
+    {
+      "id": "entry-1-01",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-09-21",
+      "timestamp": "2026-09-21T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ],
+        "note": "Daily check-in complete."
+      },
+      "bodyReports": [
+        {
+          "region": "nose_sinus",
+          "timestamp": "2026-09-21T19:30:00-04:00",
+          "intensity": 2
+        }
+      ]
+    },
+    {
+      "id": "entry-1-02",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-09-22",
+      "timestamp": "2026-09-22T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-1-03",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-09-23",
+      "timestamp": "2026-09-23T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-1-04",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-09-24",
+      "timestamp": "2026-09-24T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-1-05",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-09-25",
+      "timestamp": "2026-09-25T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-1-06",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-09-26",
+      "timestamp": "2026-09-26T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-1-07",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-09-27",
+      "timestamp": "2026-09-27T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-1-08",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-09-28",
+      "timestamp": "2026-09-28T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-1-09",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-09-29",
+      "timestamp": "2026-09-29T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-1-10",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-09-30",
+      "timestamp": "2026-09-30T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-1-11",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-01",
+      "timestamp": "2026-10-01T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": [
+        {
+          "region": "nose_sinus",
+          "timestamp": "2026-10-01T19:30:00-04:00",
+          "intensity": 1
+        }
+      ]
+    },
+    {
+      "id": "entry-1-12",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-02",
+      "timestamp": "2026-10-02T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-1-13",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-03",
+      "timestamp": "2026-10-03T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-1-14",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-04",
+      "timestamp": "2026-10-04T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-1-15",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-05",
+      "timestamp": "2026-10-05T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [],
+        "note": "Daily check-in complete."
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-1-16",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-06",
+      "timestamp": "2026-10-06T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-1-17",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-07",
+      "timestamp": "2026-10-07T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-1-18",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-08",
+      "timestamp": "2026-10-08T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-1-19",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-09",
+      "timestamp": "2026-10-09T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-1-20",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-10",
+      "timestamp": "2026-10-10T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 4,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-1-21",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-11",
+      "timestamp": "2026-10-11T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "nose_sinus",
+          "timestamp": "2026-10-11T19:30:00-04:00",
+          "intensity": 2
+        }
+      ]
+    },
+    {
+      "id": "entry-1-22",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-12",
+      "timestamp": "2026-10-12T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-1-23",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-13",
+      "timestamp": "2026-10-13T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 5,
+        "rescue_uses": 2,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "chest",
+          "timestamp": "2026-10-13T19:30:00-04:00",
+          "intensity": 5
+        }
+      ]
+    },
+    {
+      "id": "entry-1-24",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-14",
+      "timestamp": "2026-10-14T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 4,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-1-25",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-15",
+      "timestamp": "2026-10-15T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-1-26",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-16",
+      "timestamp": "2026-10-16T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 4,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-1-27",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-17",
+      "timestamp": "2026-10-17T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 6,
+        "rescue_uses": 2,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "throat",
+          "timestamp": "2026-10-17T19:30:00-04:00",
+          "intensity": 6
+        }
+      ]
+    },
+    {
+      "id": "entry-1-28",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-18",
+      "timestamp": "2026-10-18T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 4,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-1-29",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-19",
+      "timestamp": "2026-10-19T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 5,
+        "rescue_uses": 2,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ],
+        "note": "Daily check-in complete."
+      },
+      "bodyReports": [
+        {
+          "region": "lung_left",
+          "timestamp": "2026-10-19T19:30:00-04:00",
+          "intensity": 5
+        }
+      ]
+    },
+    {
+      "id": "entry-1-30",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-20",
+      "timestamp": "2026-10-20T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 6,
+        "rescue_uses": 2,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "lung_right",
+          "timestamp": "2026-10-20T19:30:00-04:00",
+          "intensity": 6
+        }
+      ]
+    },
+    {
+      "id": "entry-1-31",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-21",
+      "timestamp": "2026-10-21T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 6,
+        "rescue_uses": 2,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "nose_sinus",
+          "timestamp": "2026-10-21T19:30:00-04:00",
+          "intensity": 6
+        }
+      ]
+    },
+    {
+      "id": "entry-1-32",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-22",
+      "timestamp": "2026-10-22T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 5,
+        "rescue_uses": 2,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "throat",
+          "timestamp": "2026-10-22T19:30:00-04:00",
+          "intensity": 5
+        }
+      ]
+    },
+    {
+      "id": "entry-1-33",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-23",
+      "timestamp": "2026-10-23T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 6,
+        "rescue_uses": 2,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "chest",
+          "timestamp": "2026-10-23T19:30:00-04:00",
+          "intensity": 6
+        }
+      ]
+    },
+    {
+      "id": "entry-1-34",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-24",
+      "timestamp": "2026-10-24T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 7,
+        "rescue_uses": 3,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "lung_left",
+          "timestamp": "2026-10-24T19:30:00-04:00",
+          "intensity": 7
+        }
+      ]
+    },
+    {
+      "id": "entry-1-35",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-25",
+      "timestamp": "2026-10-25T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 6,
+        "rescue_uses": 2,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "lung_right",
+          "timestamp": "2026-10-25T19:30:00-04:00",
+          "intensity": 6
+        }
+      ]
+    },
+    {
+      "id": "entry-1-36",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-26",
+      "timestamp": "2026-10-26T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 7,
+        "rescue_uses": 3,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "nose_sinus",
+          "timestamp": "2026-10-26T19:30:00-04:00",
+          "intensity": 7
+        }
+      ]
+    },
+    {
+      "id": "entry-1-37",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-27",
+      "timestamp": "2026-10-27T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 8,
+        "rescue_uses": 3,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "throat",
+          "timestamp": "2026-10-27T19:30:00-04:00",
+          "intensity": 8
+        }
+      ]
+    },
+    {
+      "id": "entry-1-38",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-28",
+      "timestamp": "2026-10-28T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 7,
+        "rescue_uses": 3,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "chest",
+          "timestamp": "2026-10-28T19:30:00-04:00",
+          "intensity": 7
+        }
+      ]
+    },
+    {
+      "id": "entry-1-39",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-29",
+      "timestamp": "2026-10-29T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 7,
+        "rescue_uses": 3,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "lung_left",
+          "timestamp": "2026-10-29T19:30:00-04:00",
+          "intensity": 7
+        }
+      ]
+    },
+    {
+      "id": "entry-1-40",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-30",
+      "timestamp": "2026-10-30T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 8,
+        "rescue_uses": 3,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "lung_right",
+          "timestamp": "2026-10-30T19:30:00-04:00",
+          "intensity": 8
+        }
+      ]
+    },
+    {
+      "id": "entry-1-41",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-10-31",
+      "timestamp": "2026-10-31T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 9,
+        "rescue_uses": 4,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "nose_sinus",
+          "timestamp": "2026-10-31T19:30:00-04:00",
+          "intensity": 9
+        }
+      ]
+    },
+    {
+      "id": "entry-1-42",
+      "patientId": "patient-001",
+      "surveyId": "survey-001",
+      "date": "2026-11-01",
+      "timestamp": "2026-11-01T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 7,
+        "rescue_uses": 3,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "throat",
+          "timestamp": "2026-11-01T19:30:00-04:00",
+          "intensity": 7
+        }
+      ]
+    },
+    {
+      "id": "entry-2-01",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-09-21",
+      "timestamp": "2026-09-21T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ],
+        "note": "Daily check-in complete."
+      },
+      "bodyReports": [
+        {
+          "region": "throat",
+          "timestamp": "2026-09-21T19:30:00-04:00",
+          "intensity": 3
+        }
+      ]
+    },
+    {
+      "id": "entry-2-02",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-09-22",
+      "timestamp": "2026-09-22T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-03",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-09-23",
+      "timestamp": "2026-09-23T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-04",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-09-24",
+      "timestamp": "2026-09-24T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-05",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-09-25",
+      "timestamp": "2026-09-25T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-06",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-09-26",
+      "timestamp": "2026-09-26T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-07",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-09-27",
+      "timestamp": "2026-09-27T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-08",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-09-28",
+      "timestamp": "2026-09-28T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-09",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-09-29",
+      "timestamp": "2026-09-29T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-10",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-09-30",
+      "timestamp": "2026-09-30T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-11",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-10-01",
+      "timestamp": "2026-10-01T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": [
+        {
+          "region": "throat",
+          "timestamp": "2026-10-01T19:30:00-04:00",
+          "intensity": 2
+        }
+      ]
+    },
+    {
+      "id": "entry-2-12",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-10-02",
+      "timestamp": "2026-10-02T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-13",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-10-03",
+      "timestamp": "2026-10-03T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-14",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-10-04",
+      "timestamp": "2026-10-04T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-15",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-10-05",
+      "timestamp": "2026-10-05T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [],
+        "note": "Daily check-in complete."
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-16",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-10-06",
+      "timestamp": "2026-10-06T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": false,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-17",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-10-07",
+      "timestamp": "2026-10-07T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": false,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-18",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-10-08",
+      "timestamp": "2026-10-08T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": false,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-26",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-10-16",
+      "timestamp": "2026-10-16T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": false,
+        "triggers": [],
+        "note": "Back to checking in after a busy week."
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-27",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-10-17",
+      "timestamp": "2026-10-17T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": false,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-28",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-10-18",
+      "timestamp": "2026-10-18T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": false,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-29",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-10-19",
+      "timestamp": "2026-10-19T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": false,
+        "triggers": [
+          "dust"
+        ],
+        "note": "Daily check-in complete."
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-30",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-10-20",
+      "timestamp": "2026-10-20T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-31",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-10-21",
+      "timestamp": "2026-10-21T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": [
+        {
+          "region": "throat",
+          "timestamp": "2026-10-21T19:30:00-04:00",
+          "intensity": 1
+        }
+      ]
+    },
+    {
+      "id": "entry-2-32",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-10-22",
+      "timestamp": "2026-10-22T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-33",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-10-23",
+      "timestamp": "2026-10-23T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-34",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-10-24",
+      "timestamp": "2026-10-24T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-35",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-10-25",
+      "timestamp": "2026-10-25T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-36",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-10-26",
+      "timestamp": "2026-10-26T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-37",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-10-27",
+      "timestamp": "2026-10-27T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-38",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-10-28",
+      "timestamp": "2026-10-28T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-39",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-10-29",
+      "timestamp": "2026-10-29T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-40",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-10-30",
+      "timestamp": "2026-10-30T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-2-41",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-10-31",
+      "timestamp": "2026-10-31T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "throat",
+          "timestamp": "2026-10-31T19:30:00-04:00",
+          "intensity": 1
+        }
+      ]
+    },
+    {
+      "id": "entry-2-42",
+      "patientId": "patient-002",
+      "surveyId": "survey-001",
+      "date": "2026-11-01",
+      "timestamp": "2026-11-01T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-01",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-09-21",
+      "timestamp": "2026-09-21T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ],
+        "note": "Daily check-in complete."
+      },
+      "bodyReports": [
+        {
+          "region": "chest",
+          "timestamp": "2026-09-21T19:30:00-04:00",
+          "intensity": 2
+        }
+      ]
+    },
+    {
+      "id": "entry-3-02",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-09-22",
+      "timestamp": "2026-09-22T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-03",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-09-23",
+      "timestamp": "2026-09-23T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-04",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-09-24",
+      "timestamp": "2026-09-24T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-05",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-09-25",
+      "timestamp": "2026-09-25T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-06",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-09-26",
+      "timestamp": "2026-09-26T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-07",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-09-27",
+      "timestamp": "2026-09-27T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-08",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-09-28",
+      "timestamp": "2026-09-28T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-09",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-09-29",
+      "timestamp": "2026-09-29T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-10",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-09-30",
+      "timestamp": "2026-09-30T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-11",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-01",
+      "timestamp": "2026-10-01T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": [
+        {
+          "region": "chest",
+          "timestamp": "2026-10-01T19:30:00-04:00",
+          "intensity": 3
+        }
+      ]
+    },
+    {
+      "id": "entry-3-12",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-02",
+      "timestamp": "2026-10-02T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-13",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-03",
+      "timestamp": "2026-10-03T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-14",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-04",
+      "timestamp": "2026-10-04T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-15",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-05",
+      "timestamp": "2026-10-05T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [],
+        "note": "Daily check-in complete."
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-16",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-06",
+      "timestamp": "2026-10-06T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-17",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-07",
+      "timestamp": "2026-10-07T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-18",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-08",
+      "timestamp": "2026-10-08T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-19",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-09",
+      "timestamp": "2026-10-09T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-20",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-10",
+      "timestamp": "2026-10-10T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-21",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-11",
+      "timestamp": "2026-10-11T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "chest",
+          "timestamp": "2026-10-11T19:30:00-04:00",
+          "intensity": 3
+        }
+      ]
+    },
+    {
+      "id": "entry-3-22",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-12",
+      "timestamp": "2026-10-12T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-23",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-13",
+      "timestamp": "2026-10-13T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-24",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-14",
+      "timestamp": "2026-10-14T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-25",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-15",
+      "timestamp": "2026-10-15T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-26",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-16",
+      "timestamp": "2026-10-16T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-27",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-17",
+      "timestamp": "2026-10-17T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-28",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-18",
+      "timestamp": "2026-10-18T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-29",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-19",
+      "timestamp": "2026-10-19T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ],
+        "note": "Daily check-in complete."
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-30",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-20",
+      "timestamp": "2026-10-20T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-31",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-21",
+      "timestamp": "2026-10-21T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": [
+        {
+          "region": "chest",
+          "timestamp": "2026-10-21T19:30:00-04:00",
+          "intensity": 2
+        }
+      ]
+    },
+    {
+      "id": "entry-3-32",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-22",
+      "timestamp": "2026-10-22T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-33",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-23",
+      "timestamp": "2026-10-23T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-34",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-24",
+      "timestamp": "2026-10-24T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-35",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-25",
+      "timestamp": "2026-10-25T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 9,
+        "rescue_uses": 4,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ],
+        "note": "A much harder day after outdoor practice."
+      },
+      "bodyReports": [
+        {
+          "region": "throat",
+          "timestamp": "2026-10-25T19:30:00-04:00",
+          "intensity": 9
+        }
+      ]
+    },
+    {
+      "id": "entry-3-36",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-26",
+      "timestamp": "2026-10-26T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-37",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-27",
+      "timestamp": "2026-10-27T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-38",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-28",
+      "timestamp": "2026-10-28T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-39",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-29",
+      "timestamp": "2026-10-29T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-40",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-30",
+      "timestamp": "2026-10-30T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-3-41",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-10-31",
+      "timestamp": "2026-10-31T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "chest",
+          "timestamp": "2026-10-31T19:30:00-04:00",
+          "intensity": 2
+        }
+      ]
+    },
+    {
+      "id": "entry-3-42",
+      "patientId": "patient-003",
+      "surveyId": "survey-001",
+      "date": "2026-11-01",
+      "timestamp": "2026-11-01T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-01",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-09-21",
+      "timestamp": "2026-09-21T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ],
+        "note": "Daily check-in complete."
+      },
+      "bodyReports": [
+        {
+          "region": "lung_left",
+          "timestamp": "2026-09-21T19:30:00-04:00",
+          "intensity": 1
+        }
+      ]
+    },
+    {
+      "id": "entry-4-02",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-09-22",
+      "timestamp": "2026-09-22T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-03",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-09-23",
+      "timestamp": "2026-09-23T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-04",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-09-24",
+      "timestamp": "2026-09-24T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-05",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-09-25",
+      "timestamp": "2026-09-25T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-06",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-09-26",
+      "timestamp": "2026-09-26T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-07",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-09-27",
+      "timestamp": "2026-09-27T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-08",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-09-28",
+      "timestamp": "2026-09-28T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-09",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-09-29",
+      "timestamp": "2026-09-29T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-10",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-09-30",
+      "timestamp": "2026-09-30T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-11",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-01",
+      "timestamp": "2026-10-01T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": [
+        {
+          "region": "lung_left",
+          "timestamp": "2026-10-01T19:30:00-04:00",
+          "intensity": 1
+        }
+      ]
+    },
+    {
+      "id": "entry-4-12",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-02",
+      "timestamp": "2026-10-02T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-13",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-03",
+      "timestamp": "2026-10-03T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-14",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-04",
+      "timestamp": "2026-10-04T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-15",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-05",
+      "timestamp": "2026-10-05T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [],
+        "note": "Daily check-in complete."
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-16",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-06",
+      "timestamp": "2026-10-06T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-17",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-07",
+      "timestamp": "2026-10-07T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-18",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-08",
+      "timestamp": "2026-10-08T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-19",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-09",
+      "timestamp": "2026-10-09T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-20",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-10",
+      "timestamp": "2026-10-10T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-21",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-11",
+      "timestamp": "2026-10-11T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "lung_left",
+          "timestamp": "2026-10-11T19:30:00-04:00",
+          "intensity": 2
+        }
+      ]
+    },
+    {
+      "id": "entry-4-22",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-12",
+      "timestamp": "2026-10-12T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-23",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-13",
+      "timestamp": "2026-10-13T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-24",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-14",
+      "timestamp": "2026-10-14T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-25",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-15",
+      "timestamp": "2026-10-15T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-26",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-16",
+      "timestamp": "2026-10-16T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-27",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-17",
+      "timestamp": "2026-10-17T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-28",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-18",
+      "timestamp": "2026-10-18T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-29",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-19",
+      "timestamp": "2026-10-19T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ],
+        "note": "Daily check-in complete."
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-30",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-20",
+      "timestamp": "2026-10-20T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-31",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-21",
+      "timestamp": "2026-10-21T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": [
+        {
+          "region": "lung_left",
+          "timestamp": "2026-10-21T19:30:00-04:00",
+          "intensity": 3
+        }
+      ]
+    },
+    {
+      "id": "entry-4-32",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-22",
+      "timestamp": "2026-10-22T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-33",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-23",
+      "timestamp": "2026-10-23T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-34",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-24",
+      "timestamp": "2026-10-24T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-35",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-25",
+      "timestamp": "2026-10-25T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-36",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-26",
+      "timestamp": "2026-10-26T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-37",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-27",
+      "timestamp": "2026-10-27T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-38",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-28",
+      "timestamp": "2026-10-28T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-39",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-29",
+      "timestamp": "2026-10-29T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-40",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-30",
+      "timestamp": "2026-10-30T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-4-41",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-10-31",
+      "timestamp": "2026-10-31T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "lung_left",
+          "timestamp": "2026-10-31T19:30:00-04:00",
+          "intensity": 3
+        }
+      ]
+    },
+    {
+      "id": "entry-4-42",
+      "patientId": "patient-004",
+      "surveyId": "survey-001",
+      "date": "2026-11-01",
+      "timestamp": "2026-11-01T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-5-01",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-09-21",
+      "timestamp": "2026-09-21T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 6,
+        "rescue_uses": 2,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ],
+        "note": "Daily check-in complete."
+      },
+      "bodyReports": [
+        {
+          "region": "lung_right",
+          "timestamp": "2026-09-21T19:30:00-04:00",
+          "intensity": 6
+        }
+      ]
+    },
+    {
+      "id": "entry-5-02",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-09-22",
+      "timestamp": "2026-09-22T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 7,
+        "rescue_uses": 3,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "nose_sinus",
+          "timestamp": "2026-09-22T19:30:00-04:00",
+          "intensity": 7
+        }
+      ]
+    },
+    {
+      "id": "entry-5-03",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-09-23",
+      "timestamp": "2026-09-23T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 5,
+        "rescue_uses": 2,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "throat",
+          "timestamp": "2026-09-23T19:30:00-04:00",
+          "intensity": 5
+        }
+      ]
+    },
+    {
+      "id": "entry-5-04",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-09-24",
+      "timestamp": "2026-09-24T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 6,
+        "rescue_uses": 2,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "chest",
+          "timestamp": "2026-09-24T19:30:00-04:00",
+          "intensity": 6
+        }
+      ]
+    },
+    {
+      "id": "entry-5-05",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-09-25",
+      "timestamp": "2026-09-25T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 7,
+        "rescue_uses": 3,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "lung_left",
+          "timestamp": "2026-09-25T19:30:00-04:00",
+          "intensity": 7
+        }
+      ]
+    },
+    {
+      "id": "entry-5-06",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-09-26",
+      "timestamp": "2026-09-26T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 6,
+        "rescue_uses": 2,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "lung_right",
+          "timestamp": "2026-09-26T19:30:00-04:00",
+          "intensity": 6
+        }
+      ]
+    },
+    {
+      "id": "entry-5-07",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-09-27",
+      "timestamp": "2026-09-27T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 5,
+        "rescue_uses": 2,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "nose_sinus",
+          "timestamp": "2026-09-27T19:30:00-04:00",
+          "intensity": 5
+        }
+      ]
+    },
+    {
+      "id": "entry-5-08",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-09-28",
+      "timestamp": "2026-09-28T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 6,
+        "rescue_uses": 2,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "throat",
+          "timestamp": "2026-09-28T19:30:00-04:00",
+          "intensity": 6
+        }
+      ]
+    },
+    {
+      "id": "entry-5-09",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-09-29",
+      "timestamp": "2026-09-29T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 7,
+        "rescue_uses": 3,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "chest",
+          "timestamp": "2026-09-29T19:30:00-04:00",
+          "intensity": 7
+        }
+      ]
+    },
+    {
+      "id": "entry-5-10",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-09-30",
+      "timestamp": "2026-09-30T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 4,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-5-11",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-01",
+      "timestamp": "2026-10-01T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 5,
+        "rescue_uses": 2,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "lung_right",
+          "timestamp": "2026-10-01T19:30:00-04:00",
+          "intensity": 5
+        }
+      ]
+    },
+    {
+      "id": "entry-5-12",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-02",
+      "timestamp": "2026-10-02T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 6,
+        "rescue_uses": 2,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "nose_sinus",
+          "timestamp": "2026-10-02T19:30:00-04:00",
+          "intensity": 6
+        }
+      ]
+    },
+    {
+      "id": "entry-5-13",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-03",
+      "timestamp": "2026-10-03T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 5,
+        "rescue_uses": 2,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "throat",
+          "timestamp": "2026-10-03T19:30:00-04:00",
+          "intensity": 5
+        }
+      ]
+    },
+    {
+      "id": "entry-5-14",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-04",
+      "timestamp": "2026-10-04T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 4,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-5-15",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-05",
+      "timestamp": "2026-10-05T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 5,
+        "rescue_uses": 2,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ],
+        "note": "Daily check-in complete."
+      },
+      "bodyReports": [
+        {
+          "region": "lung_left",
+          "timestamp": "2026-10-05T19:30:00-04:00",
+          "intensity": 5
+        }
+      ]
+    },
+    {
+      "id": "entry-5-16",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-06",
+      "timestamp": "2026-10-06T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 6,
+        "rescue_uses": 2,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "lung_right",
+          "timestamp": "2026-10-06T19:30:00-04:00",
+          "intensity": 6
+        }
+      ]
+    },
+    {
+      "id": "entry-5-17",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-07",
+      "timestamp": "2026-10-07T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 4,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-5-18",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-08",
+      "timestamp": "2026-10-08T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 5,
+        "rescue_uses": 2,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "throat",
+          "timestamp": "2026-10-08T19:30:00-04:00",
+          "intensity": 5
+        }
+      ]
+    },
+    {
+      "id": "entry-5-19",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-09",
+      "timestamp": "2026-10-09T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 5,
+        "rescue_uses": 2,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "chest",
+          "timestamp": "2026-10-09T19:30:00-04:00",
+          "intensity": 5
+        }
+      ]
+    },
+    {
+      "id": "entry-5-20",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-10",
+      "timestamp": "2026-10-10T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 4,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-5-21",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-11",
+      "timestamp": "2026-10-11T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "lung_right",
+          "timestamp": "2026-10-11T19:30:00-04:00",
+          "intensity": 3
+        }
+      ]
+    },
+    {
+      "id": "entry-5-22",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-12",
+      "timestamp": "2026-10-12T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 4,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-5-23",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-13",
+      "timestamp": "2026-10-13T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 5,
+        "rescue_uses": 2,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "throat",
+          "timestamp": "2026-10-13T19:30:00-04:00",
+          "intensity": 5
+        }
+      ]
+    },
+    {
+      "id": "entry-5-24",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-14",
+      "timestamp": "2026-10-14T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-5-25",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-15",
+      "timestamp": "2026-10-15T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 4,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-5-26",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-16",
+      "timestamp": "2026-10-16T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 5,
+        "rescue_uses": 2,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "lung_right",
+          "timestamp": "2026-10-16T19:30:00-04:00",
+          "intensity": 5
+        }
+      ]
+    },
+    {
+      "id": "entry-5-27",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-17",
+      "timestamp": "2026-10-17T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 4,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-5-28",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-18",
+      "timestamp": "2026-10-18T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-5-29",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-19",
+      "timestamp": "2026-10-19T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ],
+        "note": "Daily check-in complete."
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-5-30",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-20",
+      "timestamp": "2026-10-20T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 4,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-5-31",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-21",
+      "timestamp": "2026-10-21T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": [
+        {
+          "region": "lung_right",
+          "timestamp": "2026-10-21T19:30:00-04:00",
+          "intensity": 2
+        }
+      ]
+    },
+    {
+      "id": "entry-5-32",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-22",
+      "timestamp": "2026-10-22T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-5-33",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-23",
+      "timestamp": "2026-10-23T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 4,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-5-34",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-24",
+      "timestamp": "2026-10-24T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-5-35",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-25",
+      "timestamp": "2026-10-25T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-5-36",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-26",
+      "timestamp": "2026-10-26T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-5-37",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-27",
+      "timestamp": "2026-10-27T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-5-38",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-28",
+      "timestamp": "2026-10-28T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-5-39",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-29",
+      "timestamp": "2026-10-29T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-5-40",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-30",
+      "timestamp": "2026-10-30T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-5-41",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-10-31",
+      "timestamp": "2026-10-31T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "lung_right",
+          "timestamp": "2026-10-31T19:30:00-04:00",
+          "intensity": 2
+        }
+      ]
+    },
+    {
+      "id": "entry-5-42",
+      "patientId": "patient-005",
+      "surveyId": "survey-001",
+      "date": "2026-11-01",
+      "timestamp": "2026-11-01T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 1,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-01",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-09-21",
+      "timestamp": "2026-09-21T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 6,
+        "rescue_uses": 2,
+        "night_waking": true,
+        "controller_taken": false,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ],
+        "note": "Daily check-in complete."
+      },
+      "bodyReports": [
+        {
+          "region": "nose_sinus",
+          "timestamp": "2026-09-21T19:30:00-04:00",
+          "intensity": 6
+        }
+      ]
+    },
+    {
+      "id": "entry-6-02",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-09-22",
+      "timestamp": "2026-09-22T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-03",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-09-23",
+      "timestamp": "2026-09-23T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-04",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-09-24",
+      "timestamp": "2026-09-24T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 4,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-05",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-09-25",
+      "timestamp": "2026-09-25T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-06",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-09-26",
+      "timestamp": "2026-09-26T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-07",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-09-27",
+      "timestamp": "2026-09-27T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-08",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-09-28",
+      "timestamp": "2026-09-28T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 4,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-09",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-09-29",
+      "timestamp": "2026-09-29T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-10",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-09-30",
+      "timestamp": "2026-09-30T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 5,
+        "rescue_uses": 2,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "lung_right",
+          "timestamp": "2026-09-30T19:30:00-04:00",
+          "intensity": 5
+        }
+      ]
+    },
+    {
+      "id": "entry-6-11",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-01",
+      "timestamp": "2026-10-01T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 4,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": [
+        {
+          "region": "nose_sinus",
+          "timestamp": "2026-10-01T19:30:00-04:00",
+          "intensity": 4
+        }
+      ]
+    },
+    {
+      "id": "entry-6-12",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-02",
+      "timestamp": "2026-10-02T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": false,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-13",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-03",
+      "timestamp": "2026-10-03T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-14",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-04",
+      "timestamp": "2026-10-04T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-15",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-05",
+      "timestamp": "2026-10-05T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 4,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [],
+        "note": "Daily check-in complete."
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-16",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-06",
+      "timestamp": "2026-10-06T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-17",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-07",
+      "timestamp": "2026-10-07T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-18",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-08",
+      "timestamp": "2026-10-08T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 4,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-19",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-09",
+      "timestamp": "2026-10-09T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 5,
+        "rescue_uses": 2,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "lung_left",
+          "timestamp": "2026-10-09T19:30:00-04:00",
+          "intensity": 5
+        }
+      ]
+    },
+    {
+      "id": "entry-6-20",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-10",
+      "timestamp": "2026-10-10T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-21",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-11",
+      "timestamp": "2026-10-11T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "nose_sinus",
+          "timestamp": "2026-10-11T19:30:00-04:00",
+          "intensity": 3
+        }
+      ]
+    },
+    {
+      "id": "entry-6-22",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-12",
+      "timestamp": "2026-10-12T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 4,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-23",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-13",
+      "timestamp": "2026-10-13T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": false,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-24",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-14",
+      "timestamp": "2026-10-14T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-25",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-15",
+      "timestamp": "2026-10-15T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 4,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-26",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-16",
+      "timestamp": "2026-10-16T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-27",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-17",
+      "timestamp": "2026-10-17T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-28",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-18",
+      "timestamp": "2026-10-18T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 5,
+        "rescue_uses": 2,
+        "night_waking": true,
+        "controller_taken": true,
+        "triggers": [
+          "pollen",
+          "exercise"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "chest",
+          "timestamp": "2026-10-18T19:30:00-04:00",
+          "intensity": 5
+        }
+      ]
+    },
+    {
+      "id": "entry-6-29",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-19",
+      "timestamp": "2026-10-19T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 4,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ],
+        "note": "Daily check-in complete."
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-30",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-20",
+      "timestamp": "2026-10-20T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-31",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-21",
+      "timestamp": "2026-10-21T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": [
+        {
+          "region": "nose_sinus",
+          "timestamp": "2026-10-21T19:30:00-04:00",
+          "intensity": 3
+        }
+      ]
+    },
+    {
+      "id": "entry-6-32",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-22",
+      "timestamp": "2026-10-22T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 4,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-33",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-23",
+      "timestamp": "2026-10-23T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-34",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-24",
+      "timestamp": "2026-10-24T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": false,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-35",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-25",
+      "timestamp": "2026-10-25T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-36",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-26",
+      "timestamp": "2026-10-26T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 4,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-37",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-27",
+      "timestamp": "2026-10-27T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 4,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-38",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-28",
+      "timestamp": "2026-10-28T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-39",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-29",
+      "timestamp": "2026-10-29T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 4,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-40",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-30",
+      "timestamp": "2026-10-30T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    },
+    {
+      "id": "entry-6-41",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-10-31",
+      "timestamp": "2026-10-31T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 2,
+        "rescue_uses": 0,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": [
+          "dust"
+        ]
+      },
+      "bodyReports": [
+        {
+          "region": "nose_sinus",
+          "timestamp": "2026-10-31T19:30:00-04:00",
+          "intensity": 2
+        }
+      ]
+    },
+    {
+      "id": "entry-6-42",
+      "patientId": "patient-006",
+      "surveyId": "survey-001",
+      "date": "2026-11-01",
+      "timestamp": "2026-11-01T20:00:00-04:00",
+      "answers": {
+        "breathlessness": 3,
+        "rescue_uses": 1,
+        "night_waking": false,
+        "controller_taken": true,
+        "triggers": []
+      },
+      "bodyReports": []
+    }
+  ]
+}

@@ -139,6 +139,18 @@ src/
     index.html       page shell, CSP `default-src 'self'`, header and `#app` mount point
     styles.css       CSS variables for the four palette colors, basic header and main styling
     renderer.js      placeholder: prints Electron and Chrome versions into `#app`
+    lib/
+      svg.js         shared SVG scale, path, and tick helpers
+    widgets/
+      trend-line.js  patient trend chart with calibration band and mock live updates
+      trend-line.css trend chart styles and motion
+      kpi-tiles.js   weekly indicators with deltas, sparklines, and flip details
+      kpi-tiles.css  KPI widget styles and motion
+      scatter.js     interactive metric comparison with week colours and selection
+      scatter.css    scatter widget styles
+      _dev/
+        charts.html  standalone mock-data preview for S/M/L widget sizes
+        registry-stub.js, showcase.js, showcase.css  local preview harness
 ```
 
 ## Architecture and tech stack
@@ -152,7 +164,7 @@ src/
 
 ## Status and next steps
 
-- Current state: bare scaffold. No clinician view, researcher view, mock data, or tests exist yet.
+- Current state: three chart/KPI widgets and a standalone mock-data preview are implemented. The widget data adapters use provisional field matching pending the finalized survey schema. Registry/canvas integration, patient data, clinician views, researcher view, and automated tests remain to be built.
 - Likely next steps:
   1. Create the demo dataset (see "Demo dataset" below).
   2. Create `data/preferences.json` with a default layout for one demo clinician, and wire load and save through the main process and preload.

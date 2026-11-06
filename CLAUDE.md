@@ -275,7 +275,7 @@ Workers (Copilot, Codex) were run through Orca (stablyai). CLI: `C:\Users\shawn\
 
 Aero is the mascot, built as a talking assistant. This reverses the earlier "voice interface dropped" note: voice is back, for Aero only.
 
-- **What it does:** a small crane fixed at the bottom-right, above the page dock. Press and hold him to talk, let go and he answers aloud and in a text bubble above him. A quick tap shows or hides his last message. He greets with updates and anomalies when a patient is selected. There is no mute button and he cannot be dragged.
+- **What it does:** a small crane fixed at the bottom-right, above the page dock. Press and hold him to talk, let go and he answers aloud and in a text bubble above him. A quick tap shows or hides his last message. He does not speak or greet on his own; he only answers when asked. There is no mute button and he cannot be dragged.
 - **How:** Cartesia handles speech (sonic-3 text-to-speech, ink-whisper speech-to-text). `claude-haiku-5-5` does the reasoning and calls tools over the patient data. Both calls run in the main process only; the renderer never sees keys.
 - **Keys:** copy `.env.example` to `.env` (git-ignored) and fill in `ANTHROPIC_API_KEY`, `CARTESIA_API_KEY`, `CARTESIA_VOICE_ID`. Without them Aero shows as asleep or text-only.
 - **Files:**

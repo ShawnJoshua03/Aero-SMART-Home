@@ -120,10 +120,36 @@
         "patientId": "pt-a1",
         "widgets": [
           {
-            "instanceId": "checkin-count-1",
-            "widgetId": "checkin-count",
+            "instanceId": "kpi-checkins",
+            "widgetId": "kpi",
             "size": "S",
-            "config": {}
+            "config": {
+              "metric": "checkins"
+            }
+          },
+          {
+            "instanceId": "kpi-avg-breathlessness",
+            "widgetId": "kpi",
+            "size": "S",
+            "config": {
+              "metric": "avg-breathlessness"
+            }
+          },
+          {
+            "instanceId": "kpi-peak-breathlessness",
+            "widgetId": "kpi",
+            "size": "S",
+            "config": {
+              "metric": "peak-breathlessness"
+            }
+          },
+          {
+            "instanceId": "kpi-top-symptom",
+            "widgetId": "kpi",
+            "size": "S",
+            "config": {
+              "metric": "top-symptom"
+            }
           },
           {
             "instanceId": "breathlessness-trend-1",
@@ -138,15 +164,9 @@
             "config": {}
           },
           {
-            "instanceId": "kpi-board-1",
-            "widgetId": "kpi-board",
-            "size": "M",
-            "config": {}
-          },
-          {
             "instanceId": "symptom-frequency-1",
             "widgetId": "symptom-frequency",
-            "size": "M",
+            "size": "L",
             "config": {}
           },
           {
@@ -162,7 +182,8 @@
             "config": {}
           }
         ]
-      }
+      },
+      "layoutVersion": 2
     }
   },
   "activeClinicianId": "clin-001"

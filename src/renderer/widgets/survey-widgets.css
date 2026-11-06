@@ -37,3 +37,31 @@
 .sw-heat { display: grid; gap: 3px; align-items: center; font-size: 11px; }
 .sw-cell { aspect-ratio: 1; min-height: 12px; border-radius: 4px; background: color-mix(in srgb, white calc(var(--level) * 100%), var(--sw-panel)); }
 .sw-week { font-size: 9px; white-space: nowrap; overflow: visible; }
+
+/* Enlarged (modal) sizing */
+.card-modal-dialog .sw { font-size: 15px; }
+.card-modal-dialog .sw-eyebrow { font-size: 13px; }
+.card-modal-dialog .sw-sub { font-size: 14px; }
+.card-modal-dialog .sw-tick { font-size: 13px; }
+.card-modal-dialog .sw-line { stroke-width: 3; }
+.card-modal-dialog .sw-legend { font-size: 14px; gap: 6px 18px; margin-top: 10px; }
+.card-modal-dialog .sw-big { font-size: 96px; }
+.card-modal-dialog .sw-tiles { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; }
+.card-modal-dialog .sw-tile { padding: 16px 18px; }
+.card-modal-dialog .sw-tile-label, .card-modal-dialog .sw-tile-note { font-size: 13px; }
+.card-modal-dialog .sw-tile-value { font-size: 32px; }
+.card-modal-dialog .sw-bars { gap: 14px; }
+.card-modal-dialog .sw-bar-row { font-size: 15px; }
+.card-modal-dialog .sw-bar-track { height: 22px; border-radius: 11px; }
+.card-modal-dialog .sw-bar-fill { border-radius: 11px; }
+.card-modal-dialog .sw-heat { gap: 4px; font-size: 14px; }
+.card-modal-dialog .sw-week { font-size: 12px; }
+
+/* Single-KPI card */
+.sw-kpi-label { margin: 0; font-size: 13px; }
+.sw-kpi-value { margin: 4px 0 2px; font: 700 44px/1.05 Georgia, serif; overflow-wrap: anywhere; }
+.sw-kpi-select { width: 100%; margin-top: 8px; padding: 5px 10px; font-size: 12px; background: var(--sw-panel); color: white; border-color: var(--sw-faint); }
+.sw-kpi-select option { background: var(--deep); color: white; }
+.card-modal-dialog .sw-kpi-label { font-size: 16px; }
+.card-modal-dialog .sw-kpi-value { font-size: 88px; }
+.card-modal-dialog .sw-kpi-select { max-width: 320px; font-size: 14px; margin-bottom: 14px; }

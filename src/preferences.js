@@ -33,10 +33,12 @@ function repair(prefs, defaultPrefs, patientIds) {
   }
   const clinician = prefs.clinicians[prefs.activeClinicianId] ??= { name: defaultPrefs.clinicians[defaultPrefs.activeClinicianId].name };
   const fallback = defaultPrefs.clinicians[defaultPrefs.activeClinicianId].layout;
+  const wanted = defaultPrefs.clinicians[defaultPrefs.activeClinicianId].layoutVersion;
   const layout = clinician.layout;
   const valid = layout && typeof layout.patientId === 'string' && Array.isArray(layout.widgets) &&
     (!patientIds || patientIds.includes(layout.patientId));
-  if (!valid) { clinician.layout = structuredClone(fallback); changed = true; }
+  // A newer default layout (bumped layoutVersion) replaces an older saved one.
+  if (!valid || clinician.layoutVersion !== wanted) { clinician.layout = structuredClone(fallback); clinician.layoutVersion = wanted; changed = true; }
   return changed;
 }
 

@@ -19,7 +19,7 @@ window.Widgets.list();            // definitions in registration order, new arra
 window.Widgets.get('my-widget');  // definition, or undefined
 ```
 
-`ctx` has exactly `{ data, patientId, size, onChange }`. `data` is the resolved getData() result below. `size` is S, M, or L. `onChange()` requests a save; `onChange(jsonObject)` optionally replaces this instance's persisted `config`. It does not rerender. The foundation has no config editor; widgets can retrieve persisted config through getPrefs() using `el.closest('.widget-card').dataset.instanceId`. Keep the callback scoped to its render lifecycle.
+`ctx` has exactly `{ data, patientId, size, config, onChange }`. `config` is this instance's persisted JSON object (a copy in the enlarged modal). Clicking a card re-renders the widget at size L inside a modal, where `onChange` does nothing. `data` is the resolved getData() result below. `size` is S, M, or L. `onChange()` requests a save; `onChange(jsonObject)` optionally replaces this instance's persisted `config`. It does not rerender. The foundation has no config editor; widgets can retrieve persisted config through getPrefs() using `el.closest('.widget-card').dataset.instanceId`. Keep the callback scoped to its render lifecycle.
 
 The canvas rerenders on patient changes, reorder, resize, add/remove, and late registration. Release timers and external listeners with the optional returned cleanup function. No async render contract. Registration rejects duplicates and invalid definitions; metadata is frozen. Multiple instances of a widget are supported. A missing widget keeps its saved place and can be removed.
 

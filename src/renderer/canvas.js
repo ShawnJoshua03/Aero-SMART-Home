@@ -34,6 +34,39 @@
 
   function changed() { renderGrid(); save(); }
 
+  // Clicking a card opens it enlarged in a modal. The widget is rendered afresh at size L;
+  // nothing it does in the modal is persisted.
+  let modalCleanup = null, modalReturn = null;
+  function closeModal() {
+    const modal = document.getElementById('card-modal');
+    if (modal.hidden) return;
+    if (modalCleanup) { try { modalCleanup(); } catch (error) { console.error(error); } modalCleanup = null; }
+    document.getElementById('card-modal-body').replaceChildren();
+    modal.hidden = true;
+    document.body.classList.remove('modal-open');
+    modalReturn?.focus();
+  }
+  function openModal(item, card, widget) {
+    const modal = document.getElementById('card-modal');
+    const dialog = document.getElementById('card-modal-dialog');
+    const body = document.getElementById('card-modal-body');
+    dialog.style.setProperty('--widget-fill', getComputedStyle(card).getPropertyValue('--widget-fill'));
+    dialog.dataset.instanceId = item.instanceId;
+    document.getElementById('card-modal-title').textContent = widget.title;
+    body.replaceChildren();
+    modalReturn = card.querySelector('.widget-body');
+    modal.hidden = false; // visible before render so charts can measure their width
+    document.body.classList.add('modal-open');
+    try {
+      const cleanup = widget.render(body, { data, patientId: layout.patientId, size: 'L', config: structuredClone(item.config ?? {}), onChange() {} });
+      if (typeof cleanup === 'function') modalCleanup = cleanup;
+    } catch (error) {
+      console.error(error);
+      body.textContent = 'This widget could not render.';
+    }
+    document.getElementById('card-modal-close').focus();
+  }
+
   function add(widgetId, beforeId) {
     const widget = window.Widgets.get(widgetId);
     if (!widget || layout.widgets.length >= 100) return;
@@ -90,8 +123,10 @@
   }
 
   function renderGrid() {
+    closeModal();
     cleanups.splice(0).forEach(cleanup => { try { cleanup(); } catch (error) { console.error(error); } });
     grid.replaceChildren();
+    let rail = null; // consecutive KPI cards share one horizontally scrolling rail
     layout.widgets.forEach((item, index) => {
       const widget = window.Widgets.get(item.widgetId);
       const card = document.createElement('article');
@@ -121,11 +156,30 @@
       const body = document.createElement('div');
       body.className = 'widget-body';
       card.append(toolbar, body);
-      grid.append(card);
+      if (item.widgetId === 'kpi') {
+        if (!rail) {
+          rail = document.createElement('div');
+          rail.className = 'kpi-rail';
+          rail.setAttribute('role', 'group');
+          rail.setAttribute('aria-label', 'KPI cards, scroll sideways');
+          grid.append(rail);
+        }
+        rail.append(card);
+      } else {
+        rail = null;
+        grid.append(card);
+      }
+      if (widget) {
+        body.tabIndex = 0;
+        body.title = 'Click to enlarge';
+        const open = () => openModal(item, card, widget);
+        body.addEventListener('click', (event) => { if (!event.target.closest('button, a, input, select, textarea, label, summary')) open(); });
+        body.addEventListener('keydown', (event) => { if (event.target === body && (event.key === 'Enter' || event.key === ' ')) { event.preventDefault(); open(); } });
+      }
       if (!widget) { body.textContent = 'This widget is not registered. Its saved place is preserved.'; return; }
       try {
         const cleanup = widget.render(body, {
-          data, patientId: layout.patientId, size: item.size,
+          data, patientId: layout.patientId, size: item.size, config: item.config ?? {},
           onChange(config) {
             // No argument requests persistence; a JSON object replaces instance settings.
             if (!layout.widgets.includes(item)) return;
@@ -154,12 +208,33 @@
       data = loadedData;
       layout = structuredClone(prefs.clinicians[prefs.activeClinicianId].layout);
       if (!data.patients.some(patient => patient.id === layout.patientId)) layout.patientId = data.patients[0]?.id;
-      const selector = document.getElementById('patient-select');
-      data.patients.forEach(patient => selector.add(new Option(patient.name, patient.id)));
-      selector.value = layout.patientId;
-      selector.disabled = false;
-      selector.addEventListener('change', () => { layout.patientId = selector.value; changed(); });
-      document.getElementById('period-label').textContent = `${data.period.start} — ${data.period.end} · ${data.period.expectedDays} days`;
+      const button = document.getElementById('patient-button');
+      const menu = document.getElementById('patient-menu');
+      const setMenu = (open) => {
+        menu.hidden = !open;
+        button.setAttribute('aria-expanded', String(open));
+      };
+      const showPatient = () => {
+        document.getElementById('patient-name').textContent = data.patients.find(p => p.id === layout.patientId)?.name ?? 'No patient';
+        menu.querySelectorAll('[role=option]').forEach(item => item.setAttribute('aria-selected', String(item.dataset.patientId === layout.patientId)));
+      };
+      data.patients.forEach(patient => {
+        const item = document.createElement('li');
+        item.setAttribute('role', 'option');
+        item.tabIndex = 0;
+        item.dataset.patientId = patient.id;
+        item.textContent = patient.name;
+        const choose = () => { setMenu(false); button.focus(); if (layout.patientId !== patient.id) { layout.patientId = patient.id; showPatient(); changed(); } };
+        item.addEventListener('click', choose);
+        item.addEventListener('keydown', (event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); choose(); } });
+        menu.append(item);
+      });
+      showPatient();
+      button.disabled = false;
+      button.addEventListener('click', () => setMenu(menu.hidden));
+      document.addEventListener('click', (event) => { if (!event.target.closest('.patient-picker')) setMenu(false); });
+      document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !menu.hidden) { setMenu(false); button.focus(); } });
+      document.getElementById('period-label').textContent = `${data.period.start} – ${data.period.end} · ${data.period.expectedDays} days`;
       const setTray = (open) => {
         document.body.classList.toggle('tray-open', open);
         document.getElementById('tray-scrim').hidden = !open;
@@ -171,6 +246,9 @@
       document.getElementById('tray-close').addEventListener('click', () => setTray(false));
       document.getElementById('tray-scrim').addEventListener('click', () => setTray(false));
       document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && document.body.classList.contains('tray-open')) setTray(false); });
+      document.getElementById('card-modal-close').addEventListener('click', closeModal);
+      document.getElementById('card-modal-backdrop').addEventListener('click', closeModal);
+      document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeModal(); });
       retry.addEventListener('click', save);
       grid.addEventListener('dragover', (event) => {
         if (!event.dataTransfer.types.includes(MIME)) return;

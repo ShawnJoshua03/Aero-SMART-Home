@@ -80,7 +80,12 @@
 
   // Time chart. series: [{name, cls, points:[{t,y}]}]; marks: [{t,y,title}]
   function lineChart(root, opts) {
-    var W = 600, H = 210, L = 34, R = 10, T = 12, B = 26;
+    var big = !!root.closest('.card-modal-dialog');
+    // In the modal the viewBox matches the real pixel width, so text and strokes keep true size.
+    var W = big ? Math.max(300, Math.round(root.clientWidth)) : 600;
+    var H = big ? Math.round(Math.min(window.innerHeight * 0.55, Math.max(260, W * 0.55))) : 210;
+    var L = big ? 40 : 34, R = 12, T = 14, B = big ? 32 : 26;
+    var steps = big && W > 520 ? 8 : 4;
     var all = [].concat.apply([], opts.series.map(function (x) { return x.points; }));
     var tMin = Math.min.apply(null, all.map(function (p) { return p.t; }));
     var tMax = Math.max.apply(null, all.map(function (p) { return p.t; }));
@@ -92,9 +97,9 @@
       svg.append(s('line', { x1: L, x2: W - R, y1: Y(v), y2: Y(v), class: 'sw-grid' }));
       svg.append(s('text', { x: L - 6, y: Y(v) + 4, class: 'sw-tick', 'text-anchor': 'end' }, String(v)));
     });
-    for (var i = 0; i < 5; i++) {
-      var t = tMin + (tMax - tMin) * i / 4;
-      svg.append(s('text', { x: X(t), y: H - 8, class: 'sw-tick', 'text-anchor': i === 0 ? 'start' : i === 4 ? 'end' : 'middle' }, shortDate(t)));
+    for (var i = 0; i <= steps; i++) {
+      var t = tMin + (tMax - tMin) * i / steps;
+      svg.append(s('text', { x: X(t), y: H - 10, class: 'sw-tick', 'text-anchor': i === 0 ? 'start' : i === steps ? 'end' : 'middle' }, shortDate(t)));
     }
     if (opts.threshold != null && opts.threshold < yMax) {
       svg.append(s('line', { x1: L, x2: W - R, y1: Y(opts.threshold), y2: Y(opts.threshold), class: 'sw-threshold' }));
@@ -174,32 +179,99 @@
     },
   });
 
-  // ---- 4. KPI board ----
+  function symptomBars(root, rs) {
+    var tally = {};
+    rs.forEach(function (r) { symptomList(r).forEach(function (x) { tally[x] = (tally[x] || 0) + 1; }); });
+    var names = Object.keys(tally).sort(function (a, b) { return tally[b] - tally[a]; });
+    var max = Math.max.apply(null, names.map(function (n) { return tally[n]; }).concat(1));
+    var list = h('div', 'sw-bars');
+    names.forEach(function (n) {
+      var row = h('div', 'sw-bar-row');
+      var track = h('div', 'sw-bar-track');
+      var fill = h('div', 'sw-bar-fill');
+      fill.style.width = (100 * tally[n] / max) + '%';
+      track.append(fill);
+      row.append(h('span', 'sw-bar-name', n), track, h('span', 'sw-bar-count', tally[n] + ' · ' + pct(tally[n], rs.length) + '%'));
+      list.append(row);
+    });
+    root.append(list);
+  }
+
+  // ---- 4. KPIs: shared computation, full board, and one-KPI-per-card widget ----
+  function computeKpis(rs) {
+    var br = rs.map(function (r) { return num(r.a[Q.breathless]); }).filter(function (x) { return x != null; });
+    var peakRow = rs.reduce(function (best, r) { return num(r.a[Q.breathless]) != null && (!best || r.a[Q.breathless] > best.a[Q.breathless]) ? r : best; }, null);
+    var tally = {};
+    rs.forEach(function (r) { symptomList(r).forEach(function (x) { tally[x] = (tally[x] || 0) + 1; }); });
+    var top = Object.keys(tally).sort(function (a, b) { return tally[b] - tally[a]; })[0];
+    var days = function (id) { return rs.filter(function (r) { return yes(r.a[id]); }).length; };
+    var an = anomalies(rs, Q.breathless);
+    var recent = rs.slice(-7).map(function (r) { return num(r.a[Q.breathless]); }).filter(function (x) { return x != null; });
+    var act = rs.map(function (r) { return num(r.a[Q.activity]); }).filter(function (x) { return x != null; });
+    return [
+      { id: 'checkins', label: 'Check-ins', value: String(rs.length), note: 'daily reports' },
+      { id: 'avg-breathlessness', label: 'Avg breathlessness', value: fmt(mean(br)), note: 'last 7 days: ' + fmt(mean(recent)) },
+      { id: 'peak-breathlessness', label: 'Peak breathlessness', value: peakRow ? String(peakRow.a[Q.breathless]) : '–', note: peakRow ? shortDate(peakRow.t) : '' },
+      { id: 'top-symptom', label: 'Top symptom', value: top || 'None', note: top ? tally[top] + ' days (' + pct(tally[top], rs.length) + '%)' : '' },
+      { id: 'rescue-days', label: 'Rescue inhaler days', value: pct(days(Q.rescue), rs.length) + '%', note: days(Q.rescue) + ' of ' + rs.length },
+      { id: 'night-waking', label: 'Night waking', value: pct(days(Q.night), rs.length) + '%', note: days(Q.night) + ' nights' },
+      { id: 'symptom-days', label: '3+ symptom days', value: pct(days(Q.day), rs.length) + '%', note: days(Q.day) + ' days' },
+      { id: 'unusual-days', label: 'Unusual days', value: String(an.days.length), note: 'above personal baseline' },
+      { id: 'avg-activity-limit', label: 'Avg activity limit', value: fmt(mean(act)), note: 'scale 0–10' },
+    ];
+  }
+
   window.Widgets.register({
     id: 'kpi-board', title: 'Key figures', sizes: ['S', 'M', 'L'],
     render: function (el, ctx) {
       var rs = rows(ctx);
       var root = shell(el, 'Key figures');
       if (!rs.length) return empty(root);
-      var br = rs.map(function (r) { return num(r.a[Q.breathless]); }).filter(function (x) { return x != null; });
-      var peakRow = rs.reduce(function (best, r) { return num(r.a[Q.breathless]) != null && (!best || r.a[Q.breathless] > best.a[Q.breathless]) ? r : best; }, null);
-      var tally = {};
-      rs.forEach(function (r) { symptomList(r).forEach(function (x) { tally[x] = (tally[x] || 0) + 1; }); });
-      var top = Object.keys(tally).sort(function (a, b) { return tally[b] - tally[a]; })[0];
-      var days = function (id) { return rs.filter(function (r) { return yes(r.a[id]); }).length; };
-      var an = anomalies(rs, Q.breathless);
-      var recent = rs.slice(-7).map(function (r) { return num(r.a[Q.breathless]); }).filter(function (x) { return x != null; });
-      var tiles = [
-        ['Check-ins', String(rs.length), 'daily reports'],
-        ['Avg breathlessness', fmt(mean(br)), 'last 7 days: ' + fmt(mean(recent))],
-        ['Peak breathlessness', peakRow ? String(peakRow.a[Q.breathless]) : '–', peakRow ? shortDate(peakRow.t) : ''],
-        ['Top symptom', top || 'None', top ? tally[top] + ' days (' + pct(tally[top], rs.length) + '%)' : ''],
-        ['Rescue inhaler days', pct(days(Q.rescue), rs.length) + '%', days(Q.rescue) + ' of ' + rs.length],
-        ['Night waking', pct(days(Q.night), rs.length) + '%', days(Q.night) + ' nights'],
-        ['3+ symptom days', pct(days(Q.day), rs.length) + '%', days(Q.day) + ' days'],
-        ['Unusual days', String(an.days.length), 'above personal baseline'],
-      ];
+      var tiles = computeKpis(rs).slice(0, 8).map(function (k) { return [k.label, k.value, k.note]; });
       root.append(tileGrid(ctx.size === 'S' ? tiles.slice(0, 4) : tiles));
+    },
+  });
+
+  var KPI_CONTEXT = { 'avg-breathlessness': 1, 'peak-breathlessness': 1, 'unusual-days': 1 };
+  window.Widgets.register({
+    id: 'kpi', title: 'KPI card', sizes: ['S', 'M', 'L'],
+    render: function (el, ctx) {
+      var rs = rows(ctx);
+      var kpis = computeKpis(rs);
+      var chosen = ctx.config && ctx.config.metric;
+      var metric = kpis.some(function (k) { return k.id === chosen; }) ? chosen : 'checkins';
+      var big = ctx.size === 'L';
+      function draw() {
+        el.replaceChildren();
+        var k = kpis.find(function (x) { return x.id === metric; });
+        var root = shell(el, 'KPI');
+        root.classList.add('sw-kpi');
+        if (!rs.length) return empty(root);
+        root.append(h('p', 'sw-kpi-label', k.label), h('p', 'sw-kpi-value', k.value), h('p', 'sw-sub', k.note));
+        var pick = document.createElement('select');
+        pick.className = 'sw-kpi-select';
+        pick.setAttribute('aria-label', 'Variable shown on this KPI card');
+        kpis.forEach(function (o) { pick.add(new Option(o.label, o.id)); });
+        pick.value = metric;
+        pick.addEventListener('change', function () {
+          metric = pick.value;
+          ctx.onChange({ metric: metric });
+          draw();
+        });
+        root.append(pick);
+        if (big && KPI_CONTEXT[metric]) {
+          var an = anomalies(rs.filter(function (r) { return num(r.a[Q.breathless]) != null; }), Q.breathless);
+          lineChart(root, {
+            aria: 'Daily breathlessness', yMax: 10, threshold: an.cut,
+            series: [{ name: 'Daily score', cls: 'sw-main', points: rs.map(function (r) { return { t: r.t, y: r.a[Q.breathless] }; }) }],
+            marks: an.days.map(function (r) { return { t: r.t, y: r.a[Q.breathless], title: shortDate(r.t) + ': ' + r.a[Q.breathless] }; }),
+            legend: [{ name: 'Daily breathlessness', cls: 'sw-main' }, { name: 'Unusual day', cls: 'sw-dot' }],
+          });
+        } else if (big && metric === 'top-symptom') {
+          symptomBars(root, rs);
+        }
+      }
+      draw();
     },
   });
 
@@ -210,21 +282,7 @@
       var rs = rows(ctx);
       var root = shell(el, 'Symptom frequency', 'Days each symptom was reported');
       if (!rs.length) return empty(root);
-      var tally = {};
-      rs.forEach(function (r) { symptomList(r).forEach(function (x) { tally[x] = (tally[x] || 0) + 1; }); });
-      var names = Object.keys(tally).sort(function (a, b) { return tally[b] - tally[a]; });
-      var max = Math.max.apply(null, names.map(function (n) { return tally[n]; }).concat(1));
-      var list = h('div', 'sw-bars');
-      names.forEach(function (n) {
-        var row = h('div', 'sw-bar-row');
-        var track = h('div', 'sw-bar-track');
-        var fill = h('div', 'sw-bar-fill');
-        fill.style.width = (100 * tally[n] / max) + '%';
-        track.append(fill);
-        row.append(h('span', 'sw-bar-name', n), track, h('span', 'sw-bar-count', tally[n] + ' · ' + pct(tally[n], rs.length) + '%'));
-        list.append(row);
-      });
-      root.append(list);
+      symptomBars(root, rs);
     },
   });
 

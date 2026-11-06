@@ -60,6 +60,23 @@ The prototype has two distinct views, because the same data serves two audiences
   - Show the current report and history. For example, highlight regions on the diagram and let the clinician step through time.
   - Allow it to be treated like any other data source: draggable into a layout and usable as a flashcard when something changed.
 
+### Clinician preferences
+This section records what clinicians tell us they want. It is the place to capture clinician feedback and preferences as we learn them. Add to it whenever a clinician states a preference, and note who said it and which specialty they are in.
+
+Preferences from clinicians so far: none recorded yet.
+
+Template for each entry:
+- **Preference:** what the clinician wants to see or do.
+- **Specialty / role:** who said it.
+- **Why:** the reason they gave.
+- **Where it applies:** flashcard view, full data view, or both.
+
+In the app, a clinician's settings are stored in `data/preferences.json`. The file is the machine-readable version of this section.
+- It holds the settings the clinician controls, such as which charts and cards appear, their order and layout, the default time range, and which flashcards are shown first.
+- Both views read it on startup and write it back when the clinician rearranges something. This makes drag-and-drop layouts persist.
+- Keep one entry per clinician, keyed by a clinician id, with an optional per-specialty default.
+- For the demo it is a plain JSON file. The main process reads and writes it and exposes it to the renderer through `window.api`. The renderer never touches the file system.
+
 ### Open questions raised in the brief
 - What does a clinician need to see in the first 30 seconds of opening a patient's record?
 - Which data points drive treatment decisions, and which are noise?
@@ -137,12 +154,23 @@ src/
 
 - Current state: bare scaffold. No clinician view, researcher view, mock data, or tests exist yet.
 - Likely next steps:
-  1. Create a mock patient dataset (a few patients, several trackers, weeks of entries, some adherence gaps and anomalies).
-  2. Build the clinician pre-flight summary (what changed, what matters now).
-  3. Build the full clinician view with trend charts and drag-and-drop card layout.
-  4. Add the researcher view over the same mock data.
-  5. Add mascot and live-update motion.
+  1. Create the demo dataset (see "Demo dataset" below).
+  2. Create `data/preferences.json` with a default layout for one demo clinician, and wire load and save through the main process and preload.
+  3. Build the flashcard view (what changed, what matters now) from the demo data.
+  4. Build the full data view with trend charts, the body diagram, and a drag-and-drop layout saved to `preferences.json`.
+  5. Add the researcher view over the same mock data.
+  6. Add mascot and live-update motion.
 - Decide early whether to introduce a framework or chart library. Plain JS is fine for the first screens but will get heavy with drag-and-drop and live charts.
+
+## Demo dataset
+
+For the demo we use fake data from one survey. Everything is invented. No real patient data.
+- **Survey:** 5 to 6 questions that a doctor has pushed to patients with asthma. Mix the input types: sliders, radio buttons, multiple choice, and one free-text question.
+- **Example questions** (adjust as needed): breathlessness this week (slider 0 to 10), rescue inhaler uses today (number or radio buttons), night-time waking (radio buttons: yes or no), daily controller medication taken (yes or no), triggers noticed (multiple choice), and an optional free-text note. The body diagram may also be included, for example chest or throat discomfort.
+- **Patients:** a small cohort, around 5 to 8 patients, with entries over several weeks.
+- **Patterns to build in on purpose**, so the views have something to show: one patient with a worsening trend, one with missed days (adherence gap), one with a sudden spike (anomaly), and one stable patient.
+- **Location:** `data/` folder, for example `data/survey.json` (the questions and types) and `data/responses.json` (patient answers with timestamps).
+- Design the data so more surveys can be added later. Do not hard-code asthma into the view code.
 
 ## Working conventions
 

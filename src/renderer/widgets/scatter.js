@@ -246,7 +246,7 @@
       var grid = xTicks.map(function (tick) {
         var px = sx(tick);
         return '<line class="scatter-grid" x1="' + px + '" y1="' + margin.top + '" x2="' + px + '" y2="' + (margin.top + plotHeight) + '"/>' +
-          '<text class="scatter-axis" x="' + px + '" y="' + (height - 13) + '" text-anchor="middle">' + Number(tick.toFixed(1)) + '</text>';
+          '<text class="scatter-axis" x="' + px + '" y="' + (height - 20) + '" text-anchor="middle">' + Number(tick.toFixed(1)) + '</text>';
       }).join('') + yTicks.map(function (tick) {
         var py = sy(tick);
         return '<line class="scatter-grid" x1="' + margin.left + '" y1="' + py + '" x2="' + (margin.left + plotWidth) + '" y2="' + py + '"/>' +
@@ -257,17 +257,18 @@
         var weekClass = weekClasses[Math.max(0, weekIndex)];
         return '<circle class="scatter-point ' + weekClass + (row.date === selectedDate ? ' is-selected' : '') +
           (weekIndex < 0 ? ' is-dim' : '') + '" data-index="' + index + '" cx="' + sx(row[xMetric]) +
-          '" cy="' + sy(row[yMetric]) + '" r="5"><title>' + row.date.slice(0, 10) + ': ' +
+          '" cy="' + sy(row[yMetric]) + '" r="7"><title>' + row.date.slice(0, 10) + ': ' +
           xi.label + ' ' + row[xMetric] + ', ' + yi.label + ' ' + row[yMetric] + '</title></circle>';
       }).join('');
       var fit = showFit ? regression(rows) : null;
       var fitPath = fit ? '<path class="scatter-fit" d="M' + sx(xMin) + ',' + sy(fit.at(xMin)) +
         ' L' + sx(xMax) + ',' + sy(fit.at(xMax)) + '"/>' : '';
       var xLabel = '<text class="scatter-axis" x="' + (margin.left + plotWidth / 2) + '" y="' +
-        (height - 1) + '" text-anchor="middle">' + xi.label + '</text>';
+        (height - 3) + '" text-anchor="middle">' + xi.label + '</text>';
       stage.innerHTML = '<svg class="scatter-svg" viewBox="0 0 ' + width + ' ' + height +
         '" preserveAspectRatio="none" role="img" aria-label="Scatter plot of ' + xi.label + ' by ' + yi.label + '">' +
-        grid + fitPath + points + xLabel + '</svg>';
+        '<rect class="scatter-field" x="' + margin.left + '" y="' + margin.top + '" width="' +
+        plotWidth + '" height="' + plotHeight + '" rx="8"/>' + grid + fitPath + points + xLabel + '</svg>';
       legend.innerHTML = displayedWeeks.map(function (key) {
         var index = weekKeys.indexOf(key);
         return '<span class="scatter-legend-item"><span class="scatter-legend-dot ' +

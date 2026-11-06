@@ -1,8 +1,6 @@
 :root {
-  --dev-ground: #0b0f0f;
-  --dev-ink: #f2f5f4;
-  --dev-muted: #a7b3b0;
-  --dev-rule: #2a3532;
+  --dev-ground: color-mix(in srgb, var(--teal) 45%, black);
+  --dev-muted: color-mix(in srgb, white 82%, var(--teal));
 }
 
 * { box-sizing: border-box; }
@@ -10,7 +8,7 @@
 body {
   margin: 0;
   padding: 24px;
-  color: var(--dev-ink);
+  color: white;
   background: var(--dev-ground);
   font: 14px/1.5 system-ui, sans-serif;
 }
@@ -20,9 +18,23 @@ h1 { margin: 0; font-size: 24px; font-weight: 600; }
 .dev-intro { margin: 6px 0 24px; color: var(--dev-muted); }
 .demo-widget { margin: 28px 0 40px; }
 .demo-widget > h2 { margin: 0 0 12px; font-size: 18px; font-weight: 550; }
-.demo-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-.demo-frame { min-width: 0; padding: 12px; background: var(--dev-ground); }
-.demo-frame > h3 { margin: 0 0 10px; color: var(--dev-muted); font-size: 13px; font-weight: 500; }
+.demo-size { margin: 18px 0 24px; }
+.demo-size > h3 { margin: 0 0 8px; font-size: 14px; font-weight: 600; }
+.demo-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.demo-frame { min-width: 0; padding: 12px; border-radius: 12px; color: white; }
+.demo-frame > h4 {
+  margin: 0 0 12px;
+  padding: 6px 9px;
+  border-radius: 8px;
+  color: white;
+  background: color-mix(in srgb, var(--widget-palette) 58%, black);
+  font-size: 14px;
+  font-weight: 600;
+}
+.palette-plum { --widget-palette: var(--plum); background: var(--plum); }
+.palette-blue { --widget-palette: var(--blue); background: var(--blue); }
+.palette-green { --widget-palette: var(--green); background: var(--green); }
+.palette-teal { --widget-palette: var(--teal); background: var(--teal); }
 .demo-mount { min-width: 0; }
 .demo-selection { color: var(--dev-muted); }
 

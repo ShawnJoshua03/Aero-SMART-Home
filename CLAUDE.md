@@ -122,7 +122,7 @@ In the app, a clinician's settings are stored in `data/preferences.json`. The fi
 | `#619a3c` | `--green` |
 | `#244946` | `--teal` |
 
-Use these as the base brand colors. Define any new color as a CSS variable in `styles.css`, not as a hard-coded value.
+Use these as the base brand colors. The canvas gives each widget a solid fill from this palette and sets `--widget-palette` to that color token. Widget charts use white and `color-mix()` tints or shades of `--widget-palette`; do not add new hex colors. Keep widget-specific color variables in that widget's CSS file.
 
 ## Repo contents
 

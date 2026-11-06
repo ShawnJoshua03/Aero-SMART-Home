@@ -1,18 +1,14 @@
-:root {
-  --plum: #772152;
-  --blue: #0091b7;
-  --green: #619a3c;
-  --teal: #244946;
-  --scatter-ground: #0b0f0f;
-  --scatter-surface: #121918;
-  --scatter-ink: #f2f5f4;
-  --scatter-muted: #a7b3b0;
-  --scatter-grid: #2a3532;
-}
-
 .scatter-widget {
-  color: var(--scatter-ink);
-  background: var(--scatter-ground);
+  --scatter-palette: var(--widget-palette, var(--teal));
+  --scatter-surface: color-mix(in srgb, var(--scatter-palette) 58%, black);
+  --scatter-plot: color-mix(in srgb, var(--scatter-palette) 76%, black);
+  --scatter-muted: color-mix(in srgb, white 84%, var(--scatter-palette));
+  --scatter-grid: color-mix(in srgb, white 32%, var(--scatter-palette));
+  --scatter-week-0: white;
+  --scatter-week-1: color-mix(in srgb, white 82%, var(--scatter-palette));
+  --scatter-week-2: color-mix(in srgb, white 64%, var(--scatter-palette));
+  --scatter-week-3: color-mix(in srgb, white 46%, var(--scatter-palette));
+  color: white;
   font: 14px/1.45 system-ui, sans-serif;
 }
 
@@ -21,7 +17,10 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 10px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 12px;
+  background: var(--scatter-surface);
 }
 
 .scatter-title {
@@ -35,9 +34,9 @@
   min-height: 36px;
   max-width: 100%;
   padding: 6px 28px 6px 9px;
-  border: 1px solid var(--scatter-grid);
+  border: 2px solid var(--scatter-grid);
   border-radius: 6px;
-  color: var(--scatter-ink);
+  color: white;
   background: var(--scatter-surface);
   font: inherit;
 }
@@ -47,14 +46,15 @@
   min-height: 36px;
   align-items: center;
   gap: 8px;
-  color: var(--scatter-muted);
+  color: white;
+  accent-color: white;
   cursor: pointer;
 }
 
 .scatter-control:focus-visible,
 .scatter-trend-toggle:focus-within {
-  outline: 2px solid var(--blue);
-  outline-offset: 2px;
+  outline: 3px solid white;
+  outline-offset: 3px;
 }
 
 .scatter-stage { min-height: 230px; }
@@ -67,48 +67,57 @@
   height: 100%;
   min-height: inherit;
   overflow: visible;
+  background: var(--scatter-surface);
+}
+
+.scatter-field {
+  fill: var(--scatter-plot);
 }
 
 .scatter-grid {
   stroke: var(--scatter-grid);
-  stroke-width: 1;
+  stroke-width: 1.5;
 }
 
 .scatter-axis {
-  fill: var(--scatter-muted);
+  fill: white;
   font: 12px system-ui, sans-serif;
 }
 
 .scatter-point {
-  stroke: var(--scatter-ground);
-  stroke-width: 2;
+  stroke: var(--scatter-plot);
+  stroke-width: 3;
   cursor: pointer;
-  transition: r 120ms ease, opacity 120ms ease;
+  animation: scatter-pop 360ms ease-out both;
+  transition: r 140ms ease, opacity 140ms ease;
 }
 
-.scatter-week-0 { fill: var(--blue); background: var(--blue); }
-.scatter-week-1 { fill: var(--green); background: var(--green); }
-.scatter-week-2 { fill: var(--plum); background: var(--plum); }
-.scatter-week-3 { fill: var(--teal); background: var(--teal); }
+.scatter-week-0 { fill: var(--scatter-week-0); background: var(--scatter-week-0); }
+.scatter-week-1 { fill: var(--scatter-week-1); background: var(--scatter-week-1); }
+.scatter-week-2 { fill: var(--scatter-week-2); background: var(--scatter-week-2); }
+.scatter-week-3 { fill: var(--scatter-week-3); background: var(--scatter-week-3); }
 .scatter-point:hover,
 .scatter-point.is-selected {
-  r: 7;
-  stroke: var(--scatter-ink);
-  stroke-width: 2;
+  r: 10;
+  stroke: white;
+  stroke-width: 3;
 }
 
 .scatter-point.is-dim { opacity: 0.48; }
 .scatter-fit {
   fill: none;
-  stroke: var(--scatter-muted);
-  stroke-width: 2;
+  stroke: white;
+  stroke-width: 3;
   stroke-dasharray: 6 5;
 }
 
 .scatter-tooltip {
   min-height: 24px;
-  margin-top: 5px;
-  color: var(--scatter-muted);
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  color: white;
+  background: var(--scatter-surface);
   font-size: 13px;
 }
 
@@ -116,8 +125,11 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px 14px;
-  margin-top: 5px;
-  color: var(--scatter-muted);
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  color: white;
+  background: var(--scatter-surface);
   font-size: 12px;
 }
 
@@ -128,13 +140,18 @@
 }
 
 .scatter-legend-dot {
-  width: 8px;
-  height: 8px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
 }
 
-.scatter-widget select:hover { border-color: var(--blue); }
+.scatter-widget select:hover { border-color: white; }
+
+@keyframes scatter-pop {
+  from { opacity: 0.4; transform: scale(0.7); }
+  to { opacity: 1; transform: scale(1); }
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .scatter-point { transition: none; }
+  .scatter-point { animation: none; transition: none; }
 }

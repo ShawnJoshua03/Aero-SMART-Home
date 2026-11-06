@@ -1,21 +1,13 @@
-:root {
-  --plum: #772152;
-  --blue: #0091b7;
-  --green: #619a3c;
-  --teal: #244946;
-  --kpi-ground: #0b0f0f;
-  --kpi-surface: #121918;
-  --kpi-raised: #18211f;
-  --kpi-ink: #f2f5f4;
-  --kpi-muted: #a7b3b0;
-  --kpi-positive: #83c48e;
-  --kpi-negative: #e48a9c;
-}
-
 .kpi-widget {
-  color: var(--kpi-ink);
-  background: var(--kpi-ground);
+  --kpi-palette: var(--widget-palette, var(--teal));
+  --kpi-surface: color-mix(in srgb, var(--kpi-palette) 58%, black);
+  --kpi-raised: color-mix(in srgb, var(--kpi-palette) 38%, black);
+  --kpi-muted: color-mix(in srgb, white 84%, var(--kpi-palette));
+  --kpi-positive: color-mix(in srgb, white 68%, var(--kpi-palette));
+  --kpi-spark-fill: color-mix(in srgb, white 45%, var(--kpi-palette));
+  color: white;
   font: 14px/1.45 system-ui, sans-serif;
+  container-type: inline-size;
 }
 
 .kpi-grid {
@@ -45,7 +37,7 @@
 }
 
 .kpi-card:focus-visible {
-  outline: 2px solid var(--blue);
+  outline: 3px solid white;
   outline-offset: 3px;
 }
 
@@ -96,6 +88,7 @@
   font-weight: 550;
   font-variant-numeric: tabular-nums;
   line-height: 1.1;
+  color: white;
 }
 
 .kpi-unit {
@@ -104,12 +97,18 @@
 }
 
 .kpi-delta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--kpi-raised);
   font-size: 12px;
   font-variant-numeric: tabular-nums;
 }
 
 .kpi-delta.is-positive { color: var(--kpi-positive); }
-.kpi-delta.is-negative { color: var(--kpi-negative); }
+.kpi-delta.is-negative { color: white; }
 .kpi-delta.is-neutral { color: var(--kpi-muted); }
 
 .kpi-spark {
@@ -119,10 +118,15 @@
   overflow: visible;
 }
 
+.kpi-spark-area {
+  fill: var(--kpi-spark-fill);
+  opacity: 0.54;
+}
+
 .kpi-spark-path {
   fill: none;
-  stroke: var(--blue);
-  stroke-width: 2;
+  stroke: white;
+  stroke-width: 3;
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-dasharray: 260;
@@ -157,5 +161,9 @@
 }
 
 @media (max-width: 500px) {
+  .kpi-widget.is-L .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@container (max-width: 480px) {
   .kpi-widget.is-L .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

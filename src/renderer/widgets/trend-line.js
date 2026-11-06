@@ -279,6 +279,10 @@
       currentY = y;
       var pathPoints = series.map(function (point) { return { x: x(point.date), y: y(point.value) }; });
       var path = window.ChartSvg.path(pathPoints);
+      var areaPath = pathPoints.length > 1 ?
+        'M' + pathPoints[0].x + ',' + (margin.top + plotHeight) + ' L' +
+          pathPoints.map(function (point) { return point.x + ',' + point.y; }).join(' L') +
+          ' L' + pathPoints[pathPoints.length - 1].x + ',' + (margin.top + plotHeight) + ' Z' : '';
       var grid = yTicks.map(function (tick) {
         var py = y(tick);
         return '<line class="trend-grid" x1="' + margin.left + '" y1="' + py + '" x2="' + (width - margin.right) + '" y2="' + py + '"/>' +
@@ -288,7 +292,7 @@
       var bandBottom = y(Math.max(lowBand, domainMin));
       var anomalies = series.map(function (point) {
         if (point.value >= lowBand && point.value <= highBand) return '';
-        return '<circle class="trend-anomaly" cx="' + x(point.date) + '" cy="' + y(point.value) + '" r="5"><title>' +
+        return '<circle class="trend-anomaly" cx="' + x(point.date) + '" cy="' + y(point.value) + '" r="8"><title>' +
           point.date.slice(0, 10) + ': ' + point.value + '</title></circle>';
       }).join('');
       var xLabels = series.length ? [series[0], series[Math.floor((series.length - 1) / 2)], series[series.length - 1]]
@@ -302,7 +306,7 @@
         '" preserveAspectRatio="none" role="img" aria-label="' + info.label + ' over time">' +
         grid + '<rect class="trend-band" x="' + margin.left + '" y="' + bandY + '" width="' + plotWidth +
         '" height="' + Math.max(0, bandBottom - bandY) + '"/>' +
-        '<path class="trend-line" d="' + path + '"/>' + anomalies +
+        '<path class="trend-area" d="' + areaPath + '"/><path class="trend-line" d="' + path + '"/>' + anomalies +
         '<line class="trend-crosshair" x1="' + margin.left + '" y1="' + margin.top + '" x2="' + margin.left +
         '" y2="' + (margin.top + plotHeight) + '"/><circle class="trend-point" cx="' + margin.left +
         '" cy="' + (margin.top + plotHeight) + '" r="0"/>' + xLabels + '</svg>';
@@ -336,7 +340,7 @@
       crosshair.classList.add('is-visible');
       marker.setAttribute('cx', px);
       marker.setAttribute('cy', currentY(nearest.value));
-      marker.setAttribute('r', '5');
+      marker.setAttribute('r', '8');
       tooltip.textContent = nearest.date.slice(0, 10) + ' · ' + infoText(activeMetric, nearest.value);
     });
     stage.addEventListener('pointerleave', function () {

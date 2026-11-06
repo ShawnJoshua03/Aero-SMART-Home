@@ -234,8 +234,12 @@
           y: window.ChartSvg.scale(value, [min, max], [height - 3, 3])
         };
       });
+      var area = 'M' + points[0].x + ',' + (height - 1) + ' L' +
+        points.map(function (point) { return point.x + ',' + point.y; }).join(' L') +
+        ' L' + points[points.length - 1].x + ',' + (height - 1) + ' Z';
       return '<svg class="kpi-spark" viewBox="0 0 ' + width + ' ' + height + '" role="img" aria-label="' +
-        key + ' recent pattern"><path class="kpi-spark-path" d="' + window.ChartSvg.path(points) + '"/></svg>';
+        key + ' recent pattern"><path class="kpi-spark-area" d="' + area + '"/><path class="kpi-spark-path" d="' +
+        window.ChartSvg.path(points) + '"/></svg>';
     }
     function format(value, decimals) {
       return value == null ? '—' : Number(value).toFixed(decimals);

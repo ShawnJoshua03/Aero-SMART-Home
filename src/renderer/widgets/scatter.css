@@ -9,7 +9,7 @@
   --scatter-week-2: color-mix(in srgb, white 64%, var(--scatter-palette));
   --scatter-week-3: color-mix(in srgb, white 46%, var(--scatter-palette));
   color: white;
-  font: 14px/1.45 system-ui, sans-serif;
+  font: 14px/1.45 var(--font);
 }
 
 .scatter-head {
@@ -81,7 +81,7 @@
 
 .scatter-axis {
   fill: white;
-  font: 12px system-ui, sans-serif;
+  font: 12px var(--font);
 }
 
 .scatter-point {

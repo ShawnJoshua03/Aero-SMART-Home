@@ -4,14 +4,14 @@
   --aq-ground: color-mix(in srgb, var(--teal) 42%, transparent); --aq-text: white; --aq-muted: var(--aq-text); --aq-clear: transparent;
   --aq-shade: color-mix(in srgb, var(--teal) 75%, var(--plum));
   --aq-soft: color-mix(in srgb, var(--aq-text) 22%, transparent);
-  padding: 20px; box-sizing: border-box; height: 100%; background: var(--aq-ground); color: var(--aq-text); font: 13px/1.4 system-ui, sans-serif;
+  padding: 20px; box-sizing: border-box; height: 100%; background: var(--aq-ground); color: var(--aq-text); font: 13px/1.4 var(--font);
 }
-.air-quality h3 { font: 28px/1.15 Georgia, serif; margin: 0; }
+.air-quality h3 { font: 28px/1.15 var(--font); margin: 0; }
 .air-quality .aq-heading { display: flex; align-items: center; justify-content: space-between; }
 .air-quality .aq-mock { border: 1px solid var(--aq-text); background: var(--plum); padding: 3px 7px; border-radius: 5px; font-size: 10px; font-weight: 700; letter-spacing: .1em; }
 .air-quality p { margin: 6px 0 0; color: var(--aq-muted); }
 .air-quality .aq-subtitle { font-size: 11px; }
-.air-quality .aq-summary { display: flex; align-items: center; gap: 14px; margin: 17px 0; font: 18px/1.25 Georgia, serif; }
+.air-quality .aq-summary { display: flex; align-items: center; gap: 14px; margin: 17px 0; font: 18px/1.25 var(--font); }
 .air-quality .aq-summary svg { width: 76px; fill: var(--aq-clear); stroke: var(--aq-text); stroke-width: 5; stroke-linecap: round; overflow: visible; }
 .air-quality .aq-wind-one { animation: aq-drift 5s ease-in-out infinite; }
 .air-quality .aq-wind-two { animation: aq-drift 5s -2s ease-in-out infinite; }

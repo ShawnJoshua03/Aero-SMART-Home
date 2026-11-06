@@ -121,35 +121,27 @@
         "widgets": [
           {
             "instanceId": "kpi-checkins",
-            "widgetId": "kpi",
+            "widgetId": "kpi-checkins",
             "size": "S",
-            "config": {
-              "metric": "checkins"
-            }
+            "config": {}
           },
           {
             "instanceId": "kpi-avg-breathlessness",
-            "widgetId": "kpi",
+            "widgetId": "kpi-avg-breathlessness",
             "size": "S",
-            "config": {
-              "metric": "avg-breathlessness"
-            }
+            "config": {}
           },
           {
             "instanceId": "kpi-peak-breathlessness",
-            "widgetId": "kpi",
+            "widgetId": "kpi-peak-breathlessness",
             "size": "S",
-            "config": {
-              "metric": "peak-breathlessness"
-            }
+            "config": {}
           },
           {
             "instanceId": "kpi-top-symptom",
-            "widgetId": "kpi",
+            "widgetId": "kpi-top-symptom",
             "size": "S",
-            "config": {
-              "metric": "top-symptom"
-            }
+            "config": {}
           },
           {
             "instanceId": "breathlessness-trend-1",
@@ -183,7 +175,7 @@
           }
         ]
       },
-      "layoutVersion": 3
+      "layoutVersion": 4
     }
   },
   "activeClinicianId": "clin-001"

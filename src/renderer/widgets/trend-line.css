@@ -7,7 +7,7 @@
   --trend-area: color-mix(in srgb, var(--trend-palette) 38%, white);
   --trend-outline: color-mix(in srgb, var(--trend-palette) 68%, black);
   color: white;
-  font: 14px/1.45 system-ui, sans-serif;
+  font: 14px/1.45 var(--font);
 }
 
 .trend-head {
@@ -131,7 +131,7 @@
 
 .trend-axis {
   fill: var(--trend-muted);
-  font: 12px system-ui, sans-serif;
+  font: 12px var(--font);
 }
 
 .trend-tooltip {

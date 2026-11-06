@@ -66,6 +66,9 @@ async function verifyRenderer(stage) {
     target.dispatchEvent(new DragEvent('drop', { bubbles: true, cancelable: true, dataTransfer }));
     source.dispatchEvent(new DragEvent('dragend', { bubbles: true, dataTransfer }));
   };
+  check(document.querySelector('.aero') && !document.querySelector('.aero').classList.contains('is-out'), 'Aero starts hidden');
+  document.querySelector('.aero-tab').click();
+  check(document.querySelector('.aero').classList.contains('is-out') && document.querySelector('.aero-tab').hidden, 'The tab brings Aero out');
   const dockItems = [...document.querySelectorAll('.dock-item')];
   check(dockItems.map(item => item.dataset.page).join() === 'fly,anomalies,data', 'Dock must offer Fly, Anomalies, Data');
   check(document.getElementById('page-fly').classList.contains('is-active') && !document.getElementById('page-fly').hidden && document.getElementById('page-data').hidden, 'Fly is the default landing page');
@@ -98,7 +101,7 @@ async function verifyRenderer(stage) {
   check(kinds.length === 6 && kinds[0] === 'Trend' && kinds.includes('Anomalies'), 'Deck follows preferences: ' + kinds.join());
   document.getElementById('fly-modal-close').click();
   check(document.getElementById('fly-modal').hidden, 'Flashcard modal closes');
-  const emptyPast = [...document.querySelectorAll('.fly-card:not(.is-upcoming)')].find(c => c.querySelector('.fly-missing'));
+  const emptyPast = [...document.querySelectorAll('.fly-card:not(.is-upcoming)')].find(c => c.dataset.notes === 'empty');
   check(emptyPast, 'A past appointment starts without notes');
   emptyPast.click();
   await until(() => document.getElementById('fly-notes'));
@@ -106,10 +109,10 @@ async function verifyRenderer(stage) {
   document.querySelector('.fly-save').click();
   await until(() => document.querySelector('.fly-status').textContent === 'Saved');
   document.getElementById('fly-modal-close').click();
-  await until(() => !document.querySelector('.fly-missing'));
+  await until(() => !document.querySelector('.fly-card[data-notes="empty"]'));
   dockItems.find(item => item.dataset.page === 'data').click();
   await until(() => !document.getElementById('page-data').hidden);
-  drag(document.querySelector('.palette-item'), document.querySelector('.drop-zone'));
+  drag(document.querySelector('.palette-item'), document.getElementById('canvas'));
   check(cards().length === 10, 'Tray drop must add a card');
   const addedId = cards()[9].dataset.instanceId;
   drag(cards()[9].querySelector('.drag-handle'), cards()[0]);
@@ -120,7 +123,8 @@ async function verifyRenderer(stage) {
     select.dispatchEvent(new Event('change'));
     check(cards()[0].classList.contains(`size-${size}`), `Resize ${size}`);
   }
-  cards()[1].querySelector('button[aria-label^="Remove"]').click();
+  check(!document.querySelector('.kpi-rail select, .kpi-rail .widget-toolbar'), 'KPI cards must have no dropdown or size selector');
+  cards().find(c => !c.closest('.kpi-rail') && c.dataset.instanceId !== addedId).querySelector('button[aria-label^="Remove"]').click();
   check(cards().length === 9, 'Remove card');
   await saved();
   const prefs = await window.api.getPrefs();

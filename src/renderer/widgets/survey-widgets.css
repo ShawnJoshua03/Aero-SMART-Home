@@ -7,7 +7,7 @@
 }
 .sw-eyebrow { margin: 0 0 4px; font-size: 11px; font-weight: 650; letter-spacing: .14em; text-transform: uppercase; }
 .sw-sub { margin: 0 0 10px; font-size: 12px; }
-.sw-big { margin: 4px 0; font: 700 56px/1 Georgia, serif; }
+.sw-big { margin: 4px 0; font: 700 56px/1 var(--font); }
 .sw-chart { display: block; width: 100%; height: auto; }
 .sw-grid { stroke: var(--sw-faint); stroke-width: 1; }
 .sw-threshold { stroke: var(--sw-soft); stroke-width: 1; stroke-dasharray: 4 4; }
@@ -27,7 +27,7 @@
 .sw-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-top: 8px; }
 .sw-tile { display: grid; gap: 2px; padding: 12px 14px; border-radius: 18px; background: var(--sw-panel); }
 .sw-tile-label { font-size: 11px; }
-.sw-tile-value { font: 700 24px/1.1 Georgia, serif; }
+.sw-tile-value { font: 700 24px/1.1 var(--font); }
 .sw-tile-note { font-size: 11px; }
 .sw-bars { display: grid; gap: 8px; }
 .sw-bar-row { display: grid; grid-template-columns: minmax(80px, 34%) 1fr auto; align-items: center; gap: 10px; font-size: 12px; }
@@ -59,7 +59,7 @@
 
 /* Single-KPI card */
 .sw-kpi-label { margin: 0; font-size: 13px; }
-.sw-kpi-value { margin: 4px 0 2px; font: 700 44px/1.05 Georgia, serif; overflow-wrap: anywhere; }
+.sw-kpi-value { margin: 4px 0 2px; font: 700 44px/1.05 var(--font); overflow-wrap: anywhere; }
 .sw-kpi-select { width: 100%; margin-top: 8px; padding: 5px 10px; font-size: 12px; background: var(--sw-panel); color: white; border-color: var(--sw-faint); }
 .sw-kpi-select option { background: var(--deep); color: white; }
 .card-modal-dialog .sw-kpi-label { font-size: 16px; }

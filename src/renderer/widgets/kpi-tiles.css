@@ -6,7 +6,7 @@
   --kpi-positive: color-mix(in srgb, white 68%, var(--kpi-palette));
   --kpi-spark-fill: color-mix(in srgb, white 45%, var(--kpi-palette));
   color: white;
-  font: 14px/1.45 system-ui, sans-serif;
+  font: 14px/1.45 var(--font);
   container-type: inline-size;
 }
 

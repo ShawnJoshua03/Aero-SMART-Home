@@ -238,34 +238,22 @@
     },
   });
 
+  // One widget per KPI. A card shows just the title and the number; the enlarged modal adds context.
   var KPI_CONTEXT = { 'avg-breathlessness': 1, 'peak-breathlessness': 1, 'unusual-days': 1 };
-  window.Widgets.register({
-    id: 'kpi', title: 'KPI card', sizes: ['S', 'M', 'L'],
-    render: function (el, ctx) {
-      var rs = rows(ctx);
-      var kpis = computeKpis(rs);
-      var chosen = ctx.config && ctx.config.metric;
-      var metric = kpis.some(function (k) { return k.id === chosen; }) ? chosen : 'checkins';
-      var big = ctx.size === 'L';
-      function draw() {
-        el.replaceChildren();
-        var k = kpis.find(function (x) { return x.id === metric; });
-        var root = shell(el, 'KPI');
+  [['checkins', 'Check-ins'], ['avg-breathlessness', 'Avg breathlessness'], ['peak-breathlessness', 'Peak breathlessness'],
+   ['top-symptom', 'Top symptom'], ['rescue-days', 'Rescue inhaler days'], ['night-waking', 'Night waking'],
+   ['symptom-days', '3+ symptom days'], ['unusual-days', 'Unusual days'], ['avg-activity-limit', 'Avg activity limit']].forEach(function (def) {
+    var metric = def[0], label = def[1];
+    window.Widgets.register({
+      id: 'kpi-' + metric, title: 'KPI: ' + label, sizes: ['S'],
+      render: function (el, ctx) {
+        var rs = rows(ctx);
+        var root = shell(el, label);
         root.classList.add('sw-kpi');
         if (!rs.length) return empty(root);
-        root.append(h('p', 'sw-kpi-label', k.label), h('p', 'sw-kpi-value', k.value), h('p', 'sw-sub', k.note));
-        var pick = document.createElement('select');
-        pick.className = 'sw-kpi-select';
-        pick.setAttribute('aria-label', 'Variable shown on this KPI card');
-        kpis.forEach(function (o) { pick.add(new Option(o.label, o.id)); });
-        pick.value = metric;
-        pick.addEventListener('change', function () {
-          metric = pick.value;
-          ctx.onChange({ metric: metric });
-          draw();
-        });
-        root.append(pick);
-        if (big && KPI_CONTEXT[metric]) {
+        var k = computeKpis(rs).find(function (x) { return x.id === metric; });
+        root.append(h('p', 'sw-kpi-label', k.label), h('p', 'sw-kpi-value', k.value));
+        if (ctx.size === 'L' && KPI_CONTEXT[metric]) {
           var an = anomalies(rs.filter(function (r) { return num(r.a[Q.breathless]) != null; }), Q.breathless);
           lineChart(root, {
             aria: 'Daily breathlessness', yMax: 10, threshold: an.cut,
@@ -273,12 +261,13 @@
             marks: an.days.map(function (r) { return { t: r.t, y: r.a[Q.breathless], title: shortDate(r.t) + ': ' + r.a[Q.breathless] }; }),
             legend: [{ name: 'Daily breathlessness', cls: 'sw-main' }, { name: 'Unusual day', cls: 'sw-dot' }],
           });
-        } else if (big && metric === 'top-symptom') {
+        } else if (ctx.size === 'L' && metric === 'top-symptom') {
           symptomBars(root, rs);
+        } else if (ctx.size === 'L') {
+          root.append(h('p', 'sw-sub', k.note));
         }
-      }
-      draw();
-    },
+      },
+    });
   });
 
   // ---- Anomalies: breathlessness chart with flagged episodes highlighted ----

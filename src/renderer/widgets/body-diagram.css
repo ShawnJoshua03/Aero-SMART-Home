@@ -10,7 +10,7 @@
   border-radius: 22px;
   color: white;
   background: transparent;
-  font: 14px/1.45 system-ui, sans-serif;
+  font: 14px/1.45 var(--font);
 }
 
 .body-widget *,
@@ -44,7 +44,7 @@
 .body-detail h3 {
   margin: 0;
   color: white;
-  font-family: Georgia, serif;
+  font-family: var(--font);
   font-weight: 400;
 }
 

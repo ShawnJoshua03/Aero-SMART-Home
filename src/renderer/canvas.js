@@ -152,8 +152,10 @@
       }));
       const body = document.createElement('div');
       body.className = 'widget-body';
-      card.append(toolbar, body);
-      if (item.widgetId === 'kpi') {
+      // KPI cards are bare: just the title and the number, no toolbar.
+      const bare = item.widgetId.startsWith('kpi-');
+      card.append(...(bare ? [body] : [toolbar, body]));
+      if (bare) {
         if (!rail) {
           rail = document.createElement('div');
           rail.className = 'kpi-rail';
@@ -193,10 +195,6 @@
         body.textContent = 'This widget could not render. You can resize or remove it.';
       }
     });
-    const drop = document.createElement('div');
-    drop.className = 'drop-zone';
-    drop.textContent = layout.widgets.length ? '+ Drop another widget here' : 'Your view starts here. Drop a widget or choose Add from the tray.';
-    grid.append(drop);
     window.dispatchEvent(new Event('canvas:rendered'));
   }
 

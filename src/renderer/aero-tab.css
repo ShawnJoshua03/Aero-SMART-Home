@@ -1,0 +1,33 @@
+/* Aero's circle, his off-screen resting place, and the semicircle tab that calls him out. Loaded after aero.css so these rules win. */
+.aero {
+  --aero-x: 150px;
+  width: 92px;
+  right: 12px;
+  visibility: hidden;
+  translate: var(--aero-x) var(--aero-shift, 0px);
+  transition: translate .4s cubic-bezier(.3, 1.15, .5, 1), visibility 0s linear .4s;
+}
+.aero.is-out { --aero-x: 0px; visibility: visible; transition: translate .4s cubic-bezier(.3, 1.15, .5, 1), visibility 0s; }
+
+/* The little circle he sits in */
+.aero-body {
+  display: grid; place-items: end center; width: 92px; height: 92px; border-radius: 50%; overflow: hidden;
+  background: radial-gradient(circle at 35% 25%, var(--white), color-mix(in srgb, var(--blue) 24%, white));
+  border: 3px solid var(--white);
+  box-shadow: 0 8px 22px color-mix(in srgb, var(--deep) 28%, transparent);
+}
+.aero-face { width: 72px; margin-bottom: -2px; }
+
+/* The semicircle on the bottom-right edge (above the dock, same height as the circle) */
+.aero-tab {
+  position: fixed; z-index: 49; right: 0; bottom: 112px; width: 30px; height: 60px; padding: 0 0 0 4px;
+  display: grid; place-items: center; border: 0; border-radius: 60px 0 0 60px; cursor: pointer;
+  background: var(--fill-teal); color: var(--white);
+  box-shadow: -3px 4px 14px color-mix(in srgb, var(--deep) 28%, transparent);
+  translate: 0 var(--aero-shift, 0px);
+  transition: translate .35s cubic-bezier(.3, 1.2, .5, 1), width .2s ease, background .2s ease;
+}
+.aero-tab:hover { width: 36px; background: var(--plum); }
+.aero-tab:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+.aero-tab[hidden] { display: none; }
+@media (prefers-reduced-motion: reduce) { .aero, .aero.is-out, .aero-tab { transition: none; } }

@@ -66,15 +66,8 @@
     node.setAttribute('aria-label', `${isUpcoming ? 'Upcoming' : 'Past'} appointment, ${dayLabel(appt.start)}. ${isUpcoming ? 'Open flashcards' : 'Open notes'}`);
     node.append(el('p', 'fly-tag', isUpcoming ? 'Upcoming appointment' : 'Past appointment'));
     node.append(el('h3', 'fly-date', dayLabel(appt.start)));
-    node.append(el('p', 'fly-when', `${timeLabel(appt.start)} · ${appt.type}`));
-    node.append(el('p', 'fly-who', appt.clinician));
-    if (isUpcoming) {
-      node.append(el('p', 'fly-preview', 'Flashcards ready: anomalies, recent history and patterns.'));
-    } else if (appt.notes && appt.notes.trim()) {
-      node.append(el('p', 'fly-preview', appt.notes));
-    } else {
-      node.append(el('p', 'fly-preview fly-missing', 'No notes yet. Open to add notes.'));
-    }
+    node.append(el('p', 'fly-when', timeLabel(appt.start)));
+    node.dataset.notes = !isUpcoming && !(appt.notes && appt.notes.trim()) ? 'empty' : 'ok'; // for tests and styling only, not shown
     const open = () => openModal(appt, isUpcoming, node);
     node.addEventListener('click', open);
     node.addEventListener('keydown', (event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); open(); } });

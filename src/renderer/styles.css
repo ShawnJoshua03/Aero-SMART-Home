@@ -23,8 +23,9 @@
   --drop-fill: color-mix(in srgb, var(--teal) 8%, white);
   --drop-active: color-mix(in srgb, var(--blue) 25%, white);
 }
+:root { --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI Variable', 'Segoe UI', system-ui, sans-serif; }
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--ground); color: var(--ink); font-family: system-ui, sans-serif; font-size: 14px; }
+body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--font); font-size: 14px; }
 button, select { font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 7px 11px; }
 button { cursor: pointer; }
 button:hover, select:hover { border-color: var(--accent); }
@@ -32,7 +33,7 @@ button:disabled { opacity: .35; cursor: default; }
 :focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; }
 .view-pill { background: var(--plum); color: var(--white); border-radius: 28px 22px 30px 18px; padding: 12px 20px; }
 main { position: relative; isolation: isolate; overflow: clip; padding: 38px 36px 70px; max-width: 1700px; margin: auto; }
-h1, h2, h3 { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; }
+h1, h2, h3 { font-family: var(--font); font-weight: 500; }
 h1 { font-size: clamp(32px, 4vw, 48px); line-height: 1.08; margin: 10px 0; letter-spacing: -1.3px; }
 h2 { font-size: 24px; margin: 0 0 12px; }
 h3 { font-size: 32px; margin: 14px 0; }
@@ -69,8 +70,6 @@ p { line-height: 1.55; }
 .widget-toolbar button:last-child { margin-left: auto; }
 .widget-body { padding: 22px; min-height: 180px; overflow-wrap: anywhere; }
 .size-L .widget-body { min-height: 270px; }
-.drop-zone { grid-column: 1 / -1; min-height: 112px; border: 1px dashed var(--surface-divider); border-radius: 32px 24px 40px 28px; display: grid; place-items: center; padding: 24px; background: var(--drop-fill); color: var(--white); font-size: 12px; text-align: center; }
-.drag-active .drop-zone { background: var(--drop-active); border-color: var(--white); }
 .widget-card.drop-before { outline: 3px solid var(--white); outline-offset: 3px; }
 /* Widget tray: a drawer opened from the header hamburger at every width. */
 .tray-toggle { padding: 8px 13px; font-size: 20px; line-height: 1; border-radius: 16px; background: var(--teal); color: var(--white); border: 0; }
@@ -106,7 +105,7 @@ body { max-width: 100%; overflow-x: clip; }
 .patient-picker { position: relative; flex: 1 1 auto; min-width: 0; }
 .patient-button { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; padding: 6px 16px; border-radius: 22px; text-align: left; background: color-mix(in srgb, white 55%, transparent); border-color: color-mix(in srgb, white 80%, transparent); }
 .patient-text { display: grid; min-width: 0; line-height: 1.25; }
-.patient-text strong { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; font-size: 17px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.patient-text strong { font-family: var(--font); font-weight: 400; font-size: 17px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .patient-period { font-size: 11px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .patient-chevron { color: var(--plum); }
 .patient-button[aria-expanded="true"] .patient-chevron { transform: rotate(180deg); }
@@ -141,7 +140,7 @@ body { max-width: 100%; overflow-x: clip; }
 /* Consecutive KPI cards stack vertically in one group */
 .kpi-rail { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 12px; }
 .kpi-rail .widget-toolbar { padding: 8px 12px; }
-.kpi-rail .widget-body { min-height: 0; padding: 14px 16px 16px; }
+.kpi-rail .widget-body { min-height: 0; padding: 20px 22px 22px; cursor: zoom-in; }
 
 /* Browser-style (wide) layout: KPI cards in a row, charts side by side. Phones keep the single column above. */
 @media (min-width: 641px) {
@@ -215,10 +214,6 @@ main { padding-bottom: 120px; }
 .recalibrate:active { transform: scale(.96); }
 .anomaly-card .sw-eyebrow { padding-right: 110px; }
 
-/* Aero steps aside (down to the bottom edge) while a modal is open; see aero-dodge.js. */
-.aero { translate: 0 var(--aero-shift, 0px); transition: translate .35s cubic-bezier(.3, 1.2, .5, 1); }
-.aero.aero-dragging { transition: none; }
-@media (prefers-reduced-motion: reduce) { .aero { transition: none; } }
 
 /* Anomalies page scaling: capped width on desktop, chart-only cards on phones (tap for the modal). */
 .anomaly-head, .anomaly-list { max-width: 780px; }
@@ -237,3 +232,13 @@ main { padding-bottom: 120px; }
 
 .canvas-toolbar { margin-bottom: 14px; }
 .anomaly-head h2, .fly-head h2 { margin-bottom: 14px; }
+
+/* Phones: KPI cards two per row. */
+.kpi-rail { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 640px) {
+  .kpi-rail { gap: 10px; }
+  .kpi-rail .widget-body { padding: 14px 14px 16px; }
+  .kpi-rail .sw-kpi-value { font-size: clamp(24px, 7.2vw, 44px); }
+  .kpi-rail .sw-kpi-label { font-size: 12px; }
+}
+@media (min-width: 1100px) { .kpi-rail { grid-template-columns: repeat(4, minmax(0, 1fr)); } }

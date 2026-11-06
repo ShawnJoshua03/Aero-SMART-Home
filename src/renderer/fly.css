@@ -27,7 +27,7 @@
 .fly-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
 .fly-tile { display: grid; gap: 2px; padding: 12px 14px; border-radius: 18px; background: color-mix(in srgb, black 24%, var(--fill-teal)); }
 .fly-tile-label, .fly-tile-note { font-size: 11px; }
-.fly-tile-value { font: 700 26px/1.1 Georgia, serif; }
+.fly-tile-value { font: 700 26px/1.1 var(--font); }
 .fly-notes { display: block; width: 100%; min-height: 140px; padding: 12px 14px; resize: vertical; border: 1px solid color-mix(in srgb, white 40%, transparent); border-radius: 18px; background: color-mix(in srgb, white 12%, transparent); color: var(--white); font: inherit; line-height: 1.5; }
 .fly-notes::placeholder { color: color-mix(in srgb, white 70%, transparent); }
 .fly-notes-row { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
@@ -48,7 +48,7 @@
 .flash-back { transform: rotateY(180deg); }
 .flash.tone-attention .flash-face { box-shadow: 0 0 0 3px var(--white), 0 14px 30px color-mix(in srgb, black 30%, transparent); }
 .flash-kind { margin: 0; font-size: 11px; font-weight: 650; letter-spacing: .16em; text-transform: uppercase; }
-.flash-headline { margin: auto 0 6px; font: 400 clamp(30px, 8vw, 44px)/1.1 Georgia, serif; overflow-wrap: anywhere; }
+.flash-headline { margin: auto 0 6px; font: 400 clamp(30px, 8vw, 44px)/1.1 var(--font); overflow-wrap: anywhere; }
 .flash-sub { margin: 0; font-size: 14px; }
 .flash-flip { margin: auto 0 0; padding-top: 16px; font-size: 11px; opacity: .85; text-align: right; }
 .flash-details { margin: 14px 0 0; padding-left: 20px; display: grid; gap: 12px; font-size: 17px; line-height: 1.5; }
@@ -73,7 +73,7 @@
 .fig-label { fill: var(--white); font-size: 12px; }
 .fig-line { stroke: var(--white); stroke-width: 1.2; stroke-dasharray: 5 4; }
 .fig-line-label { fill: var(--white); font-size: 11px; }
-.fig-title { margin: 0 0 14px; font: 400 20px/1.2 Georgia, serif; }
+.fig-title { margin: 0 0 14px; font: 400 20px/1.2 var(--font); }
 .fig-dots { display: flex; justify-content: space-between; gap: 4px; }
 .fig-dot-cell { display: grid; justify-items: center; gap: 6px; font-size: 12px; }
 .fig-dot { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--white); }

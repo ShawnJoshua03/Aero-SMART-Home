@@ -24,6 +24,7 @@
   const WALKER_W = 84;
   const WALKER_H = Math.round(WALKER_W * 410 / 300);
   const MARGIN = 12;
+  const DOCK_CLEARANCE = 96;   // the page's bottom dock is about 80px tall; start above it
   const DRAG_THRESHOLD = 6;     // px of movement before a press becomes a drag instead of a tap
   const POS_KEY = 'aero-position';
   const SILENCE_MS = 1400;      // stop listening after this much quiet once the doctor has spoken
@@ -273,7 +274,7 @@
       const saved = JSON.parse(localStorage.getItem(POS_KEY) || 'null');
       if (saved && Number.isFinite(saved.x) && Number.isFinite(saved.y)) { place(saved.x * window.innerWidth, saved.y * window.innerHeight); return; }
     } catch { /* ignore bad saved value */ }
-    place(window.innerWidth - WALKER_W - MARGIN, window.innerHeight - WALKER_H - MARGIN);
+    place(window.innerWidth - WALKER_W - MARGIN, window.innerHeight - WALKER_H - DOCK_CLEARANCE);
   }
   window.addEventListener('resize', () => place(state.x, state.y));
 

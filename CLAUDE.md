@@ -139,6 +139,16 @@ src/
     index.html       page shell, CSP `default-src 'self'`, header and `#app` mount point
     styles.css       CSS variables for the four palette colors, basic header and main styling
     renderer.js      placeholder: prints Electron and Chrome versions into `#app`
+    widgets/
+      body-diagram.js   interactive body report map and history timeline
+      body-diagram.css  body map widget styling and motion
+      lungs-gauge.js    severity-paced breathing visualization and recent readings
+      lungs-gauge.css   lungs gauge styling, severity colours, and breathing motion
+      _dev/
+        index.html      standalone widget preview (mock data only)
+        dev.css         standalone preview layout
+        dev.js          registers S/M/L examples for both widgets
+        registry-stub.js minimal registry used by the standalone preview
 ```
 
 ## Architecture and tech stack
@@ -152,12 +162,12 @@ src/
 
 ## Status and next steps
 
-- Current state: bare scaffold. No clinician view, researcher view, mock data, or tests exist yet.
+- Current state: bare app scaffold plus two standalone clinician widgets, body-diagram and lungs-gauge. Their preview uses invented mock data; registry integration and final response schema are pending.
 - Likely next steps:
   1. Create the demo dataset (see "Demo dataset" below).
   2. Create `data/preferences.json` with a default layout for one demo clinician, and wire load and save through the main process and preload.
   3. Build the flashcard view (what changed, what matters now) from the demo data.
-  4. Build the full data view with trend charts, the body diagram, and a drag-and-drop layout saved to `preferences.json`.
+  4. Integrate the body-diagram and lungs-gauge widgets into the full data view with trend charts and a drag-and-drop layout saved to `preferences.json`.
   5. Add the researcher view over the same mock data.
   6. Add mascot and live-update motion.
 - Decide early whether to introduce a framework or chart library. Plain JS is fine for the first screens but will get heavy with drag-and-drop and live charts.

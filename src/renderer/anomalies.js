@@ -1,7 +1,7 @@
 (() => {
   // Anomalies page: only things that need immediate attention. Charts are the shared widgets, re-rendered with the Data canvas.
   const page = document.getElementById('page-anomalies');
-  const cards = [{ widgetId: 'anomaly-breathlessness', fill: 'plum' }];
+  const cards = [{ widgetId: 'anomaly-breathlessness', fill: 'plum' }, { widgetId: 'anomaly-rescue', fill: 'blue' }];
   let cleanups = [];
   let modalCleanup = null, modalReturn = null;
   const modal = document.getElementById('anomaly-modal');
@@ -16,9 +16,9 @@
     document.body.classList.remove('modal-open');
     modalReturn?.focus();
   }
-  function openModal(widget, ctx, from) {
+  function openModal(widget, ctx, from, fill) {
     modalReturn = from;
-    document.getElementById('anomaly-modal-title').textContent = widget.title;
+    document.getElementById('anomaly-modal-dialog').style.setProperty('--widget-fill', 'var(--fill-' + fill + ')');
     modalBody.replaceChildren();
     modal.hidden = false; // visible before rendering so the chart can measure its width
     document.body.classList.add('modal-open');
@@ -29,6 +29,9 @@
       console.error(error);
       modalBody.textContent = 'This chart could not render.';
     }
+    // The modal title is the card's own summary heading.
+    const heading = modalBody.querySelector('.sw-heading');
+    document.getElementById('anomaly-modal-title').textContent = heading ? heading.textContent : widget.title;
     document.getElementById('anomaly-modal-close').focus();
   }
   document.getElementById('anomaly-modal-close').addEventListener('click', closeModal);
@@ -67,7 +70,7 @@
       card.tabIndex = 0;
       card.setAttribute('role', 'button');
       card.setAttribute('aria-label', widget.title + ': open details');
-      const open = () => openModal(widget, { data, patientId }, card);
+      const open = () => openModal(widget, { data, patientId }, card, fill);
       card.addEventListener('click', open);
       card.addEventListener('keydown', (event) => { if (event.target === card && (event.key === 'Enter' || event.key === ' ')) { event.preventDefault(); open(); } });
       card.append(recal, body, hint);

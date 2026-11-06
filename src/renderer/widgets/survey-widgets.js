@@ -271,16 +271,33 @@
   });
 
   // ---- Anomalies: breathlessness chart with flagged episodes highlighted ----
-  function episodes(days) { // merge consecutive unusual days into episodes
+  function episodes(days, val) { // merge consecutive unusual days into episodes
+    val = val || function (r) { return r.a[Q.breathless]; };
     var out = [];
     days.forEach(function (r) {
       var last = out[out.length - 1];
       if (last && r.t - last.end <= 1.5 * DAY) {
         last.end = r.t; last.count += 1;
-        if (r.a[Q.breathless] > last.peak) { last.peak = r.a[Q.breathless]; last.peakT = r.t; }
-      } else out.push({ start: r.t, end: r.t, count: 1, peak: r.a[Q.breathless], peakT: r.t });
+        if (val(r) > last.peak) { last.peak = val(r); last.peakT = r.t; }
+      } else out.push({ start: r.t, end: r.t, count: 1, peak: val(r), peakT: r.t });
     });
     return out;
+  }
+  // A short summary: "4 breathlessness spikes", "2 rescue inhaler surges".
+  function headline(count, noun) {
+    return count + ' ' + noun + (count === 1 ? '' : 's');
+  }
+  function episodeList(eps, lastT, peakText) {
+    var list = h('ul', 'sw-episodes');
+    eps.slice().reverse().forEach(function (e) {
+      var ago = Math.round((lastT - e.end) / DAY);
+      var li = h('li', 'sw-episode');
+      li.append(h('strong', null, e.start === e.end ? shortDate(e.start) : shortDate(e.start) + ' – ' + shortDate(e.end)),
+        h('span', null, peakText(e) + ' · ' + e.count + ' day' + (e.count === 1 ? '' : 's') + ' · ' + (ago === 0 ? 'latest check-in' : ago + ' days before latest check-in')));
+      list.append(li);
+    });
+    if (!eps.length) list.append(h('li', 'sw-episode', 'No anomalies flagged.'));
+    return list;
   }
   window.Widgets.register({
     id: 'anomaly-breathlessness', title: 'Breathlessness anomalies', sizes: ['M', 'L'],
@@ -290,6 +307,7 @@
       if (!rs.length) return empty(root);
       var an = anomalies(rs, Q.breathless);
       var eps = episodes(an.days);
+      root.append(h('h3', 'sw-heading', headline(eps.length, 'breathlessness spike')));
       lineChart(root, {
         aria: 'Daily breathlessness with anomalous episodes highlighted', yMax: 10, threshold: an.cut,
         bands: eps.map(function (e) { return { t0: e.start - 0.5 * DAY, t1: e.end + 0.5 * DAY }; }),
@@ -297,17 +315,31 @@
         marks: an.days.map(function (r) { return { t: r.t, y: r.a[Q.breathless], hot: true, title: shortDate(r.t) + ': ' + r.a[Q.breathless] + ' (anomaly)' }; }),
         legend: [{ name: 'Daily breathlessness', cls: 'sw-main' }, { name: 'Anomaly', cls: 'sw-dot' }, { name: 'Threshold ' + fmt(an.cut), cls: 'sw-soft' }],
       });
-      var lastT = rs[rs.length - 1].t;
-      var list = h('ul', 'sw-episodes');
-      eps.slice().reverse().forEach(function (e) {
-        var ago = Math.round((lastT - e.end) / DAY);
-        var li = h('li', 'sw-episode');
-        li.append(h('strong', null, e.start === e.end ? shortDate(e.start) : shortDate(e.start) + ' – ' + shortDate(e.end)),
-          h('span', null, 'peak ' + e.peak + ' · ' + e.count + ' day' + (e.count === 1 ? '' : 's') + ' · ' + (ago === 0 ? 'latest check-in' : ago + ' days before latest check-in')));
-        list.append(li);
+      root.append(episodeList(eps, rs[rs.length - 1].t, function (e) { return 'peak ' + e.peak; }));
+    },
+  });
+
+  // ---- Anomalies: rescue inhaler surge (rolling 7-day count against this patient's own baseline) ----
+  window.Widgets.register({
+    id: 'anomaly-rescue', title: 'Rescue inhaler surge', sizes: ['M', 'L'],
+    render: function (el, ctx) {
+      var rs = rows(ctx);
+      var root = shell(el, 'Rescue inhaler surge', 'Days using the rescue inhaler in the previous 7, against this patient\'s own baseline (mean + 2 SD)');
+      if (!rs.length) return empty(root);
+      var pts = rolling(rs, function (w) { return w.filter(function (r) { return yes(r.a[Q.rescue]); }).length; }, 7);
+      var ys = pts.map(function (p) { return p.y; });
+      var cut = mean(ys) + 2 * sd(ys);
+      var flagged = pts.filter(function (p) { return p.y > cut; });
+      var eps = episodes(flagged, function (p) { return p.y; });
+      root.append(h('h3', 'sw-heading', headline(eps.length, 'rescue inhaler surge')));
+      lineChart(root, {
+        aria: 'Rolling seven-day count of rescue inhaler days with surges highlighted', yMax: 7, threshold: cut,
+        bands: eps.map(function (e) { return { t0: e.start - 0.5 * DAY, t1: e.end + 0.5 * DAY }; }),
+        series: [{ name: 'Rescue inhaler days in the past 7', cls: 'sw-main', points: pts }],
+        marks: flagged.map(function (p) { return { t: p.t, y: p.y, hot: true, title: shortDate(p.t) + ': ' + p.y + ' of 7 days (anomaly)' }; }),
+        legend: [{ name: 'Rescue inhaler days (past 7)', cls: 'sw-main' }, { name: 'Anomaly', cls: 'sw-dot' }, { name: 'Threshold ' + fmt(cut), cls: 'sw-soft' }],
       });
-      if (!eps.length) list.append(h('li', 'sw-episode', 'No anomalies flagged.'));
-      root.append(list);
+      root.append(episodeList(eps, rs[rs.length - 1].t, function (e) { return 'peak ' + e.peak + ' of 7 days'; }));
     },
   });
 

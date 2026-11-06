@@ -107,3 +107,7 @@
 .flash-face { justify-content: center; }
 .flash-back.has-figure .fig { margin: 0; }
 .fly-meta { margin-top: 0; }
+
+/* Space between the snapshot tiles and the notes box, and inside the box. */
+.fly-notes { margin-top: 20px; padding: 16px 18px; }
+.fly-notes-row { margin-top: 14px; }

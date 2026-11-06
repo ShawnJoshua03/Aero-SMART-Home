@@ -242,3 +242,10 @@ main { padding-bottom: 120px; }
   .kpi-rail .sw-kpi-label { font-size: 12px; }
 }
 @media (min-width: 1100px) { .kpi-rail { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+.anomaly-card.fill-blue .anomaly-body { --widget-fill: var(--fill-blue); }
+.anomaly-card.fill-green .anomaly-body { --widget-fill: var(--fill-green); }
+.anomaly-card.fill-teal .anomaly-body { --widget-fill: var(--fill-teal); }
+
+.anomaly-head, .anomaly-list { margin-left: auto; margin-right: auto; }
+.anomaly-body { padding-top: 22px; }

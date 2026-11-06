@@ -76,3 +76,7 @@
 /* No small titles or instruction lines on charts: the card toolbar or modal heading names them. Kept for screen readers. */
 .sw-eyebrow { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .sw-intro { display: none; }
+
+/* Short summary heading on anomaly cards (the modal head already carries it) */
+.sw-heading { margin: 0 0 14px; padding-right: 110px; font-size: 22px; font-weight: 500; line-height: 1.2; }
+.card-modal-dialog .sw-heading { display: none; }

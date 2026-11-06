@@ -139,6 +139,9 @@ src/
     index.html       page shell, CSP `default-src 'self'`, header and `#app` mount point
     styles.css       CSS variables for the four palette colors, basic header and main styling
     renderer.js      placeholder: prints Electron and Chrome versions into `#app`
+    widgets/         five standalone fun widgets (one JS + CSS each): adherence-heatmap,
+                     trigger-bubbles, night-moon, change-ticker, air-quality
+      _dev/          fun.html S/M/L preview, registry fallback, browser checks, adapter notes
 ```
 
 ## Architecture and tech stack
@@ -152,7 +155,7 @@ src/
 
 ## Status and next steps
 
-- Current state: bare scaffold. No clinician view, researcher view, mock data, or tests exist yet.
+- Current state: app shell remains a scaffold. Five interactive fun widgets are ready for canvas integration, with per-widget mock generators and a standalone browser preview at `src/renderer/widgets/_dev/fun.html`. Append `?test=1` for interaction/lifecycle checks. Final dataset adaptation and canvas loading remain with the lead; see `_dev/README.md` for assumptions and callback shapes.
 - Likely next steps:
   1. Create the demo dataset (see "Demo dataset" below).
   2. Create `data/preferences.json` with a default layout for one demo clinician, and wire load and save through the main process and preload.

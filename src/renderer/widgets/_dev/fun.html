@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; object-src 'none'; base-uri 'none'">
+  <title>SMART@Home · Fun widget studio</title>
+  <link rel="stylesheet" href="fun.css">
+  <link rel="stylesheet" href="../adherence-heatmap.css">
+  <link rel="stylesheet" href="../trigger-bubbles.css">
+  <link rel="stylesheet" href="../night-moon.css">
+  <link rel="stylesheet" href="../change-ticker.css">
+  <link rel="stylesheet" href="../air-quality.css">
+  <script src="fun.js" defer></script>
+</head>
+<body>
+  <header><p>SMART@Home / Clinician view</p><h1>Small signals.<br>A fuller picture.</h1><p>Interactive widget studio · mock patients only</p></header>
+  <nav aria-label="Preview data"><label>Data scenario <select id="scenario"><option value="sample">Built-in samples</option><option value="supplied">Sparse patient records</option><option value="empty">Empty records</option></select></label><button id="rerender" type="button">Re-render all</button><span id="events" role="status">Select a trigger or change chip to see its event.</span></nav>
+  <main id="gallery"></main>
+  <footer id="checks" role="status">Loading widgets…</footer>
+</body>
+</html>

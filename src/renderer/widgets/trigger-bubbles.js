@@ -129,7 +129,7 @@
       const motionChanged = () => { cancelAnimationFrame(frame); last = 0; if (!reduced.matches && nodes.length) frame = requestAnimationFrame(step); };
       reduced.addEventListener('change', motionChanged);
       paint(); showSelection(); motionChanged();
-      el.__cleanup = () => { disposed = true; cancelAnimationFrame(frame); reduced.removeEventListener('change', motionChanged); };
+      el.__cleanup = () => { disposed = true; cancelAnimationFrame(frame); reduced.removeEventListener('change', motionChanged); el.getAnimations({ subtree: true }).forEach(animation => animation.cancel()); };
     }
   });
 })();

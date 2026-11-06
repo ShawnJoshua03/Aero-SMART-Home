@@ -107,7 +107,7 @@
             const pixels = Math.floor(scrollRemainder);
             scrollRemainder -= pixels;
             viewport.scrollLeft += direction * pixels;
-            if (viewport.scrollLeft >= max - 1 || viewport.scrollLeft <= 0) { direction *= -1; holdUntil = time + 1500; }
+            if ((direction > 0 && viewport.scrollLeft >= max - 1) || (direction < 0 && viewport.scrollLeft <= 0)) { direction *= -1; holdUntil = time + 1500; }
           }
         }
         frame = requestAnimationFrame(animate);
@@ -119,6 +119,7 @@
       else { detail.textContent = 'Not enough comparable entries yet. Add data on both sides of the comparison.'; el.querySelectorAll('.ct-controls button').forEach(b => { b.disabled = true; }); }
       el.__cleanup = () => {
         disposed = true; cancelAnimationFrame(frame); reduced.removeEventListener('change', motionChanged);
+        el.getAnimations({ subtree: true }).forEach(animation => animation.cancel());
         el.removeEventListener('pointerenter', onEnter); el.removeEventListener('pointerleave', onLeave); el.removeEventListener('focusin', onFocus); el.removeEventListener('focusout', onBlur);
       };
     }

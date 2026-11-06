@@ -4,7 +4,7 @@
   function adaptData(ctx) {
     const rows = ctx.data == null ? Array.from({ length: 28 }, (_, i) => ({
       date: new Date(Date.UTC(2026, 9, 10 + i)).toISOString().slice(0, 10),
-      breathlessness: [2, 2, 3, 3, 7, 4, 2][i % 7]
+      breathlessness: [2, 3, 7, 4, 2, 2, 3][i % 7]
     })) : (Array.isArray(ctx.data) ? ctx.data : ctx.data.entries || ctx.data.responses || []).filter(r => !r.patientId || !ctx.patientId || r.patientId === ctx.patientId);
     const baselineSource = ctx.data?.patients?.find?.(p => p.id === ctx.patientId)?.baseline || ctx.data?.baselines?.[ctx.patientId] || ctx.data?.baseline || {};
     const baseline = ctx.data == null ? 2.5 : baselineSource.breathlessness;
@@ -32,6 +32,7 @@
     id: 'air-quality', title: 'Air & pollen', sizes: ['S', 'M', 'L'],
     render(el, ctx) {
       el.__cleanup?.(); el.replaceChildren();
+      el.__cleanup = () => el.getAnimations({ subtree: true }).forEach(animation => animation.cancel());
       el.classList.add('air-quality'); el.dataset.size = ctx.size || 'M';
       const { days, baseline } = adaptData(ctx);
       const flags = new Set(days.filter((d, i) => i > 0 && days[i - 1].pollen >= 7 && d.symptom !== null && (baseline !== null ? d.symptom >= baseline + 3 : days[i - 1].symptom !== null && d.symptom >= days[i - 1].symptom + 3)).map(d => d.date));

@@ -30,6 +30,7 @@
     render(el, ctx) {
       el.__cleanup?.();
       el.replaceChildren();
+      el.__cleanup = () => el.getAnimations({ subtree: true }).forEach(animation => animation.cancel());
       el.classList.add('adherence-heatmap');
       el.dataset.size = ctx.size || 'M';
       const days = adaptData(ctx);

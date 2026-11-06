@@ -28,6 +28,7 @@
     id: 'night-moon', title: 'After dark', sizes: ['S', 'M', 'L'],
     render(el, ctx) {
       el.__cleanup?.(); el.replaceChildren();
+      el.__cleanup = () => el.getAnimations({ subtree: true }).forEach(animation => animation.cancel());
       el.classList.add('night-moon'); el.dataset.size = ctx.size || 'M';
       const nights = adaptData(ctx);
       const known = nights.filter(n => n.waking !== null);

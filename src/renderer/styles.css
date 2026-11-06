@@ -4,23 +4,24 @@
   --green: #619a3c;
   --teal: #244946;
   color-scheme: dark;
-  --ground: color-mix(in srgb, var(--teal) 22%, black);
-  --surface: color-mix(in srgb, var(--teal) 38%, black);
-  --card: color-mix(in srgb, var(--teal) 55%, black);
-  --ink: white;
-  --muted: color-mix(in srgb, var(--teal) 30%, white);
-  --line: color-mix(in srgb, var(--teal) 70%, var(--green));
-  --accent: color-mix(in srgb, var(--green) 55%, white);
+  --ground: white;
+  --deep: color-mix(in srgb, var(--teal) 22%, black);
+  --surface: color-mix(in srgb, var(--teal) 8%, white);
+  --card: color-mix(in srgb, var(--teal) 14%, white);
+  --ink: var(--teal);
+  --muted: color-mix(in srgb, var(--teal) 70%, white);
+  --line: color-mix(in srgb, var(--teal) 22%, white);
+  --accent: var(--plum);
   --white: white;
   /* Solid palette surfaces; blue/green deepen just enough for small white text. */
   --fill-plum: var(--plum);
-  --fill-blue: color-mix(in srgb, var(--blue) 82%, var(--ground));
-  --fill-green: color-mix(in srgb, var(--green) 82%, var(--ground));
+  --fill-blue: color-mix(in srgb, var(--blue) 82%, var(--deep));
+  --fill-green: color-mix(in srgb, var(--green) 82%, var(--deep));
   --fill-teal: var(--teal);
   --surface-divider: color-mix(in srgb, var(--white) 30%, transparent);
-  --surface-control: color-mix(in srgb, var(--ground) 38%, transparent);
-  --drop-fill: color-mix(in srgb, var(--teal) 58%, var(--ground));
-  --drop-active: color-mix(in srgb, var(--blue) 45%, var(--teal));
+  --surface-control: color-mix(in srgb, var(--deep) 38%, transparent);
+  --drop-fill: color-mix(in srgb, var(--teal) 8%, white);
+  --drop-active: color-mix(in srgb, var(--blue) 25%, white);
 }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--ground); color: var(--ink); font-family: system-ui, sans-serif; font-size: 14px; }
@@ -35,14 +36,10 @@ button:disabled { opacity: .35; cursor: default; }
 .view-pill { background: var(--plum); color: var(--white); border-radius: 28px 22px 30px 18px; padding: 12px 20px; }
 .demo-label { margin-left: auto; background: var(--teal); color: var(--white); border-radius: 28px 20px 24px 18px; padding: 12px 18px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
 main { position: relative; isolation: isolate; overflow: clip; padding: 38px 36px 70px; max-width: 1700px; margin: auto; }
-main::before, main::after, .intro::before, .intro::after { content: ''; position: absolute; pointer-events: none; z-index: -1; }
+main::before, main::after { content: ''; position: absolute; pointer-events: none; z-index: -1; }
 main::before { width: 240px; height: 240px; right: -100px; bottom: -100px; background: var(--blue); border-radius: 44% 56% 30% 70% / 60% 36% 64% 40%; transform: rotate(-18deg); }
 main::after { width: 140px; height: 170px; left: -85px; bottom: 12px; background: var(--green); border-radius: 48% 52% 62% 38%; transform: rotate(24deg); }
-.intro { position: relative; isolation: isolate; display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 225px; margin-bottom: 34px; }
-.intro::before { width: min(510px, 62%); height: 225px; left: -26px; top: -4px; background: var(--plum); border-radius: 32% 46% 38% 25% / 52% 40% 60% 48%; transform: rotate(-5deg); }
-.intro::after { width: 128px; height: 145px; left: 45%; top: 64px; background: var(--green); border-radius: 55% 45% 30% 70% / 42% 60% 40% 58%; transform: rotate(22deg); }
-.intro > div:first-child { padding: 18px 12px; color: var(--white); }
-.intro > div:first-child .eyebrow { color: var(--white); }
+.intro { display: flex; justify-content: flex-end; margin-bottom: 28px; }
 h1, h2, h3 { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; }
 h1 { font-size: clamp(32px, 4vw, 48px); line-height: 1.08; margin: 10px 0; letter-spacing: -1.3px; }
 h2 { font-size: 24px; margin: 0 0 12px; }
@@ -50,7 +47,7 @@ h3 { font-size: 32px; margin: 14px 0; }
 p { line-height: 1.55; }
 .eyebrow { color: var(--accent); font-size: 10px; font-weight: 650; letter-spacing: .17em; text-transform: uppercase; }
 .muted { color: var(--muted); }
-.patient-control { min-width: 280px; position: relative; padding: 18px; background: var(--ground); border-radius: 28px; }
+.patient-control { min-width: 280px; position: relative; padding: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 28px; }
 .patient-control label { display: block; margin-bottom: 8px; color: var(--muted); }
 .patient-control select { width: 100%; padding: 12px 18px; }
 .patient-control p { font-size: 11px; }
@@ -80,7 +77,7 @@ p { line-height: 1.55; }
 .drag-handle { cursor: grab; flex: 1 0 100%; font-size: 12px; padding: 3px 0 7px; color: var(--white); }
 .drag-handle:active { cursor: grabbing; }
 .widget-toolbar button, .widget-toolbar select { padding: 3px 8px; font-size: 12px; background: var(--surface-control); color: var(--white); border-color: var(--surface-divider); }
-.widget-toolbar option { background: var(--ground); color: var(--white); }
+.widget-toolbar option { background: var(--deep); color: var(--white); }
 .widget-toolbar button:last-child { margin-left: auto; }
 .widget-body { padding: 22px; min-height: 180px; overflow-wrap: anywhere; }
 .size-L .widget-body { min-height: 270px; }
@@ -94,6 +91,4 @@ p { line-height: 1.55; }
   .workspace { grid-template-columns: 180px minmax(0, 1fr); gap: 18px; }
   .size-S, .size-M { grid-column: span 6; }
   .patient-control { min-width: 240px; }
-  .intro::after { width: 72px; height: 90px; left: 43%; top: 124px; }
-  .intro::before { width: 59%; }
 }

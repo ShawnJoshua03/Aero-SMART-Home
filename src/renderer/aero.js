@@ -1,6 +1,7 @@
 // Aero: a small crane fixed at the bottom-right.
 //   Press and hold him to talk, let go and he answers (aloud, and in a bubble above him).
 //   Tap him to show or hide his last message.
+//   He never speaks or greets on his own; he only answers when asked.
 // Talks to the main process through window.api.aero only.
 (function () {
   const IMAGES = {
@@ -131,12 +132,6 @@
     }
     return null;
   }
-  async function greet() {
-    if (!state.patientId || !state.status || !state.status.chat) return;
-    state.history = [];
-    const reply = await run(() => api.greet(state.patientId));
-    if (reply) { state.history.push({ role: 'assistant', content: reply.text }); await say(reply.text, reply.mood, true); }
-  }
   async function ask(question) {
     stopSpeaking();
     if (!state.patientId) { showBubble('Pick a patient first and I\'ll take a look.', 'note', 6000); return; }
@@ -155,9 +150,14 @@
   function onPatientChange() {
     const next = currentPatient();
     if (!next || next === state.patientId) return;
+    // He never speaks on his own: switching patient just clears the old conversation and message.
     state.patientId = next;
+    state.history = [];
+    state.lastText = '';
     stopSpeaking();
-    greet();
+    clearTimeout(state.bubbleTimer);
+    bubble.hidden = true;
+    if (state.pose !== 'listening' && state.pose !== 'thinking') setMood('idle');
   }
   function watchPatients() {
     const menu = document.getElementById('patient-menu');

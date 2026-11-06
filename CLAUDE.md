@@ -153,6 +153,9 @@ src/
       trend-line.js/.css  patient trend chart with calibration band and mock live updates
       kpi-tiles.js/.css   weekly indicators with deltas, sparklines, flip details
       scatter.js/.css     metric comparison with week colours and selection
+      body-diagram.js/.css  interactive asthma body map with history scrubber
+      lungs-gauge.js/.css   severity-paced breathing lungs
+      adherence-heatmap, trigger-bubbles, night-moon, change-ticker, air-quality (.js/.css)  fun widgets
       _dev/               standalone mock-data previews per widget group
 data/
   survey.json        six-question demo survey plus five body regions

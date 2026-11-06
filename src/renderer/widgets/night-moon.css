@@ -1,0 +1,41 @@
+.night-moon {
+  --plum: #772152; --blue: #0091b7; --green: #619a3c; --teal: #244946;
+  /* Translucent palette shade preserves the host fill and keeps white text legible. */
+  --nm-ground: color-mix(in srgb, var(--teal) 42%, transparent); --nm-text: white; --nm-muted: var(--nm-text); --nm-clear: transparent;
+  --nm-shade: color-mix(in srgb, var(--teal) 75%, var(--plum));
+  --nm-soft: color-mix(in srgb, var(--nm-text) 22%, transparent);
+  padding: 20px; box-sizing: border-box; height: 100%; background: var(--nm-ground); color: var(--nm-text); font: 13px/1.4 system-ui, sans-serif;
+}
+.night-moon h3 { font: 28px/1.15 Georgia, serif; margin: 0 0 6px; }
+.night-moon p { margin: 0; color: var(--nm-muted); }
+.night-moon .nm-heading { display: flex; align-items: center; justify-content: space-between; }
+.night-moon .nm-stars { width: 80px; fill: var(--nm-text); stroke: var(--nm-text); stroke-width: 1.2; }
+.night-moon .nm-stars path { animation: nm-twinkle 4s ease-in-out infinite; }
+.night-moon .nm-stars circle { animation: nm-twinkle 5s 2s ease-in-out infinite; }
+.night-moon .nm-summary { display: flex; flex-direction: column; margin: 19px 0 20px; gap: 5px; }
+.night-moon .nm-summary strong { font: 43px/1 Georgia, serif; }
+.night-moon .nm-summary strong span { font-size: 25px; color: var(--nm-muted); }
+.night-moon .nm-summary > span { font-size: 11px; color: var(--nm-muted); }
+.night-moon .nm-controls { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin: 12px 0; font-size: 10px; }
+.night-moon button { color: var(--nm-text); font: inherit; background: var(--nm-shade); border: 1px solid var(--nm-soft); cursor: pointer; border-radius: 20px; padding: 5px 7px; }
+.night-moon button:disabled { opacity: .35; cursor: default; }
+.night-moon .nm-strip { display: flex; align-items: center; gap: 3px; min-height: 70px; }
+.night-moon .nm-night { flex: 1; min-width: 0; padding: 4px 0; border: 0; border-radius: 6px; font-size: 10px; }
+.night-moon .nm-night svg { width: 100%; max-width: 56px; display: block; margin: auto auto 6px; transition: transform .2s; }
+.night-moon .nm-night:hover svg { transform: rotate(-12deg) scale(1.1); }
+.night-moon .nm-night[aria-pressed=true] { background: var(--teal); }
+.night-moon .nm-rest { fill: var(--nm-text); }
+.night-moon .nm-shadow { fill: var(--nm-soft); }
+.night-moon .nm-waking { fill: var(--nm-text); }
+.night-moon .nm-unknown { fill: var(--nm-clear); stroke: var(--nm-muted); stroke-dasharray: 2 3; }
+.night-moon text { fill: var(--nm-muted); text-anchor: middle; font: 14px system-ui, sans-serif; }
+.night-moon .nm-detail { min-height: 34px; padding: 12px 0 5px; color: var(--nm-text); font-size: 12px; }
+.night-moon .nm-scrub-label { font-size: 10px; color: var(--nm-muted); display: block; }
+.night-moon input { display: block; width: 100%; margin: 8px 0 15px; accent-color: var(--nm-text); }
+.night-moon .nm-key { font-size: 10px; }
+.night-moon .nm-note { margin-top: 5px; font-size: 10px; }
+.night-moon button:focus-visible, .night-moon input:focus-visible { outline: 2px solid var(--nm-text); outline-offset: 2px; }
+.night-moon[data-size=S] { padding: 15px; }
+.night-moon[data-size=S] h3 { font-size: 23px; }
+@keyframes nm-twinkle { 50% { opacity: .2; } }
+@media (prefers-reduced-motion: reduce) { .night-moon .nm-stars path, .night-moon .nm-stars circle { animation: none; } .night-moon .nm-night svg { transition: none; } }

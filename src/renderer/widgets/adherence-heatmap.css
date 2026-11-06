@@ -1,0 +1,38 @@
+.adherence-heatmap {
+  --plum: #772152; --blue: #0091b7; --green: #619a3c; --teal: #244946;
+  /* Translucent palette shade preserves the host fill and keeps white text legible. */
+  --ah-ground: color-mix(in srgb, var(--teal) 42%, transparent); --ah-text: white; --ah-muted: var(--ah-text); --ah-clear: transparent;
+  --ah-shade: color-mix(in srgb, var(--teal) 75%, var(--plum));
+  --ah-soft: color-mix(in srgb, var(--ah-text) 22%, transparent);
+  box-sizing: border-box; height: 100%; padding: 20px; background: var(--ah-ground); color: var(--ah-text); font: 13px/1.4 system-ui, sans-serif;
+}
+.adherence-heatmap * { box-sizing: border-box; }
+.adherence-heatmap h3 { font: 26px/1.15 Georgia, serif; margin: 0 0 6px; }
+.adherence-heatmap p { margin: 0; color: var(--ah-muted); }
+.adherence-heatmap .ah-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.adherence-heatmap .ah-pill { width: 64px; flex-shrink: 0; overflow: visible; animation: ah-breathe 3.8s ease-in-out infinite; }
+.adherence-heatmap .ah-pill-outline { fill: var(--ah-text); stroke: var(--ah-text); stroke-width: 1.6; }
+.adherence-heatmap .ah-pill-half { fill: color-mix(in srgb, var(--blue) 45%, var(--teal)); }
+.adherence-heatmap .ah-pill-shine, .adherence-heatmap .ah-spark { fill: var(--ah-clear); stroke: var(--ah-text); stroke-width: 1.7; stroke-linecap: round; }
+.adherence-heatmap .ah-spark { animation: ah-spark 3.8s ease-in-out infinite; }
+.adherence-heatmap .ah-streak { display: flex; align-items: center; gap: 12px; margin: 10px 0; }
+.adherence-heatmap .ah-streak strong { font: 48px/1 Georgia, serif; }
+.adherence-heatmap .ah-streak small { display: block; font-size: 10px; color: var(--ah-muted); margin-top: 3px; }
+.adherence-heatmap .ah-range { font-size: 11px; margin-bottom: 8px; color: var(--ah-muted); }
+.adherence-heatmap .ah-weekdays, .adherence-heatmap .ah-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px; }
+.adherence-heatmap .ah-weekdays { text-align: center; font-size: 10px; color: var(--ah-muted); margin-bottom: 5px; }
+.adherence-heatmap .ah-day { border: 1px solid var(--ah-clear); min-height: 32px; padding: 4px 0; border-radius: 6px; color: var(--ah-text); font: inherit; font-size: 11px; cursor: pointer; transition: transform .18s, border-color .18s; }
+.adherence-heatmap .ah-taken { background: color-mix(in srgb, var(--green) 45%, var(--teal)); color: var(--ah-text); }
+.adherence-heatmap .ah-missed { background: var(--plum); }
+.adherence-heatmap .ah-empty { background: var(--teal); border-style: dashed; border-color: var(--ah-muted); }
+.adherence-heatmap .ah-day:hover { transform: translateY(-2px); }
+.adherence-heatmap .ah-day:focus-visible, .adherence-heatmap .ah-day[aria-pressed=true] { outline: 2px solid var(--ah-text); outline-offset: 2px; }
+.adherence-heatmap .ah-detail { min-height: 38px; padding-top: 12px; font-size: 11px; }
+.adherence-heatmap .ah-legend { display: flex; gap: 6px; flex-wrap: wrap; font-size: 10px; }
+.adherence-heatmap .ah-key { padding: 3px 7px; border-radius: 5px; border-width: 1px; color: var(--ah-text); }
+.adherence-heatmap .ah-key.ah-taken { color: var(--ah-text); }
+.adherence-heatmap[data-size=S] { padding: 15px; }
+.adherence-heatmap[data-size=S] h3 { font-size: 22px; }
+@keyframes ah-breathe { 50% { transform: translateY(-3px) rotate(5deg); } }
+@keyframes ah-spark { 50% { opacity: .25; } }
+@media (prefers-reduced-motion: reduce) { .adherence-heatmap .ah-pill, .adherence-heatmap .ah-spark { animation: none; } .adherence-heatmap .ah-day { transition: none; } }

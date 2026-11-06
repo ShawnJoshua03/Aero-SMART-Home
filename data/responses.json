@@ -1063,7 +1063,7 @@
       "patientId": "patient-001",
       "surveyId": "survey-001",
       "date": "2026-11-01",
-      "timestamp": "2026-11-01T20:00:00-04:00",
+      "timestamp": "2026-11-01T20:00:00-05:00",
       "answers": {
         "breathlessness": 7,
         "rescue_uses": 3,
@@ -1077,7 +1077,7 @@
       "bodyReports": [
         {
           "region": "throat",
-          "timestamp": "2026-11-01T19:30:00-04:00",
+          "timestamp": "2026-11-01T19:30:00-05:00",
           "intensity": 7
         }
       ]
@@ -1643,7 +1643,7 @@
       "patientId": "patient-002",
       "surveyId": "survey-001",
       "date": "2026-11-01",
-      "timestamp": "2026-11-01T20:00:00-04:00",
+      "timestamp": "2026-11-01T20:00:00-05:00",
       "answers": {
         "breathlessness": 2,
         "rescue_uses": 0,
@@ -2338,7 +2338,7 @@
       "patientId": "patient-003",
       "surveyId": "survey-001",
       "date": "2026-11-01",
-      "timestamp": "2026-11-01T20:00:00-04:00",
+      "timestamp": "2026-11-01T20:00:00-05:00",
       "answers": {
         "breathlessness": 3,
         "rescue_uses": 1,
@@ -3023,7 +3023,7 @@
       "patientId": "patient-004",
       "surveyId": "survey-001",
       "date": "2026-11-01",
-      "timestamp": "2026-11-01T20:00:00-04:00",
+      "timestamp": "2026-11-01T20:00:00-05:00",
       "answers": {
         "breathlessness": 2,
         "rescue_uses": 0,
@@ -3850,7 +3850,7 @@
       "patientId": "patient-005",
       "surveyId": "survey-001",
       "date": "2026-11-01",
-      "timestamp": "2026-11-01T20:00:00-04:00",
+      "timestamp": "2026-11-01T20:00:00-05:00",
       "answers": {
         "breathlessness": 1,
         "rescue_uses": 0,
@@ -4563,7 +4563,7 @@
       "patientId": "patient-006",
       "surveyId": "survey-001",
       "date": "2026-11-01",
-      "timestamp": "2026-11-01T20:00:00-04:00",
+      "timestamp": "2026-11-01T20:00:00-05:00",
       "answers": {
         "breathlessness": 3,
         "rescue_uses": 1,
